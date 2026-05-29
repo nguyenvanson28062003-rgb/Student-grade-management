@@ -9,19 +9,29 @@ namespace quản_lí_điểm_sinh_viên
         private readonly DatabaseHelper _db = DatabaseHelper.Instance;
         private string _maSVTimDuoc = null;   // MaSV tìm được sau khi xác minh
 
+        private readonly System.Windows.Forms.Timer _fadeTmr = new() { Interval = 12 };
+
         public DangKi()
         {
             InitializeComponent();
-            ThemeApplier.Apply(this);
-            textBox2.PasswordChar = '*';
-            textBox3.PasswordChar = '*';
+            // Không gọi ThemeApplier vì form đã tự custom-paint
             button1.Click += btnDangKi_Click;
-            label5.Click += lblDangNhap_Click;
-            label5.Cursor = Cursors.Hand;
-            label5.ForeColor = Color.Blue;
+            label5.Click  += lblDangNhap_Click;
 
-            // Khi người dùng thay đổi tên → reset trạng thái xác minh
-            textBox1.TextChanged += (s, e) => { _maSVTimDuoc = null; };
+            textBox1.TextChanged += (s, e) => { _maSVTimDuoc = null; lblError.Visible = false; };
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            // Fade-in
+            Opacity = 0;
+            _fadeTmr.Tick += (s, ev) =>
+            {
+                Opacity = Math.Min(1.0, Opacity + 0.07);
+                if (Opacity >= 1) { _fadeTmr.Stop(); _fadeTmr.Dispose(); }
+            };
+            _fadeTmr.Start();
         }
 
         private string TimMaSV(string hoTen)
@@ -69,24 +79,16 @@ namespace quản_lí_điểm_sinh_viên
             // --- Validate ---
             if (string.IsNullOrEmpty(hoTen) || string.IsNullOrEmpty(matKhau) || string.IsNullOrEmpty(xacNhan))
             {
-                MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", "Thiếu thông tin",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                ShowError("⚠  Vui lòng nhập đầy đủ tất cả thông tin!"); return;
             }
-
-            if (matKhau != xacNhan)
-            {
-                MessageBox.Show("Mật khẩu xác nhận không khớp!", "Lỗi",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                textBox3.Clear(); textBox3.Focus();
-                return;
-            }
-
             if (matKhau.Length < 6)
             {
-                MessageBox.Show("Mật khẩu phải có ít nhất 6 ký tự!", "Lỗi",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                ShowError("⚠  Mật khẩu phải có ít nhất 6 ký tự!"); textBox2.Focus(); return;
+            }
+            if (matKhau != xacNhan)
+            {
+                ShowError("⚠  Mật khẩu xác nhận không khớp!");
+                textBox3.Clear(); textBox3.Focus(); return;
             }
 
             if (_maSVTimDuoc == null)
@@ -95,19 +97,12 @@ namespace quản_lí_điểm_sinh_viên
 
                 if (ketQua == null)
                 {
-                    MessageBox.Show(
-                        $"Không tìm thấy sinh viên có tên \"{hoTen}\" trong hệ thống.\n" +
-                        "Vui lòng kiểm tra lại họ tên hoặc liên hệ phòng đào tạo.",
-                        "Không tìm thấy", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    ShowError($"⚠  Không tìm thấy \"{hoTen}\" trong hệ thống. Kiểm tra lại họ tên.");
                     return;
                 }
-
                 if (ketQua == "")
                 {
-                    MessageBox.Show(
-                        $"Tìm thấy nhiều sinh viên có tên tương tự \"{hoTen}\".\n" +
-                        "Vui lòng nhập đầy đủ họ tên để xác định chính xác.",
-                        "Tên trùng lặp", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    ShowError($"⚠  Có nhiều SV trùng tên \"{hoTen}\". Nhập đầy đủ họ tên hơn.");
                     return;
                 }
 
@@ -117,10 +112,7 @@ namespace quản_lí_điểm_sinh_viên
 
             if (DaCoTaiKhoan(_maSVTimDuoc))
             {
-                MessageBox.Show(
-                    $"Tài khoản cho sinh viên [{_maSVTimDuoc}] đã tồn tại.\n" +
-                    "Nếu quên mật khẩu, vui lòng liên hệ Admin để được cấp lại.",
-                    "Tài khoản đã có", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                ShowError($"⚠  Tài khoản [{_maSVTimDuoc}] đã tồn tại. Liên hệ Admin nếu quên mật khẩu.");
                 _maSVTimDuoc = null;
                 return;
             }
@@ -150,10 +142,18 @@ namespace quản_lí_điểm_sinh_viên
             }
         }
 
-        // Link Đăng nhập
-        private void lblDangNhap_Click(object sender, EventArgs e)
+        private void ShowError(string msg)
         {
-            this.Close();
+            lblError.Text    = msg;
+            lblError.Visible = true;
+        }
+
+        private void lblDangNhap_Click(object sender, EventArgs e) => this.Close();
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing) _fadeTmr?.Dispose();
+            base.Dispose(disposing);
         }
     }
 }

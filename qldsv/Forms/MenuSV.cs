@@ -12,7 +12,7 @@ namespace qldsv
         public MenuSV()
         {
             InitializeComponent();
-            ThemeApplier.Apply(this);
+            // Không gọi ThemeApplier — form tự custom-paint
             this.Load += MenuSV_Load;
 
             // Sidebar
@@ -30,10 +30,12 @@ namespace qldsv
 
         private void MenuSV_Load(object sender, EventArgs e)
         {
-            label4.Text = "Sinh Viên";
+            // Header
             label29.Text = SessionInfo.HoTen;
-            label30.Text = $"Xin chào, {SessionInfo.HoTen}";
             label31.Text = SessionInfo.MaSV;
+            // Greeting
+            label30.Text = $"Xin chào, {SessionInfo.HoTen}! 👋";
+            label4.Text  = "Sinh Viên";
             TaiDashboard();
         }
 
@@ -49,16 +51,19 @@ namespace qldsv
             {
                 string sql = @"
                     SELECT
-                        ISNULL(g.GPATichLuy, 0)                                AS GPA,
-                        ISNULL(g.TongTinChi, 0)                                AS TongTC,
-                        (SELECT COUNT(*) FROM DangKyHocPhan dk
-                         JOIN LopHocPhan lhp ON dk.MaLHP = lhp.MaLHP
+                        CAST(ISNULL(g.GPATichLuy, 0) AS DECIMAL(4,2))  AS GPA,
+                        ISNULL(g.TongTinChi, 0)                         AS TongTC,
+                        (SELECT COUNT(*) FROM DangKyHocPhan dk2
+                         JOIN LopHocPhan lhp ON dk2.MaLHP = lhp.MaLHP
                          JOIN HocKy hk ON lhp.MaHK = hk.MaHK
-                         WHERE dk.MaSV = @MaSV AND hk.NamHoc = YEAR(GETDATE()))  AS MonKiNay,
-                        (SELECT COUNT(*) FROM DangKyHocPhan dk
-                         WHERE dk.MaSV = @MaSV AND NOT EXISTS (
-                             SELECT 1 FROM Diem d WHERE d.MaDK = dk.MaDK AND d.DiemCK IS NOT NULL
-                         ))                                                     AS ChuaCoĐiem
+                         WHERE dk2.MaSV = @MaSV
+                           AND hk.TrangThai = 'DangDienRa')             AS MonKiNay,
+                        (SELECT COUNT(*) FROM DangKyHocPhan dk3
+                         WHERE dk3.MaSV = @MaSV
+                           AND NOT EXISTS (
+                               SELECT 1 FROM Diem d
+                               WHERE d.MaDK = dk3.MaDK AND d.DiemCK IS NOT NULL
+                           ))                                            AS ChuaDiem
                     FROM SinhVien sv
                     LEFT JOIN vw_GPATichLuy g ON sv.MaSV = g.MaSV
                     WHERE sv.MaSV = @MaSV";
@@ -70,10 +75,19 @@ namespace qldsv
                 using var reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
-                    label45.Text = reader["GPA"].ToString();       // GPA tích lũy (giá trị)
-                    label43.Text = reader["TongTC"].ToString();    // TC đã qua (giá trị)
-                    label41.Text = reader["MonKiNay"].ToString();  // Môn kì này (giá trị)
-                    label39.Text = reader["ChuaCoĐiem"].ToString(); // Chưa có điểm (giá trị)
+                    double gpa   = reader["GPA"]      == DBNull.Value ? 0 : Convert.ToDouble(reader["GPA"]);
+                    int    tc    = reader["TongTC"]   == DBNull.Value ? 0 : Convert.ToInt32(reader["TongTC"]);
+                    int    monKy = reader["MonKiNay"] == DBNull.Value ? 0 : Convert.ToInt32(reader["MonKiNay"]);
+                    int    chua  = reader["ChuaDiem"] == DBNull.Value ? 0 : Convert.ToInt32(reader["ChuaDiem"]);
+
+                    label45.Text = gpa.ToString("F2");
+                    label43.Text = tc.ToString();
+                    label41.Text = monKy.ToString();
+                    label39.Text = chua.ToString();
+
+                    // Invalidate cards to repaint
+                    foreach (var pn in new[] { panel28, panel27, panel26, panel25 })
+                        pn.Invalidate();
                 }
             }
             catch { }
@@ -136,6 +150,5 @@ namespace qldsv
             frm.ShowDialog();
         }
 
-        private void panel16_Paint(object sender, PaintEventArgs e) { }
     }
 }

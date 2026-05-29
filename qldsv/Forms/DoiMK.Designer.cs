@@ -1,191 +1,263 @@
-﻿namespace quản_lí_điểm_sinh_viên
+using qldsv.Service;
+
+namespace quản_lí_điểm_sinh_viên
 {
     partial class DoiMK
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        #region Windows Form Designer generated code
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            panel1 = new Panel();
-            label5 = new Label();
-            lblQuen = new Label();
-            btnDangnhap = new Button();
-            label4 = new Label();
-            label3 = new Label();
-            label2 = new Label();
-            textBox3 = new TextBox();
-            textBox2 = new TextBox();
-            textBox1 = new TextBox();
-            label1 = new Label();
-            panel1.SuspendLayout();
+            panelLeft  = new Panel();
+            panelRight = new Panel();
+            panelDiv   = new Panel();
+
+            lblTitle    = new Label();
+            lblSubTitle = new Label();
+            lblUser     = new Label();
+            lblCurPw    = new Label();
+            lblNewPw    = new Label();
+            lblError    = new Label();
+            label5      = new Label();
+            lblQuen     = new Label();
+
+            textBox1     = new TextBox();
+            textBox2     = new TextBox();
+            textBox3     = new TextBox();
+            btnDangnhap  = new Button();
+
+            panelLeft.SuspendLayout();
+            panelRight.SuspendLayout();
             SuspendLayout();
-            // 
-            // panel1
-            // 
-            panel1.Controls.Add(label5);
-            panel1.Controls.Add(lblQuen);
-            panel1.Controls.Add(btnDangnhap);
-            panel1.Controls.Add(label4);
-            panel1.Controls.Add(label3);
-            panel1.Controls.Add(label2);
-            panel1.Controls.Add(textBox3);
-            panel1.Controls.Add(textBox2);
-            panel1.Controls.Add(textBox1);
-            panel1.Controls.Add(label1);
-            panel1.Location = new Point(138, 41);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(522, 341);
-            panel1.TabIndex = 0;
-            // 
-            // label5
-            // 
-            label5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label5.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label5.Location = new Point(383, 292);
-            label5.Name = "label5";
-            label5.Size = new Size(132, 36);
-            label5.TabIndex = 9;
-            label5.Text = "Đăng nhập";
-            label5.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // lblQuen
-            // 
-            lblQuen.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            lblQuen.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblQuen.Location = new Point(11, 292);
-            lblQuen.Name = "lblQuen";
-            lblQuen.Size = new Size(132, 36);
-            lblQuen.TabIndex = 8;
-            lblQuen.Text = "Thoát";
-            lblQuen.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // btnDangnhap
-            // 
-            btnDangnhap.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnDangnhap.Location = new Point(171, 280);
-            btnDangnhap.Name = "btnDangnhap";
-            btnDangnhap.Size = new Size(179, 58);
-            btnDangnhap.TabIndex = 7;
-            btnDangnhap.Text = "Xác nhận";
-            btnDangnhap.UseVisualStyleBackColor = true;
-            // 
-            // label4
-            // 
-            label4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label4.Font = new Font("Times New Roman", 12F);
-            label4.Location = new Point(3, 217);
-            label4.Name = "label4";
-            label4.Size = new Size(140, 47);
-            label4.TabIndex = 6;
-            label4.Text = "New Password";
-            label4.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // label3
-            // 
-            label3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label3.Font = new Font("Times New Roman", 12F);
-            label3.Location = new Point(3, 146);
-            label3.Name = "label3";
-            label3.Size = new Size(140, 47);
-            label3.TabIndex = 5;
-            label3.Text = "Current Password";
-            label3.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // label2
-            // 
-            label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label2.Font = new Font("Times New Roman", 12F);
-            label2.Location = new Point(3, 83);
-            label2.Name = "label2";
-            label2.Size = new Size(140, 47);
-            label2.TabIndex = 4;
-            label2.Text = "Username";
-            label2.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // textBox3
-            // 
-            textBox3.Location = new Point(149, 217);
-            textBox3.Multiline = true;
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(366, 47);
-            textBox3.TabIndex = 3;
-            // 
-            // textBox2
-            // 
-            textBox2.Location = new Point(149, 146);
-            textBox2.Multiline = true;
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(366, 47);
-            textBox2.TabIndex = 2;
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(149, 83);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(366, 47);
-            textBox1.TabIndex = 1;
-            // 
-            // label1
-            // 
-            label1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label1.Font = new Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(149, 11);
-            label1.Name = "label1";
-            label1.Size = new Size(230, 71);
-            label1.TabIndex = 0;
-            label1.Text = "Reset Password";
-            label1.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // DoiMK
-            // 
+
+            // ── Form ──────────────────────────────────────────────
             AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(panel1);
-            FormBorderStyle = FormBorderStyle.None;
-            Name = "DoiMK";
-            StartPosition = FormStartPosition.CenterScreen;
-            Text = "DoiMK";
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            AutoScaleMode       = AutoScaleMode.Font;
+            ClientSize          = new Size(860, 480);
+            FormBorderStyle     = FormBorderStyle.None;
+            StartPosition       = FormStartPosition.CenterScreen;
+            BackColor           = T.BG;
+            Name                = "DoiMK";
+            Text                = "Đổi Mật Khẩu";
+            Opacity             = 0;
+
+            // ── panelLeft (banner xanh) ───────────────────────────
+            panelLeft.Location  = new Point(0, 0);
+            panelLeft.Size      = new Size(340, 480);
+            panelLeft.BackColor = Color.Transparent;
+            panelLeft.Paint    += PanelLeft_Paint;
+
+            // ── panelRight (form) ─────────────────────────────────
+            panelRight.Location  = new Point(340, 0);
+            panelRight.Size      = new Size(520, 480);
+            panelRight.BackColor = Color.FromArgb(244, 246, 248);
+            panelRight.Paint    += PanelRight_Paint;
+
+            // ── Tiêu đề ───────────────────────────────────────────
+            lblTitle.Text      = "ĐỔI MẬT KHẨU";
+            lblTitle.Font      = new Font("Segoe UI", 18f, FontStyle.Bold);
+            lblTitle.ForeColor = T.TextMain;
+            lblTitle.Location  = new Point(46, 46);
+            lblTitle.Size      = new Size(420, 38);
+            lblTitle.BackColor = Color.Transparent;
+
+            lblSubTitle.Text      = "Nhập thông tin để đổi mật khẩu tài khoản";
+            lblSubTitle.Font      = new Font("Segoe UI", 9.5f);
+            lblSubTitle.ForeColor = T.TextSub;
+            lblSubTitle.Location  = new Point(46, 88);
+            lblSubTitle.Size      = new Size(420, 20);
+            lblSubTitle.BackColor = Color.Transparent;
+
+            panelDiv.Location  = new Point(46, 114);
+            panelDiv.Size      = new Size(60, 3);
+            panelDiv.BackColor = T.Primary;
+
+            // ── Tên Đăng Nhập ─────────────────────────────────────
+            lblUser.Text      = "Tên Đăng Nhập";
+            lblUser.Font      = new Font("Segoe UI", 9f, FontStyle.Bold);
+            lblUser.ForeColor = T.TextSub;
+            lblUser.Location  = new Point(46, 128);
+            lblUser.Size      = new Size(160, 18);
+            lblUser.BackColor = Color.Transparent;
+
+            textBox1.Location        = new Point(46, 148);
+            textBox1.Size            = new Size(424, 44);
+            textBox1.Font            = new Font("Segoe UI", 10.5f);
+            textBox1.BackColor       = Color.FromArgb(240, 253, 248);
+            textBox1.ForeColor       = T.TextMain;
+            textBox1.BorderStyle     = BorderStyle.FixedSingle;
+            textBox1.Multiline       = true;
+            textBox1.TabIndex        = 0;
+            textBox1.PlaceholderText = "Nhập tên đăng nhập của bạn";
+
+            // ── Mật Khẩu Hiện Tại ─────────────────────────────────
+            lblCurPw.Text      = "Mật Khẩu Hiện Tại";
+            lblCurPw.Font      = new Font("Segoe UI", 9f, FontStyle.Bold);
+            lblCurPw.ForeColor = T.TextSub;
+            lblCurPw.Location  = new Point(46, 206);
+            lblCurPw.Size      = new Size(180, 18);
+            lblCurPw.BackColor = Color.Transparent;
+
+            textBox2.Location        = new Point(46, 226);
+            textBox2.Size            = new Size(424, 44);
+            textBox2.Font            = new Font("Segoe UI", 10.5f);
+            textBox2.BackColor       = Color.FromArgb(240, 253, 248);
+            textBox2.ForeColor       = T.TextMain;
+            textBox2.BorderStyle     = BorderStyle.FixedSingle;
+            textBox2.Multiline       = true;
+            textBox2.PasswordChar    = '●';
+            textBox2.TabIndex        = 1;
+            textBox2.PlaceholderText = "Nhập mật khẩu hiện tại";
+
+            // ── Mật Khẩu Mới ──────────────────────────────────────
+            lblNewPw.Text      = "Mật Khẩu Mới";
+            lblNewPw.Font      = new Font("Segoe UI", 9f, FontStyle.Bold);
+            lblNewPw.ForeColor = T.TextSub;
+            lblNewPw.Location  = new Point(46, 284);
+            lblNewPw.Size      = new Size(160, 18);
+            lblNewPw.BackColor = Color.Transparent;
+
+            textBox3.Location        = new Point(46, 304);
+            textBox3.Size            = new Size(424, 44);
+            textBox3.Font            = new Font("Segoe UI", 10.5f);
+            textBox3.BackColor       = Color.FromArgb(240, 253, 248);
+            textBox3.ForeColor       = T.TextMain;
+            textBox3.BorderStyle     = BorderStyle.FixedSingle;
+            textBox3.Multiline       = true;
+            textBox3.PasswordChar    = '●';
+            textBox3.TabIndex        = 2;
+            textBox3.PlaceholderText = "Tối thiểu 6 ký tự";
+
+            // ── Error label ───────────────────────────────────────
+            lblError.Text      = "";
+            lblError.Font      = new Font("Segoe UI", 8.5f);
+            lblError.ForeColor = Color.FromArgb(220, 53, 69);
+            lblError.Location  = new Point(46, 354);
+            lblError.Size      = new Size(424, 18);
+            lblError.BackColor = Color.Transparent;
+            lblError.Visible   = false;
+
+            // ── Nút Xác Nhận ──────────────────────────────────────
+            btnDangnhap.Text        = "XÁC NHẬN ĐỔI MẬT KHẨU";
+            btnDangnhap.Font        = new Font("Segoe UI", 10.5f, FontStyle.Bold);
+            btnDangnhap.Location    = new Point(46, 378);
+            btnDangnhap.Size        = new Size(424, 48);
+            btnDangnhap.BackColor   = T.Primary;
+            btnDangnhap.ForeColor   = Color.White;
+            btnDangnhap.FlatStyle   = FlatStyle.Flat;
+            btnDangnhap.FlatAppearance.BorderSize         = 0;
+            btnDangnhap.FlatAppearance.MouseOverBackColor = T.RedHover;
+            btnDangnhap.FlatAppearance.MouseDownBackColor = T.RedDark;
+            btnDangnhap.Cursor      = Cursors.Hand;
+            btnDangnhap.TabIndex    = 3;
+
+            // ── Links ─────────────────────────────────────────────
+            lblQuen.Text      = "✕  Huỷ bỏ";
+            lblQuen.Font      = new Font("Segoe UI", 9f, FontStyle.Underline);
+            lblQuen.ForeColor = T.TextSub;
+            lblQuen.Location  = new Point(46, 440);
+            lblQuen.Size      = new Size(200, 22);
+            lblQuen.BackColor = Color.Transparent;
+            lblQuen.Cursor    = Cursors.Hand;
+
+            label5.Text      = "Về trang đăng nhập →";
+            label5.Font      = new Font("Segoe UI", 9f, FontStyle.Underline);
+            label5.ForeColor = T.Primary;
+            label5.Location  = new Point(270, 440);
+            label5.Size      = new Size(200, 22);
+            label5.TextAlign = ContentAlignment.MiddleRight;
+            label5.BackColor = Color.Transparent;
+            label5.Cursor    = Cursors.Hand;
+
+            // Hover
+            lblQuen.MouseEnter += (s, e) => ((Label)s).ForeColor = T.TextMain;
+            lblQuen.MouseLeave += (s, e) => ((Label)s).ForeColor = T.TextSub;
+            label5.MouseEnter  += (s, e) => ((Label)s).ForeColor = T.Accent;
+            label5.MouseLeave  += (s, e) => ((Label)s).ForeColor = T.Primary;
+
+            // Ẩn error khi gõ
+            textBox1.TextChanged += (s, e) => lblError.Visible = false;
+            textBox2.TextChanged += (s, e) => lblError.Visible = false;
+            textBox3.TextChanged += (s, e) => lblError.Visible = false;
+
+            panelRight.Controls.AddRange(new Control[]
+            {
+                lblTitle, lblSubTitle, panelDiv,
+                lblUser,   textBox1,
+                lblCurPw,  textBox2,
+                lblNewPw,  textBox3,
+                lblError,  btnDangnhap,
+                lblQuen,   label5
+            });
+
+            Controls.Add(panelLeft);
+            Controls.Add(panelRight);
+
+            panelLeft.ResumeLayout(false);
+            panelRight.ResumeLayout(false);
             ResumeLayout(false);
         }
 
-        #endregion
+        private static void PanelLeft_Paint(object s, PaintEventArgs e)
+        {
+            var p = (Panel)s;
+            var g = e.Graphics;
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            var r = p.ClientRectangle;
 
-        private Panel panel1;
-        private Label label1;
-        private TextBox textBox3;
-        private TextBox textBox2;
-        private TextBox textBox1;
-        private Label label4;
-        private Label label3;
-        private Label label2;
-        private Button btnDangnhap;
-        private Label label5;
-        private Label lblQuen;
+            using var bgBr = new System.Drawing.Drawing2D.LinearGradientBrush(r,
+                Color.FromArgb(3, 102, 74), Color.FromArgb(6, 160, 112),
+                System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal);
+            g.FillRectangle(bgBr, r);
+
+            using var linePen = new Pen(Color.FromArgb(20, 255, 255, 255), 1);
+            for (int y = 0; y < r.Height; y += 38) g.DrawLine(linePen, 0, y, r.Width, y);
+            for (int x = 0; x < r.Width; x += 38) g.DrawLine(linePen, x, 0, x, r.Height);
+
+            int cx = r.Width / 2, cy = r.Height / 2 - 50;
+            using var cirBr  = new SolidBrush(Color.FromArgb(35, 255, 255, 255));
+            g.FillEllipse(cirBr, cx - 52, cy - 52, 104, 104);
+            using var cirPen = new Pen(Color.FromArgb(160, 255, 255, 255), 2.5f);
+            g.DrawEllipse(cirPen, cx - 52, cy - 52, 104, 104);
+
+            using var iFont = new Font("Segoe UI Emoji", 28f);
+            var sf = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
+            g.DrawString("🔑", iFont, Brushes.White, new RectangleF(cx - 52, cy - 52, 104, 104), sf);
+
+            using var tFont = new Font("Segoe UI", 14f, FontStyle.Bold);
+            g.DrawString("ĐỔI MẬT KHẨU", tFont, Brushes.White,
+                new RectangleF(0, cy + 65, r.Width, 34), sf);
+
+            using var sFont = new Font("Segoe UI", 9f);
+            using var sBr   = new SolidBrush(Color.FromArgb(200, 255, 255, 255));
+            g.DrawString("Bảo mật tài khoản của bạn", sFont, sBr,
+                new RectangleF(0, cy + 102, r.Width, 22), sf);
+
+            using var sep = new Pen(Color.FromArgb(100, 255, 255, 255), 1.5f);
+            g.DrawLine(sep, 60, cy + 128, r.Width - 60, cy + 128);
+
+            // Tips bảo mật
+            string[] tips = { "✔ Tối thiểu 6 ký tự", "✔ Không chia sẻ mật khẩu", "✔ Nên có chữ + số" };
+            using var tipFont = new Font("Segoe UI", 8.5f);
+            using var tipBr   = new SolidBrush(Color.FromArgb(180, 255, 255, 255));
+            for (int i = 0; i < tips.Length; i++)
+                g.DrawString(tips[i], tipFont, tipBr,
+                    new RectangleF(40, cy + 140 + i * 22, r.Width - 80, 20));
+        }
+
+        private static void PanelRight_Paint(object s, PaintEventArgs e)
+        {
+            var p = (Panel)s;
+            var g = e.Graphics;
+            g.FillRectangle(new SolidBrush(Color.FromArgb(244, 246, 248)), p.ClientRectangle);
+            using var pen = new Pen(T.Primary, 3);
+            g.DrawLine(pen, 0, 20, 0, p.Height - 20);
+        }
+
+        private Panel    panelLeft, panelRight, panelDiv;
+        private Label    lblTitle, lblSubTitle, lblUser, lblCurPw, lblNewPw, lblError;
+        private TextBox  textBox1, textBox2, textBox3;
+        private Button   btnDangnhap;
+        private Label    label5, lblQuen;
     }
 }

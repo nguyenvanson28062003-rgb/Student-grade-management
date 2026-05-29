@@ -1,4 +1,4 @@
-﻿namespace qldsv
+namespace qldsv
 {
     partial class ThemSuaGV
     {
@@ -164,7 +164,7 @@
             // 
             // comboBox5
             // 
-            comboBox5.DrawMode = DrawMode.OwnerDrawFixed;
+            comboBox5.DrawMode = DrawMode.Normal;
             comboBox5.DropDownHeight = 41;
             comboBox5.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox5.FormattingEnabled = true;
@@ -177,7 +177,7 @@
             // 
             // comboBox1
             // 
-            comboBox1.DrawMode = DrawMode.OwnerDrawFixed;
+            comboBox1.DrawMode = DrawMode.Normal;
             comboBox1.DropDownHeight = 41;
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox1.FormattingEnabled = true;
@@ -190,7 +190,7 @@
             // 
             // comboBox3
             // 
-            comboBox3.DrawMode = DrawMode.OwnerDrawFixed;
+            comboBox3.DrawMode = DrawMode.Normal;
             comboBox3.DropDownHeight = 41;
             comboBox3.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox3.FormattingEnabled = true;
@@ -203,7 +203,7 @@
             // 
             // comboBox4
             // 
-            comboBox4.DrawMode = DrawMode.OwnerDrawFixed;
+            comboBox4.DrawMode = DrawMode.Normal;
             comboBox4.DropDownHeight = 41;
             comboBox4.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox4.FormattingEnabled = true;
