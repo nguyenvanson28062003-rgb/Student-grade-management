@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Compile Update="Forms\BangDiemcs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\DangKi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\DangNhap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\DoiMK.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\MenuAdmin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\MenuGV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\MenuSV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\NhapDiem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\QLTK.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ThongKe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="LopHoc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="MenuAdmin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="MenuGV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="MenuSV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="MonHoc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="SinhVien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ThemSuaMH.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ThemSuaSV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>disable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="7.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
+    <Folder Include="Service\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Forms\LopHoc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\MenuAdmin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\MenuSV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\MonHoc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\SinhVien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ThemSuaMH.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ThemSuaSV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+
+</Project>

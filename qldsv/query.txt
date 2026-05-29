@@ -1,0 +1,1070 @@
+
+--  các form:
+--    DangNhap · DangKi · DoiMK
+--    MenuAdmin · MenuGV · MenuSV
+--    SinhVien · ThemSuaSV
+--    MonHoc · ThemSuaMH
+--    LopHoc · NhapDiem · BangDiem
+--    QLTK · ThongKe
+--
+--  Quy tắc thiết kế:
+--    1. Tên cột nhất quán từ bảng → view → stored procedure
+--    2. View KHÔNG đổi tên cột (alias) nếu SP cần tham chiếu
+--    3. Giá trị enum lưu dạng mã không dấu để tránh lỗi collation
+--    4. Computed column PERSISTED → tự tính DTB, GPA, XepLoai, KetQua
+--    5. Mọi FK đều có tên ràng buộc rõ ràng
+-- ============================================================
+
+USE master;
+GO
+
+
+CREATE DATABASE QL_DSV COLLATE Vietnamese_CI_AS;
+GO
+
+USE QL_DSV;
+GO
+
+
+CREATE TABLE Khoa
+(
+    MaKhoa  VARCHAR(10)     NOT NULL,
+    TenKhoa NVARCHAR(100)   NOT NULL,
+    CONSTRAINT PK_Khoa PRIMARY KEY (MaKhoa)
+);
+GO
+
+CREATE TABLE NguoiDung
+(
+    MaND              INT           NOT NULL IDENTITY(1,1),
+    TenDangNhap       NVARCHAR(50)  NOT NULL,
+    MatKhau           NVARCHAR(255) NOT NULL,   
+    VaiTro            VARCHAR(15)   NOT NULL DEFAULT 'SinhVien',
+    Email             NVARCHAR(100) NULL,
+    NgayTao           DATETIME      NOT NULL DEFAULT GETDATE(),
+    LanDangNhapCuoi   DATETIME      NULL,
+    TrangThai         BIT           NOT NULL DEFAULT 1,  -- 1=Hoat dong, 0=Bi khoa
+    CONSTRAINT PK_NguoiDung         PRIMARY KEY (MaND),
+    CONSTRAINT UQ_ND_TenDangNhap    UNIQUE (TenDangNhap),
+    CONSTRAINT UQ_ND_Email          UNIQUE (Email),
+    CONSTRAINT CK_ND_VaiTro         CHECK (VaiTro IN ('SinhVien','GiangVien','Admin'))
+);
+GO
+
+CREATE TABLE GiangVien
+(
+    MaGV        VARCHAR(10)    NOT NULL,
+    MaND        INT            NOT NULL,
+    HoTen       NVARCHAR(100)  NOT NULL,
+    NgaySinh    DATE           NULL,
+    GioiTinh    VARCHAR(5)     NULL,
+    SoDienThoai VARCHAR(15)    NULL,
+    Email       NVARCHAR(100)  NULL,
+    MaKhoa      VARCHAR(10)    NOT NULL,
+    HocVi       NVARCHAR(30)   NULL,       -- ThS, TS, PGS.TS, GS.TS
+    ChuyenNganh NVARCHAR(100)  NULL,
+    CONSTRAINT PK_GiangVien    PRIMARY KEY (MaGV),
+    CONSTRAINT FK_GV_NguoiDung FOREIGN KEY (MaND)   REFERENCES NguoiDung(MaND),
+    CONSTRAINT FK_GV_Khoa      FOREIGN KEY (MaKhoa) REFERENCES Khoa(MaKhoa),
+    CONSTRAINT CK_GV_GioiTinh  CHECK (GioiTinh IN ('Nam','Nu') OR GioiTinh IS NULL)
+);
+GO
+
+CREATE TABLE Lop
+(
+    MaLop       VARCHAR(15)    NOT NULL,
+    TenLop      NVARCHAR(60)   NOT NULL,
+    MaKhoa      VARCHAR(10)    NOT NULL,
+    NienKhoa    SMALLINT       NOT NULL,   -- năm nhập học, VD: 2024
+    SiSoToiDa  SMALLINT       NOT NULL DEFAULT 50,
+    CONSTRAINT PK_Lop          PRIMARY KEY (MaLop),
+    CONSTRAINT FK_Lop_Khoa     FOREIGN KEY (MaKhoa) REFERENCES Khoa(MaKhoa),
+    CONSTRAINT CK_Lop_NienKhoa CHECK (NienKhoa BETWEEN 2000 AND 2100)
+);
+GO
+
+CREATE TABLE SinhVien
+(
+    MaSV        VARCHAR(12)    NOT NULL,
+    MaND        INT            NOT NULL,
+    HoTen       NVARCHAR(100)  NOT NULL,
+    NgaySinh    DATE           NULL,
+    GioiTinh    VARCHAR(5)     NULL,
+    DiaChi      NVARCHAR(200)  NULL,
+    SoDienThoai VARCHAR(15)    NULL,
+    Email       NVARCHAR(100)  NULL,
+    MaLop       VARCHAR(15)    NOT NULL,
+    NamNhapHoc  SMALLINT       NOT NULL,
+    TinhTrang   VARCHAR(15)    NOT NULL DEFAULT 'DangHoc',
+    -- Giá trị TinhTrang khớp logic form SinhVien.comboBox3
+    CONSTRAINT PK_SinhVien      PRIMARY KEY (MaSV),
+    CONSTRAINT FK_SV_NguoiDung  FOREIGN KEY (MaND)   REFERENCES NguoiDung(MaND),
+    CONSTRAINT FK_SV_Lop        FOREIGN KEY (MaLop)  REFERENCES Lop(MaLop),
+    CONSTRAINT CK_SV_GioiTinh   CHECK (GioiTinh IN ('Nam','Nu') OR GioiTinh IS NULL),
+    CONSTRAINT CK_SV_TinhTrang  CHECK (TinhTrang IN ('DangHoc','TotNghiep','BoHoc','BaoLuu'))
+);
+GO
+
+
+CREATE TABLE MonHoc
+(
+    MaMH        VARCHAR(10)    NOT NULL,
+    TenMH       NVARCHAR(100)  NOT NULL,
+    SoTinChi    TINYINT        NOT NULL,
+    MaKhoa      VARCHAR(10)    NOT NULL,
+    LoaiMon     VARCHAR(15)    NOT NULL DEFAULT 'LiThuyet',
+    SoTietTuan  TINYINT        NULL,
+    HKApDung    VARCHAR(15)    NULL,   -- HK1Nam1, HK2Nam1, ..., HKHe
+    TrangThai   VARCHAR(20)    NOT NULL DEFAULT 'DangMoLop',
+    MoTa        NVARCHAR(500)  NULL,
+    CONSTRAINT PK_MonHoc        PRIMARY KEY (MaMH),
+    CONSTRAINT FK_MH_Khoa       FOREIGN KEY (MaKhoa) REFERENCES Khoa(MaKhoa),
+    CONSTRAINT CK_MH_SoTinChi   CHECK (SoTinChi BETWEEN 1 AND 10),
+    CONSTRAINT CK_MH_LoaiMon    CHECK (LoaiMon  IN ('LiThuyet','ThucHanh','DaiCuong')),
+    CONSTRAINT CK_MH_HKApDung   CHECK (HKApDung IN (
+        'HK1Nam1','HK2Nam1','HK1Nam2','HK2Nam2',
+        'HK1Nam3','HK2Nam3','HK1Nam4','HK2Nam4','HKHe') OR HKApDung IS NULL),
+    CONSTRAINT CK_MH_TrangThai  CHECK (TrangThai IN (
+        'DangMoLop','TamNgung','DaKhoa','DangCapNhat',
+        'ChoPheDuyet','DaHoanThanh','ConMoDangKy','HetHanDangKy'))
+);
+GO
+
+CREATE TABLE MonHocTienQuyet
+(
+    MaMH           VARCHAR(10) NOT NULL,
+    MaMHTienQuyet  VARCHAR(10) NOT NULL,
+    CONSTRAINT PK_MHTQ      PRIMARY KEY (MaMH, MaMHTienQuyet),
+    CONSTRAINT FK_MHTQ_MH   FOREIGN KEY (MaMH)          REFERENCES MonHoc(MaMH),
+    CONSTRAINT FK_MHTQ_TQ   FOREIGN KEY (MaMHTienQuyet) REFERENCES MonHoc(MaMH)
+);
+GO
+
+CREATE TABLE HocKy
+(
+    MaHK        VARCHAR(15)    NOT NULL,
+    TenHK       NVARCHAR(40)   NOT NULL,    
+    NamHoc      VARCHAR(9)     NOT NULL,    
+    NgayBatDau  DATE           NOT NULL,
+    NgayKetThuc DATE           NOT NULL,
+    TrangThai   VARCHAR(15)    NOT NULL DEFAULT 'ChuaBatDau',
+    CONSTRAINT PK_HocKy         PRIMARY KEY (MaHK),
+    CONSTRAINT CK_HK_NgayHopLe  CHECK (NgayBatDau < NgayKetThuc),
+    CONSTRAINT CK_HK_TrangThai  CHECK (TrangThai IN ('ChuaBatDau','DangDienRa','DaKetThuc'))
+);
+GO
+
+-- ============================================================
+--  !! Tên cột SiSoHienTai KHÔNG được đổi alias trong view
+--     để tránh lỗi "Invalid column name" trong stored procedure
+-- ============================================================
+CREATE TABLE LopHocPhan
+(
+    MaLHP        VARCHAR(15)   NOT NULL,
+    MaMH         VARCHAR(10)   NOT NULL,
+    MaGV         VARCHAR(10)   NOT NULL,
+    MaHK         VARCHAR(15)   NOT NULL,
+    Phong        NVARCHAR(20)  NULL,
+    LichHoc      NVARCHAR(100) NULL,
+    SiSoToiDa   SMALLINT      NOT NULL DEFAULT 40,
+    SiSoHienTai SMALLINT      NOT NULL DEFAULT 0,
+    TrangThai    VARCHAR(10)   NOT NULL DEFAULT 'DangMo',
+    CONSTRAINT PK_LopHocPhan      PRIMARY KEY (MaLHP),
+    CONSTRAINT FK_LHP_MonHoc      FOREIGN KEY (MaMH) REFERENCES MonHoc(MaMH),
+    CONSTRAINT FK_LHP_GiangVien   FOREIGN KEY (MaGV) REFERENCES GiangVien(MaGV),
+    CONSTRAINT FK_LHP_HocKy       FOREIGN KEY (MaHK) REFERENCES HocKy(MaHK),
+    CONSTRAINT CK_LHP_SiSo        CHECK (SiSoHienTai >= 0 AND SiSoToiDa > 0
+                                         AND SiSoHienTai <= SiSoToiDa),
+    CONSTRAINT CK_LHP_TrangThai   CHECK (TrangThai IN ('DangMo','DaDong','HuyBo'))
+);
+GO
+
+CREATE TABLE DangKyHocPhan
+(
+    MaDK       INT           NOT NULL IDENTITY(1,1),
+    MaSV       VARCHAR(12)   NOT NULL,
+    MaLHP      VARCHAR(15)   NOT NULL,
+    NgayDangKy DATETIME      NOT NULL DEFAULT GETDATE(),
+    TrangThai  VARCHAR(15)   NOT NULL DEFAULT 'DaDangKy',
+    CONSTRAINT PK_DangKy            PRIMARY KEY (MaDK),
+    CONSTRAINT FK_DK_SinhVien       FOREIGN KEY (MaSV)  REFERENCES SinhVien(MaSV),
+    CONSTRAINT FK_DK_LopHocPhan     FOREIGN KEY (MaLHP) REFERENCES LopHocPhan(MaLHP),
+    CONSTRAINT UQ_DK_SV_LHP         UNIQUE (MaSV, MaLHP),
+    CONSTRAINT CK_DK_TrangThai      CHECK (TrangThai IN ('DaDangKy','DaHuy','HoanThanh'))
+);
+GO
+
+-- ============================================================
+--  DIEM
+--  Form NhapDiem.DataGrid: MSV, HoTen, DiemCC, DiemGK,
+--                           DiemCK, DTB[readonly], GPA[readonly],
+--                           XepLoai[readonly]
+--
+--  Công thức (theo thông báo trên form):
+--    Điểm quá trình 40% (CC=10% + GK=30%) + Cuối kỳ 60%
+--    DTB = DiemCC*0.1 + DiemGK*0.3 + DiemCK*0.6
+--
+--  Thang GPA 4.0 theo chuẩn Bộ GD-ĐT:
+--    A  (>=8.5) = 4.0  |  B+ (>=7.0) = 3.5  |  B  (>=6.0) = 3.0
+--    C+ (>=5.5) = 2.5  |  C  (>=5.0) = 2.0  |  D+ (>=4.5) = 1.5
+--    D  (>=4.0) = 1.0  |  F  (<4.0)  = 0.0
+-- ============================================================
+CREATE TABLE Diem
+(
+    MaDiem          INT          NOT NULL IDENTITY(1,1),
+    MaDK            INT          NOT NULL,
+    DiemCC          DECIMAL(4,2) NULL,    -- Chuyên cần  (0–10)
+    DiemGK          DECIMAL(4,2) NULL,    -- Giữa kỳ    (0–10)
+    DiemCK          DECIMAL(4,2) NULL,    -- Cuối kỳ    (0–10)
+
+    -- Điểm trung bình hệ 10
+    DiemTB AS (
+        CAST(ROUND(
+            ISNULL(DiemCC, 0) * 0.1 +
+            ISNULL(DiemGK, 0) * 0.3 +
+            ISNULL(DiemCK, 0) * 0.6
+        , 2) AS DECIMAL(4,2))
+    ) PERSISTED,
+
+    -- Điểm GPA hệ 4
+    DiemGPA AS (
+        CASE
+            WHEN ISNULL(DiemCC,0)*0.1+ISNULL(DiemGK,0)*0.3+ISNULL(DiemCK,0)*0.6 >= 8.5 THEN CAST(4.0 AS DECIMAL(3,1))
+            WHEN ISNULL(DiemCC,0)*0.1+ISNULL(DiemGK,0)*0.3+ISNULL(DiemCK,0)*0.6 >= 7.0 THEN CAST(3.5 AS DECIMAL(3,1))
+            WHEN ISNULL(DiemCC,0)*0.1+ISNULL(DiemGK,0)*0.3+ISNULL(DiemCK,0)*0.6 >= 6.0 THEN CAST(3.0 AS DECIMAL(3,1))
+            WHEN ISNULL(DiemCC,0)*0.1+ISNULL(DiemGK,0)*0.3+ISNULL(DiemCK,0)*0.6 >= 5.5 THEN CAST(2.5 AS DECIMAL(3,1))
+            WHEN ISNULL(DiemCC,0)*0.1+ISNULL(DiemGK,0)*0.3+ISNULL(DiemCK,0)*0.6 >= 5.0 THEN CAST(2.0 AS DECIMAL(3,1))
+            WHEN ISNULL(DiemCC,0)*0.1+ISNULL(DiemGK,0)*0.3+ISNULL(DiemCK,0)*0.6 >= 4.5 THEN CAST(1.5 AS DECIMAL(3,1))
+            WHEN ISNULL(DiemCC,0)*0.1+ISNULL(DiemGK,0)*0.3+ISNULL(DiemCK,0)*0.6 >= 4.0 THEN CAST(1.0 AS DECIMAL(3,1))
+            ELSE CAST(0.0 AS DECIMAL(3,1))
+        END
+    ) PERSISTED,
+
+    -- Xếp loại chữ
+    XepLoai AS (
+        CASE
+            WHEN ISNULL(DiemCC,0)*0.1+ISNULL(DiemGK,0)*0.3+ISNULL(DiemCK,0)*0.6 >= 8.5 THEN 'A'
+            WHEN ISNULL(DiemCC,0)*0.1+ISNULL(DiemGK,0)*0.3+ISNULL(DiemCK,0)*0.6 >= 7.0 THEN 'B+'
+            WHEN ISNULL(DiemCC,0)*0.1+ISNULL(DiemGK,0)*0.3+ISNULL(DiemCK,0)*0.6 >= 6.0 THEN 'B'
+            WHEN ISNULL(DiemCC,0)*0.1+ISNULL(DiemGK,0)*0.3+ISNULL(DiemCK,0)*0.6 >= 5.5 THEN 'C+'
+            WHEN ISNULL(DiemCC,0)*0.1+ISNULL(DiemGK,0)*0.3+ISNULL(DiemCK,0)*0.6 >= 5.0 THEN 'C'
+            WHEN ISNULL(DiemCC,0)*0.1+ISNULL(DiemGK,0)*0.3+ISNULL(DiemCK,0)*0.6 >= 4.5 THEN 'D+'
+            WHEN ISNULL(DiemCC,0)*0.1+ISNULL(DiemGK,0)*0.3+ISNULL(DiemCK,0)*0.6 >= 4.0 THEN 'D'
+            ELSE 'F'
+        END
+    ) PERSISTED,
+
+    -- Kết quả
+    KetQua AS (
+        CASE
+            WHEN ISNULL(DiemCC,0)*0.1+ISNULL(DiemGK,0)*0.3+ISNULL(DiemCK,0)*0.6 >= 4.0
+            THEN 'Dat' ELSE 'KhongDat'
+        END
+    ) PERSISTED,
+
+    DaChotDiem    BIT          NOT NULL DEFAULT 0,
+    NgayNhap      DATETIME     NOT NULL DEFAULT GETDATE(),
+    MaGV_NhapDiem VARCHAR(10)  NULL,
+
+    CONSTRAINT PK_Diem            PRIMARY KEY (MaDiem),
+    CONSTRAINT FK_Diem_DangKy     FOREIGN KEY (MaDK)           REFERENCES DangKyHocPhan(MaDK),
+    CONSTRAINT FK_Diem_GiangVien  FOREIGN KEY (MaGV_NhapDiem)  REFERENCES GiangVien(MaGV),
+    CONSTRAINT UQ_Diem_MaDK       UNIQUE (MaDK),
+    CONSTRAINT CK_Diem_CC         CHECK (DiemCC IS NULL OR DiemCC BETWEEN 0 AND 10),
+    CONSTRAINT CK_Diem_GK         CHECK (DiemGK IS NULL OR DiemGK BETWEEN 0 AND 10),
+    CONSTRAINT CK_Diem_CK         CHECK (DiemCK IS NULL OR DiemCK BETWEEN 0 AND 10)
+);
+GO
+
+-- ============================================================
+--  LICHSUDIEM  (audit trail mỗi lần sửa điểm)
+--  Được ghi tự động trong sp_NhapDiem trước khi UPDATE
+-- ============================================================
+CREATE TABLE LichSuDiem
+(
+    MaLS           INT          NOT NULL IDENTITY(1,1),
+    MaDiem         INT          NOT NULL,
+    DiemCC_Cu      DECIMAL(4,2) NULL,
+    DiemGK_Cu      DECIMAL(4,2) NULL,
+    DiemCK_Cu      DECIMAL(4,2) NULL,
+    NgayThayDoi    DATETIME     NOT NULL DEFAULT GETDATE(),
+    MaND_ThayDoi   INT          NOT NULL,
+    LyDo           NVARCHAR(255)NULL,
+    CONSTRAINT PK_LichSuDiem    PRIMARY KEY (MaLS),
+    CONSTRAINT FK_LS_Diem       FOREIGN KEY (MaDiem)        REFERENCES Diem(MaDiem),
+    CONSTRAINT FK_LS_NguoiDung  FOREIGN KEY (MaND_ThayDoi)  REFERENCES NguoiDung(MaND)
+);
+GO
+
+
+CREATE INDEX IX_SV_MaLop       ON SinhVien(MaLop);
+CREATE INDEX IX_LHP_MaHK       ON LopHocPhan(MaHK);
+CREATE INDEX IX_LHP_MaMH       ON LopHocPhan(MaMH);
+CREATE INDEX IX_LHP_MaGV       ON LopHocPhan(MaGV);
+CREATE INDEX IX_DK_MaSV        ON DangKyHocPhan(MaSV);
+CREATE INDEX IX_DK_MaLHP       ON DangKyHocPhan(MaLHP);
+CREATE INDEX IX_Diem_MaDK      ON Diem(MaDK);
+CREATE INDEX IX_Diem_XepLoai   ON Diem(XepLoai);
+GO
+
+-- ============================================================
+--  VIEWS
+--  QUY TẮC: tên cột trong view PHẢI KHỚP với tên cột
+--  mà stored procedure sẽ tham chiếu.
+--  KHÔNG đổi alias nếu không cần thiết.
+-- ============================================================
+CREATE VIEW vw_BangDiem
+AS
+SELECT
+    sv.MaSV,
+    sv.HoTen,
+    l.MaLop,
+    l.TenLop,
+    k.TenKhoa,
+    hk.MaHK,
+    hk.TenHK,
+    hk.NamHoc,
+    mh.MaMH,
+    mh.TenMH,
+    mh.SoTinChi,
+    d.DiemCC,
+    d.DiemGK,
+    d.DiemCK,
+    d.DiemTB,
+    d.DiemGPA,
+    d.XepLoai,
+    d.KetQua,
+    d.DaChotDiem,
+    d.MaDiem,
+    dk.MaDK
+FROM SinhVien sv
+JOIN Lop l                ON sv.MaLop  = l.MaLop
+JOIN Khoa k               ON l.MaKhoa  = k.MaKhoa
+JOIN DangKyHocPhan dk     ON sv.MaSV   = dk.MaSV
+JOIN LopHocPhan lhp       ON dk.MaLHP  = lhp.MaLHP
+JOIN MonHoc mh            ON lhp.MaMH  = mh.MaMH
+JOIN HocKy hk             ON lhp.MaHK  = hk.MaHK
+LEFT JOIN Diem d          ON dk.MaDK   = d.MaDK;
+GO
+
+CREATE VIEW vw_LopHocPhan
+AS
+SELECT
+    lhp.MaLHP,
+    lhp.MaMH,
+    mh.TenMH,
+    mh.SoTinChi,
+    lhp.MaGV,
+    gv.HoTen         AS HoTenGV,
+    gv.HocVi,
+    hk.MaHK,
+    hk.TenHK,
+    hk.NamHoc,
+    lhp.Phong,
+    lhp.LichHoc,
+    lhp.SiSoHienTai,          -- giữ nguyên tên cột, không đổi alias
+    lhp.SiSoToiDa,
+    lhp.TrangThai
+FROM LopHocPhan lhp
+JOIN MonHoc  mh ON lhp.MaMH = mh.MaMH
+JOIN GiangVien gv ON lhp.MaGV = gv.MaGV
+JOIN HocKy  hk  ON lhp.MaHK  = hk.MaHK;
+GO
+
+CREATE VIEW vw_NhapDiem
+AS
+SELECT
+    dk.MaDK,
+    dk.MaLHP,
+    sv.MaSV,
+    sv.HoTen,
+    d.MaDiem,
+    d.DiemCC,
+    d.DiemGK,
+    d.DiemCK,
+    d.DiemTB,
+    d.DiemGPA,
+    d.XepLoai,
+    d.KetQua,
+    d.DaChotDiem,
+    d.NgayNhap
+FROM DangKyHocPhan dk
+JOIN SinhVien sv       ON dk.MaSV  = sv.MaSV
+LEFT JOIN Diem d       ON dk.MaDK  = d.MaDK;
+GO
+
+CREATE VIEW vw_GPATichLuy
+AS
+SELECT
+    sv.MaSV,
+    sv.HoTen,
+    sv.TinhTrang,
+    l.MaLop,
+    l.TenLop,
+    k.MaKhoa,
+    k.TenKhoa,
+    ROUND(
+        SUM(CAST(mh.SoTinChi AS FLOAT) * CAST(d.DiemGPA AS FLOAT))
+        / NULLIF(SUM(mh.SoTinChi), 0)
+    , 2)                 AS GPATichLuy,
+    SUM(mh.SoTinChi)     AS TongTinChi,
+    COUNT(dk.MaDK)       AS SoMonDaHoc
+FROM SinhVien sv
+JOIN Lop l              ON sv.MaLop  = l.MaLop
+JOIN Khoa k             ON l.MaKhoa  = k.MaKhoa
+JOIN DangKyHocPhan dk   ON sv.MaSV   = dk.MaSV
+JOIN LopHocPhan lhp     ON dk.MaLHP  = lhp.MaLHP
+JOIN MonHoc mh          ON lhp.MaMH  = mh.MaMH
+JOIN Diem d             ON dk.MaDK   = d.MaDK
+WHERE dk.TrangThai = 'HoanThanh'
+  AND d.DiemGPA    IS NOT NULL
+GROUP BY sv.MaSV, sv.HoTen, sv.TinhTrang,
+         l.MaLop, l.TenLop, k.MaKhoa, k.TenKhoa;
+GO
+
+CREATE VIEW vw_ThongKe_PhanBoDiem
+AS
+SELECT
+    hk.MaHK,
+    hk.TenHK,
+    hk.NamHoc,
+    k.MaKhoa,
+    k.TenKhoa,
+    mh.MaMH,
+    mh.TenMH,
+    d.XepLoai,
+    d.KetQua,
+    COUNT(*) AS SoLuong
+FROM Diem d
+JOIN DangKyHocPhan dk ON d.MaDK     = dk.MaDK
+JOIN LopHocPhan lhp   ON dk.MaLHP   = lhp.MaLHP
+JOIN MonHoc mh        ON lhp.MaMH   = mh.MaMH
+JOIN Khoa k           ON mh.MaKhoa  = k.MaKhoa
+JOIN HocKy hk         ON lhp.MaHK   = hk.MaHK
+WHERE dk.TrangThai = 'HoanThanh'
+GROUP BY hk.MaHK, hk.TenHK, hk.NamHoc,
+         k.MaKhoa, k.TenKhoa,
+         mh.MaMH, mh.TenMH,
+         d.XepLoai, d.KetQua;
+GO
+
+CREATE VIEW vw_ThongKe_DatRot
+AS
+SELECT
+    lhp.MaHK,
+    mh.MaMH,
+    mh.TenMH,
+    SUM(CASE WHEN d.KetQua = 'Dat'      THEN 1 ELSE 0 END) AS SoDat,
+    SUM(CASE WHEN d.KetQua = 'KhongDat' THEN 1 ELSE 0 END) AS SoRot,
+    ROUND(AVG(CAST(d.DiemTB AS FLOAT)), 2)                  AS DiemTBMon
+FROM Diem d
+JOIN DangKyHocPhan dk ON d.MaDK    = dk.MaDK
+JOIN LopHocPhan lhp   ON dk.MaLHP  = lhp.MaLHP
+JOIN MonHoc mh        ON lhp.MaMH  = mh.MaMH
+WHERE dk.TrangThai = 'HoanThanh'
+GROUP BY lhp.MaHK, mh.MaMH, mh.TenMH;
+GO
+
+CREATE VIEW vw_Dashboard_Admin
+AS
+SELECT
+    (SELECT COUNT(*) FROM SinhVien
+     WHERE TinhTrang = 'DangHoc')                                  AS TongSV,
+    (SELECT COUNT(*) FROM LopHocPhan
+     WHERE TrangThai = 'DangMo')                                   AS LopHPDangMo,
+    (SELECT COUNT(DISTINCT MaMH) FROM LopHocPhan
+     WHERE MaHK IN (SELECT MaHK FROM HocKy
+                    WHERE TrangThai = 'DangDienRa'))               AS MonHKNay,
+    (SELECT COUNT(*) FROM vw_GPATichLuy
+     WHERE GPATichLuy < 2.0)                                       AS SVCanChuY;
+GO
+
+-- ============================================================
+--  STORED PROCEDURES
+--  Tất cả SP đều tham chiếu ĐÚNG tên cột trong bảng/view
+-- ============================================================
+--  SP1: sp_DangNhap
+--  Xác thực đăng nhập, cập nhật LanDangNhapCuoi
+--  Trả về: MaND, VaiTro, ThanhCong (1/0), ThongBao
+-- ----------------------------------------------------------
+CREATE PROCEDURE sp_DangNhap
+    @TenDangNhap NVARCHAR(50),
+    @MatKhau     NVARCHAR(255)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @MaND   INT;
+    DECLARE @VaiTro VARCHAR(15);
+
+    SELECT @MaND = MaND, @VaiTro = VaiTro
+    FROM   NguoiDung
+    WHERE  TenDangNhap = @TenDangNhap
+      AND  MatKhau     = @MatKhau
+      AND  TrangThai   = 1;
+
+    IF @MaND IS NOT NULL
+    BEGIN
+        UPDATE NguoiDung
+        SET    LanDangNhapCuoi = GETDATE()
+        WHERE  MaND = @MaND;
+
+        SELECT @MaND   AS MaND,
+               @VaiTro AS VaiTro,
+               1       AS ThanhCong,
+               N'Đăng nhập thành công' AS ThongBao;
+    END
+    ELSE
+    BEGIN
+        SELECT 0    AS MaND,
+               NULL AS VaiTro,
+               0    AS ThanhCong,
+               N'Sai tên đăng nhập hoặc mật khẩu' AS ThongBao;
+    END
+END;
+GO
+
+-- ----------------------------------------------------------
+--  SP2: sp_DangKy
+--  Tạo tài khoản mới (mặc định vai trò SinhVien)
+-- ----------------------------------------------------------
+CREATE PROCEDURE sp_DangKy
+    @TenDangNhap NVARCHAR(50),
+    @MatKhau     NVARCHAR(255),
+    @Email       NVARCHAR(100) = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF EXISTS (SELECT 1 FROM NguoiDung WHERE TenDangNhap = @TenDangNhap)
+    BEGIN
+        SELECT -1 AS KetQua, N'Tên đăng nhập đã tồn tại' AS ThongBao;
+        RETURN;
+    END
+
+    IF @Email IS NOT NULL AND EXISTS (SELECT 1 FROM NguoiDung WHERE Email = @Email)
+    BEGIN
+        SELECT -2 AS KetQua, N'Email đã được sử dụng' AS ThongBao;
+        RETURN;
+    END
+
+    INSERT INTO NguoiDung (TenDangNhap, MatKhau, VaiTro, Email)
+    VALUES (@TenDangNhap, @MatKhau, 'SinhVien', @Email);
+
+    SELECT SCOPE_IDENTITY() AS MaND, N'Đăng ký thành công' AS ThongBao;
+END;
+GO
+
+-- ----------------------------------------------------------
+--  SP3: sp_DoiMatKhau
+-- ----------------------------------------------------------
+CREATE PROCEDURE sp_DoiMatKhau
+    @TenDangNhap NVARCHAR(50),
+    @MatKhauCu   NVARCHAR(255),
+    @MatKhauMoi  NVARCHAR(255)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF NOT EXISTS (
+        SELECT 1 FROM NguoiDung
+        WHERE TenDangNhap = @TenDangNhap
+          AND MatKhau     = @MatKhauCu
+          AND TrangThai   = 1
+    )
+    BEGIN
+        SELECT 0 AS KetQua, N'Mật khẩu hiện tại không đúng' AS ThongBao;
+        RETURN;
+    END
+
+    UPDATE NguoiDung
+    SET    MatKhau = @MatKhauMoi
+    WHERE  TenDangNhap = @TenDangNhap;
+
+    SELECT 1 AS KetQua, N'Đổi mật khẩu thành công' AS ThongBao;
+END;
+GO
+
+-- ----------------------------------------------------------
+--  SP4: sp_LayBangDiem
+--  Dùng cho: BangDiem form
+--  Trả về điểm của một SV (tùy chọn lọc theo học kỳ)
+-- ----------------------------------------------------------
+CREATE PROCEDURE sp_LayBangDiem
+    @MaSV VARCHAR(12),
+    @MaHK VARCHAR(15) = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT
+        MaHK, TenHK, NamHoc,
+        MaMH, TenMH, SoTinChi,
+        DiemCC, DiemGK, DiemCK,
+        DiemTB, DiemGPA, XepLoai, KetQua,
+        DaChotDiem
+    FROM vw_BangDiem
+    WHERE MaSV = @MaSV
+      AND (@MaHK IS NULL OR MaHK = @MaHK)
+    ORDER BY NamHoc, TenHK, TenMH;
+END;
+GO
+
+-- ----------------------------------------------------------
+--  SP5: sp_LayDanhSachSVTrongLHP
+--  Dùng cho: NhapDiem (load SV vào DataGridView khi mở form)
+-- ----------------------------------------------------------
+CREATE PROCEDURE sp_LayDanhSachSVTrongLHP
+    @MaLHP VARCHAR(15)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Thông tin lớp học phần (cho groupBox1 labels)
+    SELECT
+        MaLHP, TenMH, HoTenGV, TenHK, NamHoc, Phong, LichHoc
+    FROM vw_LopHocPhan
+    WHERE MaLHP = @MaLHP;
+
+    -- Danh sách sinh viên + điểm hiện tại
+    SELECT
+        MaDK, MaSV, HoTen,
+        DiemCC, DiemGK, DiemCK,
+        DiemTB, DiemGPA, XepLoai,
+        DaChotDiem
+    FROM vw_NhapDiem
+    WHERE MaLHP = @MaLHP
+    ORDER BY HoTen;
+END;
+GO
+
+-- ----------------------------------------------------------
+--  SP6: sp_NhapDiem
+--  Dùng cho: NhapDiem button "Lưu điểm" và "Chốt điểm"
+--  - Nếu chưa có bản ghi → INSERT
+--  - Nếu đã có và chưa chốt → ghi lịch sử → UPDATE
+--  - Nếu đã chốt → báo lỗi, không cho sửa
+-- ----------------------------------------------------------
+CREATE PROCEDURE sp_NhapDiem
+    @MaDK       INT,
+    @DiemCC     DECIMAL(4,2),
+    @DiemGK     DECIMAL(4,2),
+    @DiemCK     DECIMAL(4,2),
+    @MaGV       VARCHAR(10),
+    @ChotDiem   BIT           = 0,
+    @LyDo       NVARCHAR(255) = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+    BEGIN TRANSACTION;
+
+    BEGIN TRY
+        -- Lấy MaND của giảng viên để ghi vào LichSuDiem
+        DECLARE @MaND INT;
+        SELECT @MaND = MaND FROM GiangVien WHERE MaGV = @MaGV;
+
+        IF @MaND IS NULL
+        BEGIN
+            SELECT 0 AS KetQua, N'Mã giảng viên không tồn tại' AS ThongBao;
+            ROLLBACK TRANSACTION;
+            RETURN;
+        END
+
+        IF EXISTS (SELECT 1 FROM Diem WHERE MaDK = @MaDK)
+        BEGIN
+            -- Kiểm tra đã chốt chưa
+            IF EXISTS (SELECT 1 FROM Diem WHERE MaDK = @MaDK AND DaChotDiem = 1)
+            BEGIN
+                SELECT 0 AS KetQua, N'Điểm đã được chốt, không thể sửa' AS ThongBao;
+                ROLLBACK TRANSACTION;
+                RETURN;
+            END
+
+            -- Ghi lịch sử trước khi sửa
+            INSERT INTO LichSuDiem (MaDiem, DiemCC_Cu, DiemGK_Cu, DiemCK_Cu, MaND_ThayDoi, LyDo)
+            SELECT MaDiem, DiemCC, DiemGK, DiemCK, @MaND, @LyDo
+            FROM   Diem
+            WHERE  MaDK = @MaDK;
+
+            -- Cập nhật điểm
+            UPDATE Diem
+            SET    DiemCC         = @DiemCC,
+                   DiemGK         = @DiemGK,
+                   DiemCK         = @DiemCK,
+                   DaChotDiem     = @ChotDiem,
+                   NgayNhap       = GETDATE(),
+                   MaGV_NhapDiem  = @MaGV
+            WHERE  MaDK = @MaDK;
+        END
+        ELSE
+        BEGIN
+            -- Chưa có bản ghi → INSERT mới
+            INSERT INTO Diem (MaDK, DiemCC, DiemGK, DiemCK, DaChotDiem, MaGV_NhapDiem)
+            VALUES (@MaDK, @DiemCC, @DiemGK, @DiemCK, @ChotDiem, @MaGV);
+        END
+
+        -- Nếu chốt điểm → cập nhật trạng thái đăng ký
+        IF @ChotDiem = 1
+        BEGIN
+            UPDATE DangKyHocPhan
+            SET    TrangThai = 'HoanThanh'
+            WHERE  MaDK = @MaDK;
+        END
+
+        COMMIT TRANSACTION;
+        SELECT 1 AS KetQua,
+               CASE WHEN @ChotDiem = 1
+                    THEN N'Chốt điểm thành công'
+                    ELSE N'Lưu điểm thành công'
+               END AS ThongBao;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+        SELECT 0 AS KetQua, ERROR_MESSAGE() AS ThongBao;
+    END CATCH
+END;
+GO
+
+-- ----------------------------------------------------------
+--  SP7: sp_LayLopHPCuaGV
+--  Dùng cho: MenuGV "Lớp Học Phần Của Tôi" DataGridView
+--  Cột trả về: MaLHP, TenMH, SiSoHienTai (AS SiSo), TrangThai
+--  !! Dùng SiSoHienTai – khớp đúng tên cột trong vw_LopHocPhan
+-- ----------------------------------------------------------
+CREATE PROCEDURE sp_LayLopHPCuaGV
+    @MaGV VARCHAR(10),
+    @MaHK VARCHAR(15) = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT
+        MaLHP,
+        TenMH,
+        SiSoHienTai    AS SiSo,    
+        SiSoToiDa,
+        TrangThai,
+        TenHK,
+        NamHoc,
+        Phong,
+        LichHoc
+    FROM vw_LopHocPhan
+    WHERE MaGV = @MaGV
+      AND (@MaHK IS NULL OR MaHK = @MaHK)
+    ORDER BY NamHoc DESC, TenHK, TenMH;
+END;
+GO
+
+-- ----------------------------------------------------------
+--  SP8: sp_ThongKe
+--  Dùng cho: ThongKe form (lọc theo HK và Khoa)
+--  Trả về 3 result set:
+--    1. Tổng quan (tổng SV, môn, ĐTB, đạt, rớt)
+--    2. Phân bố xếp loại (A/B+/B/C+/C/D+/D/F)
+--    3. Tỉ lệ đạt/rớt theo từng môn
+-- ----------------------------------------------------------
+CREATE PROCEDURE sp_ThongKe
+    @MaHK   VARCHAR(15) = NULL,
+    @MaKhoa VARCHAR(10) = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Result Set 1: Tổng quan
+    SELECT
+        COUNT(DISTINCT dk.MaSV)                                        AS TongSV,
+        COUNT(DISTINCT lhp.MaMH)                                       AS TongMon,
+        ROUND(AVG(CAST(d.DiemTB AS FLOAT)), 2)                        AS DiemTBChung,
+        SUM(CASE WHEN d.KetQua = 'Dat'      THEN 1 ELSE 0 END)       AS TongDat,
+        SUM(CASE WHEN d.KetQua = 'KhongDat' THEN 1 ELSE 0 END)       AS TongRot
+    FROM Diem d
+    JOIN DangKyHocPhan dk ON d.MaDK    = dk.MaDK
+    JOIN LopHocPhan lhp   ON dk.MaLHP  = lhp.MaLHP
+    JOIN MonHoc mh        ON lhp.MaMH  = mh.MaMH
+    WHERE dk.TrangThai = 'HoanThanh'
+      AND (@MaHK   IS NULL OR lhp.MaHK  = @MaHK)
+      AND (@MaKhoa IS NULL OR mh.MaKhoa = @MaKhoa);
+
+    -- Result Set 2: Phân bố xếp loại
+    SELECT
+        d.XepLoai,
+        COUNT(*) AS SoLuong
+    FROM Diem d
+    JOIN DangKyHocPhan dk ON d.MaDK    = dk.MaDK
+    JOIN LopHocPhan lhp   ON dk.MaLHP  = lhp.MaLHP
+    JOIN MonHoc mh        ON lhp.MaMH  = mh.MaMH
+    WHERE dk.TrangThai = 'HoanThanh'
+      AND (@MaHK   IS NULL OR lhp.MaHK  = @MaHK)
+      AND (@MaKhoa IS NULL OR mh.MaKhoa = @MaKhoa)
+    GROUP BY d.XepLoai
+    ORDER BY d.XepLoai;
+
+    -- Result Set 3: Tỉ lệ Đạt/Rớt theo môn
+    SELECT
+        MaMH, TenMH, SoDat, SoRot, DiemTBMon
+    FROM vw_ThongKe_DatRot
+    WHERE (@MaHK IS NULL OR MaHK = @MaHK);
+END;
+GO
+
+-- ----------------------------------------------------------
+--  SP9: sp_LayDanhSachTK
+--  Dùng cho: QLTK form DataGridView
+--  Cột: TenDangNhap, VaiTro, TrangThai, NgayTao, LanDangNhapCuoi
+-- ----------------------------------------------------------
+CREATE PROCEDURE sp_LayDanhSachTK
+    @TimKiem NVARCHAR(50) = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT
+        MaND,
+        TenDangNhap,
+        VaiTro,
+        CASE WHEN TrangThai = 1 THEN N'Hoạt động' ELSE N'Bị khóa' END AS TrangThai,
+        NgayTao,
+        LanDangNhapCuoi
+    FROM NguoiDung
+    WHERE (@TimKiem IS NULL
+        OR TenDangNhap LIKE '%' + @TimKiem + '%')
+    ORDER BY NgayTao DESC;
+END;
+GO
+
+-- ----------------------------------------------------------
+--  SP10: sp_ThemSuaMonHoc
+--  Dùng cho: ThemSuaMH form (button Lưu)
+-- ----------------------------------------------------------
+CREATE PROCEDURE sp_ThemSuaMonHoc
+    @MaMH       VARCHAR(10),
+    @TenMH      NVARCHAR(100),
+    @SoTinChi   TINYINT,
+    @MaKhoa     VARCHAR(10),
+    @LoaiMon    VARCHAR(15),
+    @SoTietTuan TINYINT       = NULL,
+    @HKApDung   VARCHAR(15)   = NULL,
+    @TrangThai  VARCHAR(20)   = 'DangMoLop',
+    @MoTa       NVARCHAR(500) = NULL,
+    @IsUpdate   BIT           = 0     -- 0=Thêm mới, 1=Cập nhật
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF @IsUpdate = 0
+    BEGIN
+        IF EXISTS (SELECT 1 FROM MonHoc WHERE MaMH = @MaMH)
+        BEGIN
+            SELECT 0 AS KetQua, N'Mã môn học đã tồn tại' AS ThongBao;
+            RETURN;
+        END
+        INSERT INTO MonHoc (MaMH,TenMH,SoTinChi,MaKhoa,LoaiMon,SoTietTuan,HKApDung,TrangThai,MoTa)
+        VALUES (@MaMH,@TenMH,@SoTinChi,@MaKhoa,@LoaiMon,@SoTietTuan,@HKApDung,@TrangThai,@MoTa);
+        SELECT 1 AS KetQua, N'Thêm môn học thành công' AS ThongBao;
+    END
+    ELSE
+    BEGIN
+        IF NOT EXISTS (SELECT 1 FROM MonHoc WHERE MaMH = @MaMH)
+        BEGIN
+            SELECT 0 AS KetQua, N'Mã môn học không tồn tại' AS ThongBao;
+            RETURN;
+        END
+        UPDATE MonHoc
+        SET TenMH=@TenMH, SoTinChi=@SoTinChi, MaKhoa=@MaKhoa,
+            LoaiMon=@LoaiMon, SoTietTuan=@SoTietTuan, HKApDung=@HKApDung,
+            TrangThai=@TrangThai, MoTa=@MoTa
+        WHERE MaMH = @MaMH;
+        SELECT 1 AS KetQua, N'Cập nhật môn học thành công' AS ThongBao;
+    END
+END;
+GO
+
+-- ----------------------------------------------------------
+--  SP11: sp_ThemSuaSinhVien
+--  Dùng cho: ThemSuaSV form (button Lưu)
+-- ----------------------------------------------------------
+CREATE PROCEDURE sp_ThemSuaSinhVien
+    @MaSV       VARCHAR(12),
+    @HoTen      NVARCHAR(100),
+    @NgaySinh   DATE          = NULL,
+    @GioiTinh   VARCHAR(5)    = NULL,
+    @DiaChi     NVARCHAR(200) = NULL,
+    @SoDienThoai VARCHAR(15)  = NULL,
+    @Email      NVARCHAR(100) = NULL,
+    @MaLop      VARCHAR(15),
+    @NamNhapHoc SMALLINT,
+    @TinhTrang  VARCHAR(15)   = 'DangHoc',
+    @TenDangNhap NVARCHAR(50) = NULL,
+    @MatKhau    NVARCHAR(255) = NULL,
+    @IsUpdate   BIT           = 0
+AS
+BEGIN
+    SET NOCOUNT ON;
+    BEGIN TRANSACTION;
+    BEGIN TRY
+        IF @IsUpdate = 0
+        BEGIN
+            -- Tạo tài khoản NguoiDung trước
+            DECLARE @MaND INT;
+            INSERT INTO NguoiDung (TenDangNhap, MatKhau, VaiTro, Email)
+            VALUES (
+                ISNULL(@TenDangNhap, @MaSV),
+                ISNULL(@MatKhau, @MaSV + '@123'),
+                'SinhVien',
+                @Email
+            );
+            SET @MaND = SCOPE_IDENTITY();
+
+            INSERT INTO SinhVien
+                (MaSV,MaND,HoTen,NgaySinh,GioiTinh,DiaChi,SoDienThoai,Email,MaLop,NamNhapHoc,TinhTrang)
+            VALUES
+                (@MaSV,@MaND,@HoTen,@NgaySinh,@GioiTinh,@DiaChi,@SoDienThoai,@Email,@MaLop,@NamNhapHoc,@TinhTrang);
+
+            COMMIT TRANSACTION;
+            SELECT 1 AS KetQua, N'Thêm sinh viên thành công' AS ThongBao;
+        END
+        ELSE
+        BEGIN
+            UPDATE SinhVien
+            SET HoTen=@HoTen, NgaySinh=@NgaySinh, GioiTinh=@GioiTinh,
+                DiaChi=@DiaChi, SoDienThoai=@SoDienThoai, Email=@Email,
+                MaLop=@MaLop, NamNhapHoc=@NamNhapHoc, TinhTrang=@TinhTrang
+            WHERE MaSV = @MaSV;
+
+            COMMIT TRANSACTION;
+            SELECT 1 AS KetQua, N'Cập nhật sinh viên thành công' AS ThongBao;
+        END
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+        SELECT 0 AS KetQua, ERROR_MESSAGE() AS ThongBao;
+    END CATCH
+END;
+GO
+
+-- ============================================================
+--  DỮ LIỆU MẪU
+-- ============================================================
+
+-- Khoa (lấy từ ThemSuaMH.comboBox6)
+INSERT INTO Khoa (MaKhoa, TenKhoa) VALUES
+    ('CNTT', N'Công nghệ thông tin'),
+    ('DTVT', N'Điện tử viễn thông'),
+    ('NNA',  N'Ngôn ngữ Anh'),
+    ('DL',   N'Du lịch'),
+    ('NNT',  N'Ngôn ngữ Trung'),
+    ('QHCC', N'Quan hệ công chúng');
+GO
+
+-- Lớp hành chính (lấy từ SinhVien.comboBox2)
+INSERT INTO Lop (MaLop, TenLop, MaKhoa, NienKhoa, SiSoToiDa) VALUES
+    ('524CNT', N'Lớp 524CNT', 'CNTT', 2024, 50),
+    ('524QTK', N'Lớp 524QTK', 'QHCC', 2024, 50),
+    ('524DTV', N'Lớp 524DTV', 'DTVT', 2024, 45),
+    ('523YCT', N'Lớp 523YCT', 'NNA',  2023, 40);
+GO
+
+-- Tài khoản NguoiDung
+INSERT INTO NguoiDung (TenDangNhap, MatKhau, VaiTro, Email) VALUES
+    ('admin',   'Admin@123',  'Admin',      'admin@truong.edu.vn'),
+    ('gv001',   'Gv001@123',  'GiangVien',  'nguyenvanminh@truong.edu.vn'),
+    ('gv002',   'Gv002@123',  'GiangVien',  'tranthilan@truong.edu.vn'),
+    ('gv003',   'Gv003@123',  'GiangVien',  'lehoangnam@truong.edu.vn'),
+    ('sv22001', 'Sv22001@123','SinhVien',   'sv22001@sinhvien.edu.vn'),
+    ('sv22002', 'Sv22002@123','SinhVien',   'sv22002@sinhvien.edu.vn'),
+    ('sv22003', 'Sv22003@123','SinhVien',   'sv22003@sinhvien.edu.vn');
+GO
+
+-- Giảng viên (lấy từ ThemSuaMH.comboBox1)
+INSERT INTO GiangVien (MaGV, MaND, HoTen, NgaySinh, GioiTinh, SoDienThoai, Email, MaKhoa, HocVi, ChuyenNganh) VALUES
+    ('GV001', 2, N'Nguyễn Văn Minh', '1980-03-15', 'Nam', '0901111111', 'nguyenvanminh@truong.edu.vn', 'CNTT', N'ThS',    N'Khoa học máy tính'),
+    ('GV002', 3, N'Trần Thị Lan',    '1978-07-20', 'Nu',  '0901222222', 'tranthilan@truong.edu.vn',    'CNTT', N'TS',     N'Trí tuệ nhân tạo'),
+    ('GV003', 4, N'Lê Hoàng Nam',    '1985-11-05', 'Nam', '0901333333', 'lehoangnam@truong.edu.vn',    'CNTT', N'ThS',    N'Mạng máy tính');
+GO
+
+-- Sinh viên
+INSERT INTO SinhVien (MaSV, MaND, HoTen, NgaySinh, GioiTinh, DiaChi, SoDienThoai, Email, MaLop, NamNhapHoc, TinhTrang) VALUES
+    ('SV22001', 5, N'Trần Minh Khoa', '2004-05-12', 'Nam', N'Hà Nội',     '0933001001', 'sv22001@sinhvien.edu.vn', '524CNT', 2024, 'DangHoc'),
+    ('SV22002', 6, N'Lê Thị Hoa',    '2004-08-25', 'Nu',  N'TP.HCM',     '0933001002', 'sv22002@sinhvien.edu.vn', '524CNT', 2024, 'DangHoc'),
+    ('SV22003', 7, N'Phạm Quang Huy', '2004-02-17', 'Nam', N'Đà Nẵng',   '0933001003', 'sv22003@sinhvien.edu.vn', '524DTV', 2024, 'DangHoc');
+GO
+
+-- Môn học (lấy từ SinhVien.comboBox1 và các form)
+INSERT INTO MonHoc (MaMH, TenMH, SoTinChi, MaKhoa, LoaiMon, SoTietTuan, HKApDung, TrangThai) VALUES
+    ('CTDL',  N'Cấu trúc dữ liệu và giải thuật', 3, 'CNTT', 'LiThuyet', 3, 'HK1Nam2', 'DangMoLop'),
+    ('LTOOP', N'Lập trình hướng đối tượng',       3, 'CNTT', 'LiThuyet', 3, 'HK2Nam1', 'DangMoLop'),
+    ('KTLT',  N'Kĩ thuật lập trình',              2, 'CNTT', 'ThucHanh', 2, 'HK1Nam1', 'DangMoLop'),
+    ('MMT',   N'Mạng máy tính',                   3, 'CNTT', 'LiThuyet', 3, 'HK1Nam3', 'DangMoLop'),
+    ('TTNT',  N'Trí tuệ nhân tạo',                3, 'CNTT', 'LiThuyet', 3, 'HK2Nam3', 'DangMoLop'),
+    ('WEB1',  N'Web 1',                            3, 'CNTT', 'ThucHanh', 3, 'HK1Nam2', 'DangMoLop');
+GO
+
+-- Môn tiên quyết
+INSERT INTO MonHocTienQuyet (MaMH, MaMHTienQuyet) VALUES
+    ('TTNT', 'CTDL'),
+    ('WEB1', 'KTLT');
+GO
+
+-- Học kỳ
+INSERT INTO HocKy (MaHK, TenHK, NamHoc, NgayBatDau, NgayKetThuc, TrangThai) VALUES
+    ('HK1_2425', N'Học kỳ 1 - 2024/2025', '2024-2025', '2024-09-02', '2025-01-10', 'DaKetThuc'),
+    ('HK2_2425', N'Học kỳ 2 - 2024/2025', '2024-2025', '2025-01-20', '2025-06-15', 'DaKetThuc'),
+    ('HK1_2526', N'Học kỳ 1 - 2025/2026', '2025-2026', '2025-09-01', '2026-01-10', 'DangDienRa');
+GO
+
+-- Lớp học phần
+INSERT INTO LopHocPhan (MaLHP, MaMH, MaGV, MaHK, Phong, LichHoc, SiSoToiDa, SiSoHienTai, TrangThai) VALUES
+    ('LHP001', 'CTDL',  'GV001', 'HK1_2526', N'A101', N'Thứ 2, 7h-9h30',   40, 3, 'DangMo'),
+    ('LHP002', 'LTOOP', 'GV001', 'HK1_2526', N'B202', N'Thứ 4, 9h-11h30',  40, 2, 'DangMo'),
+    ('LHP003', 'MMT',   'GV002', 'HK1_2526', N'C303', N'Thứ 6, 13h-15h30', 35, 1, 'DangMo'),
+    ('LHP004', 'KTLT',  'GV003', 'HK1_2526', N'Lab1', N'Thứ 3, 7h-9h30',   30, 2, 'DangMo');
+GO
+
+-- Đăng ký học phần
+INSERT INTO DangKyHocPhan (MaSV, MaLHP, TrangThai) VALUES
+    ('SV22001', 'LHP001', 'HoanThanh'),
+    ('SV22001', 'LHP002', 'HoanThanh'),
+    ('SV22001', 'LHP003', 'DaDangKy'),
+    ('SV22002', 'LHP001', 'HoanThanh'),
+    ('SV22002', 'LHP002', 'HoanThanh'),
+    ('SV22003', 'LHP004', 'HoanThanh');
+GO
+
+-- Điểm mẫu
+-- SV22001 - LHP001 (CTDL): MaDK = 1
+INSERT INTO Diem (MaDK, DiemCC, DiemGK, DiemCK, DaChotDiem, MaGV_NhapDiem) VALUES
+    (1, 9.0, 8.0, 8.5, 1, 'GV001'),   -- DTB = 0.9+2.4+5.1 = 8.4 → B+ → 3.5
+    (2, 8.0, 7.5, 9.0, 1, 'GV001'),   -- DTB = 0.8+2.25+5.4 = 8.45 → B+ → 3.5
+    (4, 7.0, 6.5, 7.5, 1, 'GV001'),   -- DTB = 0.7+1.95+4.5 = 7.15 → B+ → 3.5
+    (5, 8.5, 8.0, 8.0, 1, 'GV001'),   -- DTB = 0.85+2.4+4.8 = 8.05 → B+ → 3.5
+    (6, 8.0, 7.0, 7.5, 1, 'GV003');   -- DTB = 0.8+2.1+4.5 = 7.4  → B+ → 3.5
+GO
+
+-- ============================================================
+--  KIỂM TRA TOÀN BỘ
+-- ============================================================
+
+-- 1. Kiểm tra đăng nhập
+EXEC sp_DangNhap 'sv22001', 'Sv22001@123';
+
+-- 2. Xem bảng điểm SV22001
+EXEC sp_LayBangDiem 'SV22001';
+
+-- 3. Xem thông tin lớp + danh sách SV trong LHP001 (để nhập điểm)
+EXEC sp_LayDanhSachSVTrongLHP 'LHP001';
+
+-- 4. Xem lớp học phần của GV001
+EXEC sp_LayLopHPCuaGV 'GV001';
+
+-- 5. Thống kê HK1_2526
+EXEC sp_ThongKe 'HK1_2526', NULL;
+
+-- 6. Danh sách tài khoản
+EXEC sp_LayDanhSachTK NULL;
+
+-- 7. Xem view GPA tích lũy
+SELECT * FROM vw_GPATichLuy;
+
+-- 8. Dashboard Admin
+SELECT * FROM vw_Dashboard_Admin;
+GO

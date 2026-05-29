@@ -1,0 +1,464 @@
+﻿namespace qldsv
+{
+    partial class ThemSV
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            groupBox2 = new GroupBox();
+            comboBox1 = new ComboBox();
+            comboBox3 = new ComboBox();
+            comboBox4 = new ComboBox();
+            textBox6 = new TextBox();
+            textBox2 = new TextBox();
+            textBox1 = new TextBox();
+            textBox3 = new TextBox();
+            groupBox1 = new GroupBox();
+            comboBox5 = new ComboBox();
+            label9 = new Label();
+            label1 = new Label();
+            label2 = new Label();
+            label3 = new Label();
+            label4 = new Label();
+            radioButton1 = new RadioButton();
+            radioButton2 = new RadioButton();
+            textBox4 = new TextBox();
+            textBox5 = new TextBox();
+            textBox7 = new TextBox();
+            label5 = new Label();
+            label7 = new Label();
+            label8 = new Label();
+            label10 = new Label();
+            label11 = new Label();
+            label12 = new Label();
+            label6 = new Label();
+            label13 = new Label();
+            button1 = new Button();
+            button2 = new Button();
+            button3 = new Button();
+            groupBox2.SuspendLayout();
+            groupBox1.SuspendLayout();
+            SuspendLayout();
+            // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(label4);
+            groupBox2.Controls.Add(label3);
+            groupBox2.Controls.Add(label2);
+            groupBox2.Controls.Add(label1);
+            groupBox2.Controls.Add(label9);
+            groupBox2.Controls.Add(comboBox5);
+            groupBox2.Controls.Add(comboBox1);
+            groupBox2.Controls.Add(comboBox3);
+            groupBox2.Controls.Add(comboBox4);
+            groupBox2.Controls.Add(textBox6);
+            groupBox2.Location = new Point(404, 12);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(384, 304);
+            groupBox2.TabIndex = 5;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Thông tin học tập";
+            // 
+            // comboBox1
+            // 
+            comboBox1.DrawMode = DrawMode.OwnerDrawFixed;
+            comboBox1.DropDownHeight = 41;
+            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox1.FormattingEnabled = true;
+            comboBox1.IntegralHeight = false;
+            comboBox1.Items.AddRange(new object[] { "Đang học", "", "Bảo lưu", "", "Tạm nghỉ học", "", "Đình chỉ học tập", "", "Đã tốt nghiệp", "", "Chờ tốt nghiệp", "", "Thôi học", "", "Học lại", "", "Cảnh báo học vụ", "", "Nợ học phí", "", "Chuyển trường", "", "Trao đổi sinh viên", "", "Đang thực tập", "", "Hoàn thành chương trình", "", "Chưa đăng ký học phần", "", "Đang chờ xét tốt nghiệp" });
+            comboBox1.Location = new Point(145, 250);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(233, 28);
+            comboBox1.TabIndex = 32;
+            // 
+            // comboBox3
+            // 
+            comboBox3.DrawMode = DrawMode.OwnerDrawFixed;
+            comboBox3.DropDownHeight = 41;
+            comboBox3.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox3.FormattingEnabled = true;
+            comboBox3.IntegralHeight = false;
+            comboBox3.Items.AddRange(new object[] { "524A", "CNTT", "524B", "CNTT ", "523A", "CNTT", "523B", "KTPM ", "524A", "KTPM ", "523A", "HTTT ", "524", "HTTT", "523", "AI ", "524A", "AI " });
+            comboBox3.Location = new Point(145, 138);
+            comboBox3.Name = "comboBox3";
+            comboBox3.Size = new Size(233, 28);
+            comboBox3.TabIndex = 31;
+            // 
+            // comboBox4
+            // 
+            comboBox4.DrawMode = DrawMode.OwnerDrawFixed;
+            comboBox4.DropDownHeight = 41;
+            comboBox4.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox4.FormattingEnabled = true;
+            comboBox4.IntegralHeight = false;
+            comboBox4.Items.AddRange(new object[] { "An Toàn Thông Tin", "", "Trí Tuệ Nhân Tạo", "", "Khoa Học Dữ Liệu", "", "Mạng Máy Tính", "", "Thiết Kế Đồ Họa", "", "Digital Marketing", "", "Quản Trị Kinh Doanh", "", "Kế Toán", "Tài Chính - Ngân Hàng", "", "Marketing", "Logistics", "", "Luật Kinh Tế", "", "Ngôn Ngữ Anh", "", "Du Lịch" });
+            comboBox4.Location = new Point(145, 82);
+            comboBox4.Name = "comboBox4";
+            comboBox4.Size = new Size(233, 28);
+            comboBox4.TabIndex = 23;
+            // 
+            // textBox6
+            // 
+            textBox6.Location = new Point(145, 194);
+            textBox6.Multiline = true;
+            textBox6.Name = "textBox6";
+            textBox6.Size = new Size(125, 28);
+            textBox6.TabIndex = 11;
+            // 
+            // textBox2
+            // 
+            textBox2.Location = new Point(116, 41);
+            textBox2.Multiline = true;
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(262, 28);
+            textBox2.TabIndex = 11;
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(116, 75);
+            textBox1.Multiline = true;
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(262, 28);
+            textBox1.TabIndex = 12;
+            // 
+            // textBox3
+            // 
+            textBox3.Location = new Point(116, 109);
+            textBox3.Multiline = true;
+            textBox3.Name = "textBox3";
+            textBox3.Size = new Size(262, 28);
+            textBox3.TabIndex = 13;
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(label6);
+            groupBox1.Controls.Add(label12);
+            groupBox1.Controls.Add(label11);
+            groupBox1.Controls.Add(label10);
+            groupBox1.Controls.Add(label8);
+            groupBox1.Controls.Add(label7);
+            groupBox1.Controls.Add(label5);
+            groupBox1.Controls.Add(textBox4);
+            groupBox1.Controls.Add(textBox5);
+            groupBox1.Controls.Add(textBox7);
+            groupBox1.Controls.Add(radioButton2);
+            groupBox1.Controls.Add(radioButton1);
+            groupBox1.Controls.Add(textBox3);
+            groupBox1.Controls.Add(textBox1);
+            groupBox1.Controls.Add(textBox2);
+            groupBox1.Location = new Point(12, 12);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(384, 304);
+            groupBox1.TabIndex = 4;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Thông tin cơ bản";
+            // 
+            // comboBox5
+            // 
+            comboBox5.DrawMode = DrawMode.OwnerDrawFixed;
+            comboBox5.DropDownHeight = 41;
+            comboBox5.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox5.FormattingEnabled = true;
+            comboBox5.IntegralHeight = false;
+            comboBox5.Items.AddRange(new object[] { "Marketing", "", "Logistics & Quản Lý Chuỗi Cung Ứng", "", "Ngoại Ngữ", "", "Du Lịch", "", "Luật", "", "Y Dược", "", "Điều Dưỡng", "", "Sư Phạm", "", "Nông Nghiệp", "", "Công Nghệ Sinh Học", "", "Môi Trường", "", "Toán - Tin", "", "Vật Lý Kỹ Thuật", "", "Hóa Học", "", "Báo Chí - Truyền Thông", "", "Thiết Kế Đồ Họa" });
+            comboBox5.Location = new Point(145, 26);
+            comboBox5.Name = "comboBox5";
+            comboBox5.Size = new Size(233, 28);
+            comboBox5.TabIndex = 33;
+            // 
+            // label9
+            // 
+            label9.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label9.Font = new Font("Times New Roman", 12F);
+            label9.Location = new Point(17, 26);
+            label9.Name = "label9";
+            label9.Size = new Size(122, 28);
+            label9.TabIndex = 40;
+            label9.Text = "Khoa";
+            label9.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label1
+            // 
+            label1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label1.Font = new Font("Times New Roman", 12F);
+            label1.Location = new Point(17, 82);
+            label1.Name = "label1";
+            label1.Size = new Size(122, 28);
+            label1.TabIndex = 41;
+            label1.Text = "Ngành";
+            label1.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label2
+            // 
+            label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label2.Font = new Font("Times New Roman", 12F);
+            label2.Location = new Point(17, 138);
+            label2.Name = "label2";
+            label2.Size = new Size(122, 28);
+            label2.TabIndex = 42;
+            label2.Text = "Lớp ";
+            label2.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label3
+            // 
+            label3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label3.Font = new Font("Times New Roman", 12F);
+            label3.Location = new Point(17, 194);
+            label3.Name = "label3";
+            label3.Size = new Size(122, 28);
+            label3.TabIndex = 43;
+            label3.Text = "Năm nhập học";
+            label3.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label4
+            // 
+            label4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label4.Font = new Font("Times New Roman", 12F);
+            label4.Location = new Point(17, 250);
+            label4.Name = "label4";
+            label4.Size = new Size(122, 28);
+            label4.TabIndex = 44;
+            label4.Text = "Tình trạng";
+            label4.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // radioButton1
+            // 
+            radioButton1.AutoSize = true;
+            radioButton1.Location = new Point(116, 151);
+            radioButton1.Name = "radioButton1";
+            radioButton1.Size = new Size(62, 24);
+            radioButton1.TabIndex = 33;
+            radioButton1.TabStop = true;
+            radioButton1.Text = "Nam";
+            radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // radioButton2
+            // 
+            radioButton2.AutoSize = true;
+            radioButton2.Location = new Point(184, 151);
+            radioButton2.Name = "radioButton2";
+            radioButton2.Size = new Size(50, 24);
+            radioButton2.TabIndex = 34;
+            radioButton2.TabStop = true;
+            radioButton2.Text = "Nữ";
+            radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // textBox4
+            // 
+            textBox4.Location = new Point(116, 251);
+            textBox4.Multiline = true;
+            textBox4.Name = "textBox4";
+            textBox4.Size = new Size(262, 28);
+            textBox4.TabIndex = 37;
+            // 
+            // textBox5
+            // 
+            textBox5.Location = new Point(116, 217);
+            textBox5.Multiline = true;
+            textBox5.Name = "textBox5";
+            textBox5.Size = new Size(262, 28);
+            textBox5.TabIndex = 36;
+            // 
+            // textBox7
+            // 
+            textBox7.Location = new Point(116, 183);
+            textBox7.Multiline = true;
+            textBox7.Name = "textBox7";
+            textBox7.Size = new Size(262, 28);
+            textBox7.TabIndex = 35;
+            // 
+            // label5
+            // 
+            label5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label5.Font = new Font("Times New Roman", 12F);
+            label5.Location = new Point(6, 41);
+            label5.Name = "label5";
+            label5.Size = new Size(104, 28);
+            label5.TabIndex = 41;
+            label5.Text = "Mã SV";
+            label5.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label7
+            // 
+            label7.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label7.Font = new Font("Times New Roman", 12F);
+            label7.Location = new Point(6, 109);
+            label7.Name = "label7";
+            label7.Size = new Size(104, 28);
+            label7.TabIndex = 43;
+            label7.Text = "Ngày sinh";
+            label7.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label8
+            // 
+            label8.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label8.Font = new Font("Times New Roman", 12F);
+            label8.Location = new Point(6, 75);
+            label8.Name = "label8";
+            label8.Size = new Size(104, 28);
+            label8.TabIndex = 44;
+            label8.Text = "Họ tên";
+            label8.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label10
+            // 
+            label10.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label10.Font = new Font("Times New Roman", 12F);
+            label10.Location = new Point(6, 183);
+            label10.Name = "label10";
+            label10.Size = new Size(104, 28);
+            label10.TabIndex = 45;
+            label10.Text = "Gmail";
+            label10.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label11
+            // 
+            label11.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label11.Font = new Font("Times New Roman", 12F);
+            label11.Location = new Point(6, 217);
+            label11.Name = "label11";
+            label11.Size = new Size(104, 28);
+            label11.TabIndex = 46;
+            label11.Text = "SĐT";
+            label11.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label12
+            // 
+            label12.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label12.Font = new Font("Times New Roman", 12F);
+            label12.Location = new Point(6, 251);
+            label12.Name = "label12";
+            label12.Size = new Size(104, 28);
+            label12.TabIndex = 47;
+            label12.Text = "Địa chỉ";
+            label12.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label6
+            // 
+            label6.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label6.Font = new Font("Times New Roman", 12F);
+            label6.Location = new Point(6, 147);
+            label6.Name = "label6";
+            label6.Size = new Size(104, 28);
+            label6.TabIndex = 48;
+            label6.Text = "Giới tính";
+            label6.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label13
+            // 
+            label13.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label13.Font = new Font("Times New Roman", 12F);
+            label13.Location = new Point(12, 319);
+            label13.Name = "label13";
+            label13.Size = new Size(776, 56);
+            label13.TabIndex = 45;
+            label13.Text = "Mật khẩu mặc định tài khoản\r\n là MSV. Sinh viên tự đổi sau khi đăng nhập lần đầu.";
+            label13.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(196, 392);
+            button1.Name = "button1";
+            button1.Size = new Size(112, 43);
+            button1.TabIndex = 46;
+            button1.Text = "Lưu";
+            button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            button2.Location = new Point(341, 392);
+            button2.Name = "button2";
+            button2.Size = new Size(112, 43);
+            button2.TabIndex = 47;
+            button2.Text = "Đặt Lại";
+            button2.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            button3.Location = new Point(486, 392);
+            button3.Name = "button3";
+            button3.Size = new Size(112, 43);
+            button3.TabIndex = 48;
+            button3.Text = "Hủy";
+            button3.UseVisualStyleBackColor = true;
+            // 
+            // ThemSV
+            // 
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 447);
+            Controls.Add(button3);
+            Controls.Add(button2);
+            Controls.Add(button1);
+            Controls.Add(label13);
+            Controls.Add(groupBox2);
+            Controls.Add(groupBox1);
+            Name = "ThemSV";
+            Text = "ThemSV";
+            Load += ThemSV_Load;
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            ResumeLayout(false);
+        }
+
+        #endregion
+
+        private GroupBox groupBox2;
+        private ComboBox comboBox1;
+        private ComboBox comboBox3;
+        private ComboBox comboBox4;
+        private TextBox textBox6;
+        private TextBox textBox2;
+        private TextBox textBox1;
+        private TextBox textBox3;
+        private GroupBox groupBox1;
+        private ComboBox comboBox5;
+        private Label label4;
+        private Label label3;
+        private Label label2;
+        private Label label1;
+        private Label label9;
+        private TextBox textBox4;
+        private TextBox textBox5;
+        private TextBox textBox7;
+        private RadioButton radioButton2;
+        private RadioButton radioButton1;
+        private Label label6;
+        private Label label12;
+        private Label label11;
+        private Label label10;
+        private Label label8;
+        private Label label7;
+        private Label label5;
+        private Label label13;
+        private Button button1;
+        private Button button2;
+        private Button button3;
+    }
+}
