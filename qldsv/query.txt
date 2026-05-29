@@ -942,10 +942,7 @@ BEGIN
 END;
 GO
 
--- ============================================================
 --  DỮ LIỆU MẪU
--- ============================================================
-
 -- Khoa (lấy từ ThemSuaMH.comboBox6)
 INSERT INTO Khoa (MaKhoa, TenKhoa) VALUES
     ('CNTT', N'Công nghệ thông tin'),

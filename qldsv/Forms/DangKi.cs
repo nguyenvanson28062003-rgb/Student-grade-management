@@ -1,4 +1,4 @@
-﻿#nullable disable
+#nullable disable
 using Microsoft.Data.SqlClient;
 using qldsv.Service;
 
@@ -12,6 +12,7 @@ namespace quản_lí_điểm_sinh_viên
         public DangKi()
         {
             InitializeComponent();
+            ThemeApplier.Apply(this);
             textBox2.PasswordChar = '*';
             textBox3.PasswordChar = '*';
             button1.Click += btnDangKi_Click;

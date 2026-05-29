@@ -1,4 +1,4 @@
-﻿#nullable disable
+#nullable disable
 using Microsoft.Data.SqlClient;
 using System.Data;
 using qldsv.Service;
@@ -12,13 +12,14 @@ namespace qldsv
         public MenuSV()
         {
             InitializeComponent();
+            ThemeApplier.Apply(this);
             this.Load += MenuSV_Load;
 
             // Sidebar
             button7.Click += (s, e) => TaiDashboard();                                           // Tổng quan (refresh)
             button8.Click += (s, e) => MoFormBangDiem();                                         // Bảng điểm
             button10.Click += (s, e) => MessageBox.Show("Đăng ký môn học: đang phát triển.");     // Đăng ký MH
-            button2.Click += (s, e) => MessageBox.Show("Hồ Sơ Cá Nhân: đang phát triển.");      // Hồ Sơ
+            button2.Click += (s, e) => new XemHoSo(SessionInfo.MaSV).ShowDialog();              // Hồ Sơ
             button3.Click += (s, e) => new quản_lí_điểm_sinh_viên.DoiMK().ShowDialog();          // Đổi MK
             button1.Click += (s, e) => MessageBox.Show("TKB: đang phát triển.");                  // TKB
 
@@ -36,9 +37,6 @@ namespace qldsv
             TaiDashboard();
         }
 
-        // --------------------------------------------------------
-        //  Tải dashboard sinh viên
-        // --------------------------------------------------------
         private void TaiDashboard()
         {
             TaiThongKe();
@@ -105,16 +103,17 @@ namespace qldsv
                     dataGridView1.DataSource = dt;
                 }
 
-                SetHeader("TenMon", "Môn Học");
-                SetHeader("DiemCC", "CC");
-                SetHeader("DiemGK", "GK");
-                SetHeader("DiemCK", "CK");
-                SetHeader("DiemTB", "DTB");
+                SetHeader("TenMH",   "Môn Học");
+                SetHeader("DiemCC",  "CC");
+                SetHeader("DiemGK",  "GK");
+                SetHeader("DiemCK",  "CK");
+                SetHeader("DiemTB",  "DTB");
                 SetHeader("XepLoai", "Xếp Loại");
 
                 // Ẩn cột không cần
-                HideCol("MaMon"); HideCol("MaHK"); HideCol("TenHK");
+                HideCol("MaMH"); HideCol("MaHK"); HideCol("TenHK");
                 HideCol("SoTinChi"); HideCol("DiemGPA"); HideCol("KetQua");
+                HideCol("NamHoc"); HideCol("DaChotDiem");
             }
             catch { }
         }

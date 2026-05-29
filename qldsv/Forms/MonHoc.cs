@@ -13,6 +13,7 @@ namespace qldsv
         public MonHoc()
         {
             InitializeComponent();
+            ThemeApplier.Apply(this);
             this.Load += MonHoc_Load;
 
             button7.Click += btnThemMon_Click;

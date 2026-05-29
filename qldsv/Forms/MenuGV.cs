@@ -12,6 +12,7 @@ namespace qldsv
         public MenuGV()
         {
             InitializeComponent();
+            ThemeApplier.Apply(this);
             this.Load += MenuGV_Load;
 
             // Sidebar
@@ -39,9 +40,6 @@ namespace qldsv
             TaiDashboardGV();
         }
 
-        // --------------------------------------------------------
-        //  Tải dashboard giảng viên
-        // --------------------------------------------------------
         private void TaiDashboardGV()
         {
             try
@@ -110,9 +108,6 @@ namespace qldsv
             }
         }
 
-        // --------------------------------------------------------
-        //  Double-click vào lớp → Nhập điểm (từ dashboard)
-        // --------------------------------------------------------
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
@@ -125,9 +120,6 @@ namespace qldsv
             }
         }
 
-        // --------------------------------------------------------
-        //  Nhập điểm: dùng lớp đang chọn trong DataGrid
-        // --------------------------------------------------------
         private void MoFormNhapDiem()
         {
             if (dataGridView1.CurrentRow == null)
@@ -145,9 +137,6 @@ namespace qldsv
             }
         }
 
-        // --------------------------------------------------------
-        //  Xem bảng điểm: mở form BangDiem cho từng lớp
-        // --------------------------------------------------------
         private void MoFormBangDiem()
         {
             if (dataGridView1.CurrentRow == null)
@@ -164,9 +153,6 @@ namespace qldsv
             frmDS.ShowDialog();
         }
 
-        // --------------------------------------------------------
-        //  Helper: mở form con – ẩn Menu, khi con đóng → hiện lại
-        // --------------------------------------------------------
         private void MoForm(Form form)
         {
             this.Hide();

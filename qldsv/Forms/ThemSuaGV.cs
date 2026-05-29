@@ -1,8 +1,4 @@
 #nullable disable
-// ================================================================
-//  ThemSuaGV.cs  –  Thêm / Sửa Giảng Viên
-//  Namespace: qldsv
-// ================================================================
 using Microsoft.Data.SqlClient;
 using System.Data;
 using qldsv.Service;
@@ -16,12 +12,10 @@ namespace qldsv
         private bool _isEdit => _maGV != null;
         private readonly List<ComboItem> _khoaItems = new();
 
-        // --------------------------------------------------------
-        //  Constructor
-        // --------------------------------------------------------
         public ThemSuaGV(string maGV)
         {
             InitializeComponent();
+            ThemeApplier.Apply(this);
             _maGV = maGV;
 
             this.Load += ThemSuaGV_Load;
@@ -30,9 +24,6 @@ namespace qldsv
             button3.Click += btnHuy_Click;
         }
 
-        // --------------------------------------------------------
-        //  Load
-        // --------------------------------------------------------
         private void ThemSuaGV_Load(object sender, EventArgs e)
         {
             this.Text = _isEdit ? "Sửa Giảng Viên" : "Thêm Giảng Viên";
@@ -52,9 +43,6 @@ namespace qldsv
             }
         }
 
-        // --------------------------------------------------------
-        //  Sinh mã GV tự động
-        // --------------------------------------------------------
         private void SinhMaGV()
         {
             try
@@ -73,9 +61,6 @@ namespace qldsv
             }
         }
 
-        // --------------------------------------------------------
-        //  Nạp thông tin khi sửa
-        // --------------------------------------------------------
         private void NapThongTinGV()
         {
             try
@@ -116,9 +101,6 @@ namespace qldsv
             }
         }
 
-        // --------------------------------------------------------
-        //  Lưu
-        // --------------------------------------------------------
         private void btnLuu_Click(object sender, EventArgs e)
         {
             if (!ValidateGV()) return;
@@ -221,9 +203,6 @@ namespace qldsv
             }
         }
 
-        // --------------------------------------------------------
-        //  Đặt lại form
-        // --------------------------------------------------------
         private void btnDatLai_Click(object sender, EventArgs e)
         {
             if (_isEdit)
@@ -242,10 +221,6 @@ namespace qldsv
         }
 
         private void btnHuy_Click(object sender, EventArgs e) => this.Close();
-
-        // --------------------------------------------------------
-        //  Validate
-        // --------------------------------------------------------
         private bool ValidateGV()
         {
             if (string.IsNullOrWhiteSpace(textBox2.Text))
@@ -261,9 +236,6 @@ namespace qldsv
             return true;
         }
 
-        // --------------------------------------------------------
-        //  Helpers
-        // --------------------------------------------------------
         private void NapComboKhoa(ComboBox cb)
         {
             cb.Items.Clear();

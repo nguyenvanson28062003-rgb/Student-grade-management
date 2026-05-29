@@ -32,5 +32,11 @@
     <Compile Update="Forms\ThongKe.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\XemHoSo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Service\PremiumDashboard.cs">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

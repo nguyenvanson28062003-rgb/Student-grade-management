@@ -1,8 +1,4 @@
 #nullable disable
-// ================================================================
-//  ThemSuaSV.cs  –  Thêm / Sửa Sinh Viên
-//  Class: ThemSV  |  Namespace: qldsv
-// ================================================================
 using Microsoft.Data.SqlClient;
 using System.Data;
 using qldsv.Service;
@@ -18,6 +14,7 @@ namespace qldsv
         public ThemSV(string maSV = null)
         {
             InitializeComponent();
+            ThemeApplier.Apply(this);
             _maSV = maSV;
             this.Load += ThemSV_Load;
             button1.Click += btnLuu_Click;
@@ -25,9 +22,6 @@ namespace qldsv
             button3.Click += btnHuy_Click;
         }
 
-        // --------------------------------------------------------
-        //  Load
-        // --------------------------------------------------------
         private void ThemSV_Load(object sender, EventArgs e)
         {
             this.Text = _isEdit ? "Sửa Sinh Viên" : "Thêm Sinh Viên";
@@ -66,9 +60,6 @@ namespace qldsv
             }
         }
 
-        // --------------------------------------------------------
-        //  Nạp ComboBox Khoa
-        // --------------------------------------------------------
         private void NapComboKhoa(ComboBox cb)
         {
             cb.Items.Clear();
@@ -91,9 +82,6 @@ namespace qldsv
             if (cb.Items.Count > 0) cb.SelectedIndex = 0;
         }
 
-        // --------------------------------------------------------
-        //  Sinh mã SV tự động
-        // --------------------------------------------------------
         private void SinhMaSV()
         {
             try
@@ -109,9 +97,6 @@ namespace qldsv
             catch { textBox2.Text = "SV" + DateTime.Now.Year + "001"; }
         }
 
-        // --------------------------------------------------------
-        //  Nạp thông tin SV khi sửa
-        // --------------------------------------------------------
         private void NapThongTinSV()
         {
             try
@@ -145,8 +130,6 @@ namespace qldsv
 
                     string maKhoa = r["MaKhoa"]?.ToString() ?? "";
                     SetComboByKey(comboBox5, maKhoa);   // Khoa (MaKhoa)
-                    
-                    // Now reload Lop with this Khoa
                     NapComboLop(comboBox3, maKhoa);
                     SetComboByValue(comboBox3, r["MaLop"]?.ToString());      // Lớp (MaLop)
                     
@@ -160,9 +143,6 @@ namespace qldsv
             }
         }
 
-        // --------------------------------------------------------
-        //  Lưu
-        // --------------------------------------------------------
         private void btnLuu_Click(object sender, EventArgs e)
         {
             if (!ValidateInput()) return;
@@ -301,9 +281,6 @@ namespace qldsv
             }
         }
 
-        // --------------------------------------------------------
-        //  Đặt lại
-        // --------------------------------------------------------
         private void btnDatLai_Click(object sender, EventArgs e)
         {
             if (_isEdit) { NapThongTinSV(); return; }
@@ -320,9 +297,6 @@ namespace qldsv
 
         private void btnHuy_Click(object sender, EventArgs e) => this.Close();
 
-        // --------------------------------------------------------
-        //  Validate
-        // --------------------------------------------------------
         private bool ValidateInput()
         {
             if (string.IsNullOrWhiteSpace(textBox2.Text))
@@ -332,18 +306,12 @@ namespace qldsv
             return true;
         }
 
-        // --------------------------------------------------------
-        //  Khi thay đổi Khoa, reload Lớp
-        // --------------------------------------------------------
         private void ComboBox5_SelectedIndexChanged(object sender, EventArgs e)
         {
             string maKhoa = comboBox5.SelectedItem is ComboItem ci ? ci.Key : "";
             NapComboLop(comboBox3, maKhoa);
         }
 
-        // --------------------------------------------------------
-        //  Nạp ComboBox Lớp – lấy MaLop từ bảng Lop theo MaKhoa
-        // --------------------------------------------------------
         private void NapComboLop(ComboBox cb, string maKhoa = "")
         {
             cb.Items.Clear();
@@ -384,9 +352,6 @@ namespace qldsv
             if (cb.Items.Count > 0) cb.SelectedIndex = 0;
         }
 
-        // --------------------------------------------------------
-        //  Helper: chọn item trong combo theo giá trị text
-        // --------------------------------------------------------
         private void SetComboByValue(ComboBox cb, string value)
         {
             if (string.IsNullOrEmpty(value)) return;
@@ -402,9 +367,6 @@ namespace qldsv
             if (cb.Items.Count > 0) cb.SelectedIndex = 0;
         }
 
-        // --------------------------------------------------------
-        //  Helper: chọn item trong combo theo key (for ComboItem)
-        // --------------------------------------------------------
         private void SetComboByKey(ComboBox cb, string key)
         {
             if (string.IsNullOrEmpty(key)) return;

@@ -1,7 +1,10 @@
 #nullable disable
 using Microsoft.Data.SqlClient;
 using System.Data;
+using System.IO;
 using qldsv.Service;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
 
 namespace qldsv
 {
@@ -13,6 +16,7 @@ namespace qldsv
         public GiangVien()
         {
             InitializeComponent();
+            ThemeApplier.Apply(this);
             this.Load += GiangVien_Load;
 
             button9.Click += btnThemMoi_Click;
@@ -231,8 +235,57 @@ namespace qldsv
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Tính năng xuất Excel đang phát triển.",
-                "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            try
+            {
+                ExcelPackage.License.SetNonCommercialPersonal("qldsv");
+
+                using var dlg = new SaveFileDialog
+                {
+                    Filter = "Excel Files|*.xlsx",
+                    Title = "Lưu Danh Sách Giảng Viên",
+                    FileName = $"DanhSachGiangVien_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx"
+                };
+                if (dlg.ShowDialog() != DialogResult.OK) return;
+
+                using var package = new ExcelPackage();
+                var ws = package.Workbook.Worksheets.Add("DanhSachGV");
+
+                string[] headers = { "Mã GV", "Họ Tên", "Học Vị", "Chuyên Ngành", "Khoa", "Email", "SĐT", "Số Lớp Dạy" };
+                for (int col = 0; col < headers.Length; col++)
+                    ws.Cells[1, col + 1].Value = headers[col];
+
+                using (var rng = ws.Cells[1, 1, 1, headers.Length])
+                {
+                    rng.Style.Font.Bold = true;
+                    rng.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    rng.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightBlue);
+                    rng.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                }
+
+                for (int i = 0; i < _dtGV.Rows.Count; i++)
+                {
+                    var dr = _dtGV.Rows[i];
+                    ws.Cells[i + 2, 1].Value = dr["MaGV"]?.ToString();
+                    ws.Cells[i + 2, 2].Value = dr["HoTen"]?.ToString();
+                    ws.Cells[i + 2, 3].Value = dr["HocVi"]?.ToString();
+                    ws.Cells[i + 2, 4].Value = dr["ChuyenNganh"]?.ToString();
+                    ws.Cells[i + 2, 5].Value = dr["Khoa"]?.ToString();
+                    ws.Cells[i + 2, 6].Value = dr["Email"]?.ToString();
+                    ws.Cells[i + 2, 7].Value = dr["SoDienThoai"]?.ToString();
+                    ws.Cells[i + 2, 8].Value = dr["SoLopDay"]?.ToString();
+                }
+
+                ws.Cells[ws.Dimension.Address].AutoFitColumns();
+                File.WriteAllBytes(dlg.FileName, package.GetAsByteArray());
+
+                MessageBox.Show("Xuất Excel thành công!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi xuất Excel: " + ex.Message, "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void button7_Click(object sender, EventArgs e) => btnExport_Click(sender, e);

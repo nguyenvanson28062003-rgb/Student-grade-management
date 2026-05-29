@@ -1,12 +1,9 @@
 #nullable disable
-// ================================================================
-//  SinhVien.cs  –  Ví dụ kết nối database cho form Quản lý Sinh Viên
-//  Dùng: load DataGrid, tìm kiếm, lọc theo Khoa/Lớp/Tình trạng
-// ================================================================
-
 using Microsoft.Data.SqlClient;
 using System.Data;
 using qldsv.Service;
+using OfficeOpenXml;
+using System.IO;
 
 namespace qldsv
 {
@@ -18,22 +15,24 @@ namespace qldsv
         public SinhVien()
         {
             InitializeComponent();
+            ThemeApplier.Apply(this);
             this.Load += SinhVien_Load;
 
             // Gán sự kiện cho các nút
-            button9.Click += btnThemMoi_Click;   // Thêm mới
-            button5.Click += btnSua_Click;        // Sửa
-            button2.Click += btnXoa_Click;        // Xóa
-            button10.Click += btnTimKiem_Click;   // 🔍 Tìm kiếm
-            button1.Click += btnQuayVe_Click;     // Quay về MN
-            button6.Click += btnThoat_Click;      // Thoát
+            button9.Click += btnThemMoi_Click;   
+            button5.Click += btnSua_Click;        
+            button2.Click += btnXoa_Click;        
+            button10.Click += btnTimKiem_Click;   
+            button1.Click += btnQuayVe_Click;     
+            button6.Click += btnThoat_Click;      
+            button3.Click += btnXemDiem_Click;    
+            button4.Click += btnXemHoSo_Click;    
+            button7.Click += btnExport_Click;     
+            button8.Click += btnImport_Click;    
 
             comboBox2.SelectedIndexChanged += comboBox2_SelectedIndexChanged; // lọc lớp
         }
 
-        // --------------------------------------------------------
-        //  Load form: nạp dữ liệu vào ComboBox + DataGrid
-        // --------------------------------------------------------
         private void SinhVien_Load(object sender, EventArgs e)
         {
             NapComboBoxKhoa();
@@ -116,9 +115,6 @@ namespace qldsv
             comboBox3.SelectedIndex = 0;
         }
 
-        // --------------------------------------------------------
-        //  Tải danh sách SV (có lọc theo điều kiện)
-        // --------------------------------------------------------
         private void TaiDanhSachSV(string tuKhoa = "", string maLop = "", string tinhTrang = "")
         {
             try
@@ -176,9 +172,6 @@ namespace qldsv
             }
         }
 
-        // --------------------------------------------------------
-        //  Nút 🔍 Tìm kiếm
-        // --------------------------------------------------------
         private void btnTimKiem_Click(object sender, EventArgs e)
         {
             string tuKhoa = textBox2.Text.Trim();
@@ -188,17 +181,11 @@ namespace qldsv
             TaiDanhSachSV(tuKhoa, maLop, tinhTrang);
         }
 
-        // --------------------------------------------------------
-        //  Lọc Lớp khi thay đổi comboBox2
-        // --------------------------------------------------------
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
             btnTimKiem_Click(sender, e);
         }
 
-        // --------------------------------------------------------
-        //  Nút Thêm mới → mở form ThemSuaSV ở chế độ Thêm
-        // --------------------------------------------------------
         private void btnThemMoi_Click(object sender, EventArgs e)
         {
             var frm = new ThemSV(null);   // null = thêm mới
@@ -207,9 +194,6 @@ namespace qldsv
             TaiDanhSachSV();
         }
 
-        // --------------------------------------------------------
-        //  Nút Sửa → lấy dòng đang chọn → mở ThemSuaSV với MaSV
-        // --------------------------------------------------------
         private void btnSua_Click(object sender, EventArgs e)
         {
             if (dataGridView1.CurrentRow == null) return;
@@ -221,9 +205,6 @@ namespace qldsv
             TaiDanhSachSV();
         }
 
-        // --------------------------------------------------------
-        //  Nút Xóa
-        // --------------------------------------------------------
         private void btnXoa_Click(object sender, EventArgs e)
         {
             if (dataGridView1.CurrentRow == null) return;
@@ -322,6 +303,255 @@ namespace qldsv
         private void btnThoat_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void btnXemDiem_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.CurrentRow == null)
+            {
+                MessageBox.Show("Vui lòng chọn sinh viên trước!", "Thông báo", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            string maSV = dataGridView1.CurrentRow.Cells["MaSV"].Value?.ToString() ?? "";
+            if (string.IsNullOrEmpty(maSV)) return;
+            var frm = new quản_lí_điểm_sinh_viên.BangDiemcs(maSV);
+            frm.ShowDialog();
+        }
+
+        private void btnXemHoSo_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.CurrentRow == null)
+            {
+                MessageBox.Show("Vui lòng chọn sinh viên trước!", "Thông báo", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            string maSV = dataGridView1.CurrentRow.Cells["MaSV"].Value?.ToString() ?? "";
+            if (string.IsNullOrEmpty(maSV)) return;
+            var frm = new XemHoSo(maSV);
+            frm.ShowDialog();
+        }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ExcelPackage.License.SetNonCommercialPersonal("qldsv");
+                
+                SaveFileDialog saveDialog = new SaveFileDialog();
+                saveDialog.Filter = "Excel Files|*.xlsx";
+                saveDialog.Title = "Lưu Danh Sách Sinh Viên";
+                saveDialog.FileName = $"DanhSachSinhVien_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx";
+                
+                if (saveDialog.ShowDialog() == DialogResult.OK)
+                {
+                    using (ExcelPackage package = new ExcelPackage())
+                    {
+                        ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("DanhSachSV");
+                        
+                        // Add headers
+                        worksheet.Cells[1, 1].Value = "Mã Sinh Viên";
+                        worksheet.Cells[1, 2].Value = "Họ Tên";
+                        worksheet.Cells[1, 3].Value = "Ngày Sinh";
+                        worksheet.Cells[1, 4].Value = "Lớp";
+                        worksheet.Cells[1, 5].Value = "Khoa";
+                        worksheet.Cells[1, 6].Value = "Tình Trạng";
+                        worksheet.Cells[1, 7].Value = "GPA";
+                        
+                        // Apply header styling
+                        using (var range = worksheet.Cells[1, 1, 1, 7])
+                        {
+                            range.Style.Font.Bold = true;
+                            range.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                            range.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightBlue);
+                            range.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        }
+                        
+                        // Fill data
+                        for (int i = 0; i < _dtSinhVien.Rows.Count; i++)
+                        {
+                            worksheet.Cells[i + 2, 1].Value = _dtSinhVien.Rows[i]["MaSV"]?.ToString();
+                            worksheet.Cells[i + 2, 2].Value = _dtSinhVien.Rows[i]["HoTen"]?.ToString();
+                            worksheet.Cells[i + 2, 3].Value = _dtSinhVien.Rows[i]["NgaySinh"]?.ToString();
+                            worksheet.Cells[i + 2, 4].Value = _dtSinhVien.Rows[i]["MaLop"]?.ToString();
+                            worksheet.Cells[i + 2, 5].Value = _dtSinhVien.Rows[i]["Khoa"]?.ToString();
+                            worksheet.Cells[i + 2, 6].Value = _dtSinhVien.Rows[i]["TinhTrang"]?.ToString();
+                            worksheet.Cells[i + 2, 7].Value = _dtSinhVien.Rows[i]["GPA"]?.ToString();
+                        }
+                        
+                        // Auto-fit columns
+                        worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
+                        
+                        // Save file
+                        File.WriteAllBytes(saveDialog.FileName, package.GetAsByteArray());
+                        MessageBox.Show("Xuất Excel thành công!", "Thông báo", 
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi xuất Excel: {ex.Message}", "Lỗi", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnImport_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ExcelPackage.License.SetNonCommercialPersonal("qldsv");
+                
+                OpenFileDialog openDialog = new OpenFileDialog();
+                openDialog.Filter = "Excel Files|*.xlsx;*.xls";
+                openDialog.Title = "Chọn File Excel";
+                
+                if (openDialog.ShowDialog() == DialogResult.OK)
+                {
+                    using (ExcelPackage package = new ExcelPackage(new FileInfo(openDialog.FileName)))
+                    {
+                        ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
+                        
+                        int successCount = 0;
+                        int failCount = 0;
+                        
+                        for (int row = 2; row <= worksheet.Dimension.End.Row; row++)
+                        {
+                            try
+                            {
+                                string maSV = worksheet.Cells[row, 1].Text.Trim();
+                                string hoTen = worksheet.Cells[row, 2].Text.Trim();
+                                string ngaySinhStr = worksheet.Cells[row, 3].Text.Trim();
+                                string maLop = worksheet.Cells[row, 4].Text.Trim();
+                                string khoa = worksheet.Cells[row, 5].Text.Trim();
+                                string tinhTrang = worksheet.Cells[row, 6].Text.Trim();
+                                
+                                if (string.IsNullOrEmpty(maSV) || string.IsNullOrEmpty(hoTen))
+                                {
+                                    failCount++;
+                                    continue;
+                                }
+                                
+                                // Convert string to DateTime (try different formats)
+                                DateTime? ngaySinh = null;
+                                if (!string.IsNullOrEmpty(ngaySinhStr))
+                                {
+                                    if (DateTime.TryParseExact(ngaySinhStr, "dd/MM/yyyy", 
+                                        System.Globalization.CultureInfo.InvariantCulture, 
+                                        System.Globalization.DateTimeStyles.None, out DateTime dt))
+                                    {
+                                        ngaySinh = dt;
+                                    }
+                                    else if (DateTime.TryParse(ngaySinhStr, out dt))
+                                    {
+                                        ngaySinh = dt;
+                                    }
+                                }
+                                
+                                // Try to find MaKhoa from Khoa table
+                                string maKhoa = null;
+                                if (!string.IsNullOrEmpty(khoa))
+                                {
+                                    using (var conn = _db.GetConnection())
+                                    {
+                                        conn.Open();
+                                        var cmd = new SqlCommand("SELECT MaKhoa FROM Khoa WHERE TenKhoa = @TenKhoa", conn);
+                                        cmd.Parameters.AddWithValue("@TenKhoa", khoa);
+                                        var result = cmd.ExecuteScalar();
+                                        if (result != null && result != DBNull.Value)
+                                        {
+                                            maKhoa = result.ToString();
+                                        }
+                                    }
+                                }
+                                
+                                // Convert TinhTrang to correct format
+                                string tinhTrangDB = "DangHoc";
+                                if (!string.IsNullOrEmpty(tinhTrang))
+                                {
+                                    tinhTrang = tinhTrang.ToLower();
+                                    if (tinhTrang == "đang học" || tinhTrang == "danghoc") tinhTrangDB = "DangHoc";
+                                    else if (tinhTrang == "tốt nghiệp" || tinhTrang == "totnghiep") tinhTrangDB = "TotNghiep";
+                                    else if (tinhTrang == "bảo lưu" || tinhTrang == "baoluu") tinhTrangDB = "BaoLuu";
+                                    else if (tinhTrang == "bỏ học" || tinhTrang == "bohoc") tinhTrangDB = "BoHoc";
+                                }
+                                
+                                // Check if MaSV already exists
+                                bool exists = false;
+                                using (var conn = _db.GetConnection())
+                                {
+                                    conn.Open();
+                                    var cmd = new SqlCommand("SELECT 1 FROM SinhVien WHERE MaSV = @MaSV", conn);
+                                    cmd.Parameters.AddWithValue("@MaSV", maSV);
+                                    exists = cmd.ExecuteScalar() != null;
+                                }
+                                
+                                if (!exists)
+                                {
+                                    // First create NguoiDung
+                                    using (var conn = _db.GetConnection())
+                                    {
+                                        conn.Open();
+                                        var cmd = new SqlCommand("INSERT INTO NguoiDung (TenDangNhap, MatKhau, VaiTro) VALUES (@TenDN, @MatKhau, 'SinhVien'); SELECT SCOPE_IDENTITY();", conn);
+                                        cmd.Parameters.AddWithValue("@TenDN", maSV);
+                                        cmd.Parameters.AddWithValue("@MatKhau", maSV); // Default password = MaSV
+                                        var maNDObj = cmd.ExecuteScalar();
+                                        if (maNDObj != null && maNDObj != DBNull.Value)
+                                        {
+                                            int maND = Convert.ToInt32(maNDObj);
+                                            
+                                            // Now create SinhVien
+                                            cmd = new SqlCommand(@"INSERT INTO SinhVien (MaSV, MaND, HoTen, NgaySinh, MaLop, TinhTrang, NamNhapHoc) 
+                                                VALUES (@MaSV, @MaND, @HoTen, @NgaySinh, @MaLop, @TinhTrang, @NamNhapHoc)", conn);
+                                            cmd.Parameters.AddWithValue("@MaSV", maSV);
+                                            cmd.Parameters.AddWithValue("@MaND", maND);
+                                            cmd.Parameters.AddWithValue("@HoTen", hoTen);
+                                            cmd.Parameters.AddWithValue("@NgaySinh", ngaySinh.HasValue ? (object)ngaySinh.Value : DBNull.Value);
+                                            cmd.Parameters.AddWithValue("@MaLop", !string.IsNullOrEmpty(maLop) ? (object)maLop : DBNull.Value);
+                                            cmd.Parameters.AddWithValue("@TinhTrang", tinhTrangDB);
+                                            cmd.Parameters.AddWithValue("@NamNhapHoc", DateTime.Now.Year); // Default to current year
+                                            
+                                            int affectedRows = cmd.ExecuteNonQuery();
+                                            if (affectedRows > 0)
+                                            {
+                                                successCount++;
+                                            }
+                                            else
+                                            {
+                                                failCount++;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            failCount++;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    failCount++;
+                                }
+                            }
+                            catch
+                            {
+                                failCount++;
+                            }
+                        }
+                        
+                        MessageBox.Show($"Nhập thành công: {successCount} sinh viên\nNhập không thành công: {failCount} sinh viên", "Thông báo", 
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        
+                        // Refresh the data
+                        TaiDanhSachSV();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi nhập Excel: {ex.Message}", "Lỗi", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

@@ -139,7 +139,7 @@
             button1.Name = "button1";
             button1.Size = new Size(112, 43);
             button1.TabIndex = 19;
-            button1.Text = "In bảng điểm";
+            button1.Text = "Xuất điểm Excel";
             button1.UseVisualStyleBackColor = true;
             // 
             // button2
@@ -148,7 +148,7 @@
             button2.Name = "button2";
             button2.Size = new Size(112, 43);
             button2.TabIndex = 20;
-            button2.Text = "Xuất file PDF";
+            button2.Text = "Lịch sử điểm";
             button2.UseVisualStyleBackColor = true;
             // 
             // button3

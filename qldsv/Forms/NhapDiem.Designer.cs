@@ -76,61 +76,94 @@
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Thông tin lớp học phần";
-            // 
-            // label6
-            // 
-            label6.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label6.Font = new Font("Times New Roman", 12F);
-            label6.Location = new Point(402, 92);
-            label6.Name = "label6";
-            label6.Size = new Size(200, 45);
-            label6.TabIndex = 18;
-            label6.Text = "Học kỳ";
-            label6.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // label5
-            // 
-            label5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label5.Font = new Font("Times New Roman", 12F);
-            label5.Location = new Point(418, 95);
-            label5.Name = "label5";
-            label5.Size = new Size(352, 0);
-            label5.TabIndex = 17;
-            label5.Text = "Username";
-            label5.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // label4
-            // 
-            label4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label4.Font = new Font("Times New Roman", 12F);
-            label4.Location = new Point(402, 35);
-            label4.Name = "label4";
-            label4.Size = new Size(200, 45);
-            label4.TabIndex = 16;
-            label4.Text = "Giảng viên";
-            label4.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // label3
-            // 
-            label3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label3.Font = new Font("Times New Roman", 12F);
-            label3.Location = new Point(6, 92);
-            label3.Name = "label3";
-            label3.Size = new Size(240, 45);
-            label3.TabIndex = 15;
-            label3.Text = "Môn học";
-            label3.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // label1
-            // 
-            label1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label1.Font = new Font("Times New Roman", 12F);
-            label1.Location = new Point(6, 35);
+            //
+            // label1 – prefix "Mã lớp HP:"
+            //
+            label1.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            label1.Location = new Point(8, 30);
             label1.Name = "label1";
-            label1.Size = new Size(240, 45);
+            label1.Size = new Size(110, 30);
             label1.TabIndex = 14;
             label1.Text = "Mã lớp HP:";
-            label1.TextAlign = ContentAlignment.MiddleCenter;
+            label1.TextAlign = ContentAlignment.MiddleLeft;
+            //
+            // label7 – value MaLHP (set in code)
+            //
+            label7.Font = new Font("Segoe UI", 10F);
+            label7.Location = new Point(122, 30);
+            label7.Name = "label7";
+            label7.Size = new Size(240, 30);
+            label7.TabIndex = 19;
+            label7.Text = "";
+            label7.TextAlign = ContentAlignment.MiddleLeft;
+            //
+            // label3 – prefix "Môn học:"
+            //
+            label3.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            label3.Location = new Point(8, 72);
+            label3.Name = "label3";
+            label3.Size = new Size(110, 30);
+            label3.TabIndex = 15;
+            label3.Text = "Môn học:";
+            label3.TextAlign = ContentAlignment.MiddleLeft;
+            //
+            // label8 – value TenMH (set in code)
+            //
+            label8.Font = new Font("Segoe UI", 10F);
+            label8.Location = new Point(122, 72);
+            label8.Name = "label8";
+            label8.Size = new Size(240, 30);
+            label8.TabIndex = 20;
+            label8.Text = "";
+            label8.TextAlign = ContentAlignment.MiddleLeft;
+            //
+            // label4 – prefix "Giảng viên:"
+            //
+            label4.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            label4.Location = new Point(400, 30);
+            label4.Name = "label4";
+            label4.Size = new Size(110, 30);
+            label4.TabIndex = 16;
+            label4.Text = "Giảng viên:";
+            label4.TextAlign = ContentAlignment.MiddleLeft;
+            //
+            // label9 – value HoTenGV (set in code)
+            //
+            label9.Font = new Font("Segoe UI", 10F);
+            label9.Location = new Point(514, 30);
+            label9.Name = "label9";
+            label9.Size = new Size(252, 30);
+            label9.TabIndex = 21;
+            label9.Text = "";
+            label9.TextAlign = ContentAlignment.MiddleLeft;
+            //
+            // label6 – prefix "Học kỳ:"
+            //
+            label6.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            label6.Location = new Point(400, 72);
+            label6.Name = "label6";
+            label6.Size = new Size(110, 30);
+            label6.TabIndex = 18;
+            label6.Text = "Học kỳ:";
+            label6.TextAlign = ContentAlignment.MiddleLeft;
+            //
+            // label10 – value TenHK (set in code)
+            //
+            label10.Font = new Font("Segoe UI", 10F);
+            label10.Location = new Point(514, 72);
+            label10.Name = "label10";
+            label10.Size = new Size(252, 30);
+            label10.TabIndex = 22;
+            label10.Text = "";
+            label10.TextAlign = ContentAlignment.MiddleLeft;
+            //
+            // label5 – ẩn (không dùng)
+            //
+            label5.Location = new Point(0, 0);
+            label5.Name = "label5";
+            label5.Size = new Size(0, 0);
+            label5.TabIndex = 17;
+            label5.Text = "";
             // 
             // label2
             // 
@@ -269,52 +302,6 @@
             cotXepLoai.MinimumWidth = 6;
             cotXepLoai.Name = "cotXepLoai";
             cotXepLoai.ReadOnly = true;
-            // 
-            // label7
-            // 
-            label7.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label7.Font = new Font("Times New Roman", 12F);
-            label7.Location = new Point(168, 35);
-            label7.Name = "label7";
-            label7.Size = new Size(200, 45);
-            label7.TabIndex = 19;
-            label7.Text = "AV";
-            label7.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // label8
-            // 
-            label8.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label8.Font = new Font("Times New Roman", 12F);
-            label8.Location = new Point(158, 92);
-            label8.Name = "label8";
-            label8.Size = new Size(200, 45);
-            label8.TabIndex = 20;
-            label8.Text = "AV";
-            label8.TextAlign = ContentAlignment.MiddleLeft;
-            label8.Click += label8_Click;
-            // 
-            // label9
-            // 
-            label9.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label9.Font = new Font("Times New Roman", 12F);
-            label9.Location = new Point(547, 35);
-            label9.Name = "label9";
-            label9.Size = new Size(200, 45);
-            label9.TabIndex = 21;
-            label9.Text = "AV";
-            label9.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // label10
-            // 
-            label10.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label10.Font = new Font("Times New Roman", 12F);
-            label10.Location = new Point(527, 92);
-            label10.Name = "label10";
-            label10.Size = new Size(200, 45);
-            label10.TabIndex = 22;
-            label10.Text = "AV";
-            label10.TextAlign = ContentAlignment.MiddleLeft;
-            label10.Click += label10_Click;
             // 
             // NhapDiem
             // 

@@ -1,9 +1,4 @@
 #nullable disable
-// ================================================================
-//  QLTK.cs  –  Quản Lý Tài Khoản
-//  Namespace: quản_lí_điểm_sinh_viên
-// ================================================================
-
 using Microsoft.Data.SqlClient;
 using System.Data;
 using qldsv;
@@ -19,17 +14,16 @@ namespace quản_lí_điểm_sinh_viên
         public QLTK()
         {
             InitializeComponent();
+            ThemeApplier.Apply(this);
             this.Load += QLTK_Load;
 
-            button1.Click += btnThemTK_Click;    // Thêm TK
-            button4.Click += btnSuaTK_Click;     // Sửa TK
-            button3.Click += btnXoaTK_Click;     // Xóa TK
-            button6.Click += btnTimKiem_Click;   // Tìm kiếm
-            button5.Click += btnQuayLai_Click;   // Quay lại
-            button2.Click += btnThoat_Click;     // Thoát
+            button1.Click += btnThemTK_Click;    
+            button4.Click += btnSuaTK_Click;     
+            button3.Click += btnKhoaMoKhoa_Click;
+            button6.Click += btnTimKiem_Click;   
+            button5.Click += btnQuayLai_Click;   
+            button2.Click += btnThoat_Click;     
 
-            // button7 (Refresh) wired in Designer to dataGridView1_CellContentClick
-            // but we also attach it here for refresh functionality
             button7.Click += (s, e) => TaiDanhSachTK();
         }
 
@@ -38,9 +32,6 @@ namespace quản_lí_điểm_sinh_viên
             TaiDanhSachTK();
         }
 
-        // --------------------------------------------------------
-        //  Nạp danh sách tài khoản
-        // --------------------------------------------------------
         private void TaiDanhSachTK(string tuKhoa = "")
         {
             try
@@ -71,11 +62,19 @@ namespace quản_lí_điểm_sinh_viên
                 dataGridView1.DataSource = _dtTK;
 
                 // Đặt header
-                SetHeader("TenDangNhap", "Tên Đăng Nhập");
-                SetHeader("VaiTro", "Vai Trò");
-                SetHeader("TrangThai", "Trạng Thái");
-                SetHeader("NgayTao", "Ngày Tạo");
-                SetHeader("LanDangNhapCuoi", "Đăng Nhập Cuối");
+                SetHeader("TenDangNhap",    "Tên Đăng Nhập");
+                SetHeader("VaiTro",         "Vai Trò");
+                SetHeader("TrangThai",      "Trạng Thái");
+                SetHeader("NgayTao",        "Ngày Tạo");
+                SetHeader("LanDangNhapCuoi","Đăng Nhập Cuối");
+
+                // Re-fit cột theo cả header + data, sau đó dùng Fill để lấp đầy
+                dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+                dataGridView1.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+                // Giữ min-width bằng header, để Fill lấp khoảng dư
+                foreach (DataGridViewColumn col in dataGridView1.Columns)
+                    col.MinimumWidth = col.Width;
+                dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             }
             catch (SqlException ex)
             {
@@ -90,18 +89,13 @@ namespace quản_lí_điểm_sinh_viên
                 dataGridView1.Columns[colName].HeaderText = header;
         }
 
-        // --------------------------------------------------------
-        //  Tìm kiếm
-        // --------------------------------------------------------
         private void btnTimKiem_Click(object sender, EventArgs e)
         {
             string tuKhoa = textBox2.Text.Trim();
             TaiDanhSachTK(tuKhoa);
         }
 
-        // --------------------------------------------------------
-        //  Thêm tài khoản
-        // --------------------------------------------------------
+
         private void btnThemTK_Click(object sender, EventArgs e)
         {
             using var frm = new ThemTKDialog();
@@ -156,9 +150,6 @@ namespace quản_lí_điểm_sinh_viên
             }
         }
 
-        // --------------------------------------------------------
-        //  Sửa tài khoản (đổi vai trò / trạng thái)
-        // --------------------------------------------------------
         private void btnSuaTK_Click(object sender, EventArgs e)
         {
             if (dataGridView1.CurrentRow == null) return;
@@ -200,137 +191,57 @@ namespace quản_lí_điểm_sinh_viên
             }
         }
 
-        // --------------------------------------------------------
-        //  Xóa tài khoản
-        // --------------------------------------------------------
-        private void btnXoaTK_Click(object sender, EventArgs e)
-        {
-            if (dataGridView1.CurrentRow == null) return;
 
-            string tenDN = dataGridView1.CurrentRow.Cells["TenDangNhap"]?.Value?.ToString() ?? "";
+        private void btnKhoaMoKhoa_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.CurrentRow == null)
+            {
+                MessageBox.Show("Vui lòng chọn tài khoản!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            string tenDN    = dataGridView1.CurrentRow.Cells["TenDangNhap"]?.Value?.ToString() ?? "";
+            string trangThai= dataGridView1.CurrentRow.Cells["TrangThai"]?.Value?.ToString()   ?? "";
             if (string.IsNullOrEmpty(tenDN)) return;
 
-            // Không xóa tài khoản đang đăng nhập
+            // Không cho khóa tài khoản đang đăng nhập
             if (tenDN == SessionInfo.TenDangNhap)
             {
-                MessageBox.Show("Không thể xóa tài khoản đang đăng nhập!",
+                MessageBox.Show("Không thể khóa tài khoản đang đăng nhập!",
                     "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            var confirm = MessageBox.Show(
-                $"Bạn có chắc muốn xóa tài khoản [{tenDN}]?\nTất cả dữ liệu liên quan (đăng ký, điểm, lịch sử, v.v.) cũng sẽ bị xóa hoàn toàn!",
-                "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            bool dangHoatDong = trangThai == "Hoạt Động";
+            string hanhDong   = dangHoatDong ? "khóa" : "mở khóa";
+            string icon       = dangHoatDong ? "🔒" : "🔓";
 
+            var confirm = MessageBox.Show(
+                $"{icon} Bạn có chắc muốn {hanhDong} tài khoản [{tenDN}]?",
+                "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirm != DialogResult.Yes) return;
 
             try
             {
                 using var conn = _db.GetConnection();
                 conn.Open();
-                var transaction = conn.BeginTransaction();
-                try
-                {
-                    // 1. Lấy MaND
-                    var cmdGetMaND = new SqlCommand("SELECT MaND FROM NguoiDung WHERE TenDangNhap = @TenDangNhap", conn, transaction);
-                    cmdGetMaND.Parameters.AddWithValue("@TenDangNhap", tenDN);
-                    var objMaND = cmdGetMaND.ExecuteScalar();
-                    int maND = objMaND != DBNull.Value ? Convert.ToInt32(objMaND) : 0;
+                int trangThaiMoi = dangHoatDong ? 0 : 1; // đảo trạng thái
+                var cmd = new SqlCommand(
+                    "UPDATE NguoiDung SET TrangThai = @TT WHERE TenDangNhap = @TenDN", conn);
+                cmd.Parameters.AddWithValue("@TT",    trangThaiMoi);
+                cmd.Parameters.AddWithValue("@TenDN", tenDN);
+                cmd.ExecuteNonQuery();
 
-                    if (maND == 0)
-                    {
-                        MessageBox.Show("Không tìm thấy tài khoản!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        transaction.Rollback();
-                        return;
-                    }
-
-                    // 2. Kiểm tra SinhVien (nếu có)
-                    var cmdGetSV = new SqlCommand("SELECT MaSV FROM SinhVien WHERE MaND = @MaND", conn, transaction);
-                    cmdGetSV.Parameters.AddWithValue("@MaND", maND);
-                    var objMaSV = cmdGetSV.ExecuteScalar();
-                    string maSV = objMaSV != DBNull.Value ? objMaSV.ToString() : "";
-
-                    if (!string.IsNullOrEmpty(maSV))
-                    {
-                        // Xóa tất cả Diem (thuộc về SinhVien đó (thông qua DangKyHocPhan)
-                        var cmdDelDiem = new SqlCommand(@"
-                            DELETE Diem
-                            FROM Diem
-                            JOIN DangKyHocPhan DK ON Diem.MaDK = DK.MaDK
-                            WHERE DK.MaSV = @MaSV", conn, transaction);
-                        cmdDelDiem.Parameters.AddWithValue("@MaSV", maSV);
-                        cmdDelDiem.ExecuteNonQuery();
-
-                        // Xóa tất cả DangKyHocPhan
-                        var cmdDelDK = new SqlCommand("DELETE FROM DangKyHocPhan WHERE MaSV = @MaSV", conn, transaction);
-                        cmdDelDK.Parameters.AddWithValue("@MaSV", maSV);
-                        cmdDelDK.ExecuteNonQuery();
-
-                        // Xóa SinhVien
-                        var cmdDelSV = new SqlCommand("DELETE FROM SinhVien WHERE MaND = @MaND", conn, transaction);
-                        cmdDelSV.Parameters.AddWithValue("@MaND", maND);
-                        cmdDelSV.ExecuteNonQuery();
-                    }
-
-                    // 3. Kiểm tra GiangVien (nếu có)
-                    var cmdGetGV = new SqlCommand("SELECT MaGV FROM GiangVien WHERE MaND = @MaND", conn, transaction);
-                    cmdGetGV.Parameters.AddWithValue("@MaND", maND);
-                    var objMaGV = cmdGetGV.ExecuteScalar();
-                    string maGV = objMaGV != DBNull.Value ? objMaGV.ToString() : "";
-
-                    if (!string.IsNullOrEmpty(maGV))
-                    {
-                        // Xóa tất cả Diem thuộc LopHocPhan của GiangVien
-                        var cmdDelDiemAll = new SqlCommand(@"
-                            DELETE Diem
-                            FROM Diem
-                            JOIN DangKyHocPhan DK ON Diem.MaDK = DK.MaDK
-                            JOIN LopHocPhan LHP ON DK.MaLHP = LHP.MaLHP
-                            WHERE LHP.MaGV = @MaGV", conn, transaction);
-                        cmdDelDiemAll.Parameters.AddWithValue("@MaGV", maGV);
-                        cmdDelDiemAll.ExecuteNonQuery();
-
-                        // Xóa tất cả DangKyHocPhan thuộc LopHocPhan của GiangVien
-                        var cmdDelDKAll = new SqlCommand(@"
-                            DELETE DangKyHocPhan
-                            FROM DangKyHocPhan DK
-                            JOIN LopHocPhan LHP ON DK.MaLHP = LHP.MaLHP
-                            WHERE LHP.MaGV = @MaGV", conn, transaction);
-                        cmdDelDKAll.Parameters.AddWithValue("@MaGV", maGV);
-                        cmdDelDKAll.ExecuteNonQuery();
-
-                        // Xóa tất cả LopHocPhan của GiangVien
-                        var cmdDelLHPAll = new SqlCommand("DELETE FROM LopHocPhan WHERE MaGV = @MaGV", conn, transaction);
-                        cmdDelLHPAll.Parameters.AddWithValue("@MaGV", maGV);
-                        cmdDelLHPAll.ExecuteNonQuery();
-
-                        // Xóa GiangVien
-                        var cmdDelGV = new SqlCommand("DELETE FROM GiangVien WHERE MaND = @MaND", conn, transaction);
-                        cmdDelGV.Parameters.AddWithValue("@MaND", maND);
-                        cmdDelGV.ExecuteNonQuery();
-                    }
-
-                    // 4. Cuối cùng xóa NguoiDung
-                    var cmdDelND = new SqlCommand("DELETE FROM NguoiDung WHERE MaND = @MaND", conn, transaction);
-                    cmdDelND.Parameters.AddWithValue("@MaND", maND);
-                    cmdDelND.ExecuteNonQuery();
-
-                    transaction.Commit();
-
-                    MessageBox.Show("Xóa tài khoản thành công!",
-                        "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    TaiDanhSachTK();
-                }
-                catch
-                {
-                    transaction.Rollback();
-                    throw;
-                }
+                string ketQua = dangHoatDong ? "Đã khóa" : "Đã mở khóa";
+                MessageBox.Show($"{ketQua} tài khoản [{tenDN}] thành công!",
+                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                TaiDanhSachTK(textBox2.Text.Trim());
             }
             catch (SqlException ex)
             {
-                MessageBox.Show("Không thể xóa tài khoản (có thể đang được liên kết bởi dữ liệu khác):\n" + ex.Message,
-                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Lỗi:\n" + ex.Message, "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -350,9 +261,6 @@ namespace quản_lí_điểm_sinh_viên
         }
     }
 
-    // ============================================================
-    //  Dialog phụ: Thêm tài khoản
-    // ============================================================
     internal class ThemTKDialog : Form
     {
         public string TenDangNhap { get; private set; } = "";
@@ -412,9 +320,6 @@ namespace quản_lí_điểm_sinh_viên
         }
     }
 
-    // ============================================================
-    //  Dialog phụ: Sửa tài khoản
-    // ============================================================
     internal class SuaTKDialog : Form
     {
         public string VaiTro { get; private set; }

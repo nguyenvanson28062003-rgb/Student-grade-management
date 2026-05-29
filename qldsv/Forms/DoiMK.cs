@@ -11,6 +11,7 @@ namespace quản_lí_điểm_sinh_viên
         public DoiMK()
         {
             InitializeComponent();
+            ThemeApplier.Apply(this);
             this.Load += DoiMK_Load;
             btnDangnhap.Click += Button1_Click; // Lưu/Xác nhận
             lblQuen.Click += Button2_Click; // Thoát

@@ -13,6 +13,7 @@ namespace qldsv
         public LopHoc()
         {
             InitializeComponent();
+            ThemeApplier.Apply(this);
             this.Load += LopHoc_Load;
 
             button1.Click += btnTaoLop_Click;       // Tạo lớp HP

@@ -1,9 +1,4 @@
 #nullable disable
-// ================================================================
-//  ThemSuaMH.cs  –  Thêm / Sửa Môn Học
-//  Namespace: qldsv
-// ================================================================
-
 using Microsoft.Data.SqlClient;
 using System.Data;
 using qldsv.Service;
@@ -19,12 +14,10 @@ namespace qldsv
         private readonly List<ComboItem> _hocKyItems = new();
         private readonly List<ComboItem> _gvItems = new();
 
-        // --------------------------------------------------------
-        //  Constructor
-        // --------------------------------------------------------
         public ThemSuaMH(string? maMH)
         {
             InitializeComponent();
+            ThemeApplier.Apply(this);
             _maMH = maMH;
             this.Load += ThemSuaMH_Load;
             button1.Click += btnLuu_Click;    // Lưu
@@ -32,9 +25,6 @@ namespace qldsv
             button3.Click += btnHuy_Click;    // Hủy
         }
 
-        // --------------------------------------------------------
-        //  Load
-        // --------------------------------------------------------
         private void ThemSuaMH_Load(object sender, EventArgs e)
         {
             this.Text = _isEdit ? "Sửa Môn Học" : "Thêm Môn Học";
@@ -89,9 +79,6 @@ namespace qldsv
             }
         }
 
-        // --------------------------------------------------------
-        //  Nạp danh sách giảng viên vào ComboBox
-        // --------------------------------------------------------
         private void NapComboGiangVien(ComboBox cb)
         {
             cb.Items.Clear();
@@ -163,9 +150,6 @@ namespace qldsv
             if (cb.Items.Count > 0) cb.SelectedIndex = 0;
         }
 
-        // --------------------------------------------------------
-        //  Nạp thông tin môn khi sửa
-        // --------------------------------------------------------
         private void NapThongTinMon()
         {
             try
@@ -200,9 +184,6 @@ namespace qldsv
             }
         }
 
-        // --------------------------------------------------------
-        //  Lưu
-        // --------------------------------------------------------
         private void btnLuu_Click(object sender, EventArgs e)
         {
             if (!ValidateInput()) return;
@@ -289,9 +270,6 @@ namespace qldsv
             }
         }
 
-        // --------------------------------------------------------
-        //  Đặt lại
-        // --------------------------------------------------------
         private void btnDatLai_Click(object sender, EventArgs e)
         {
             if (_isEdit)
@@ -314,9 +292,6 @@ namespace qldsv
             this.Close();
         }
 
-        // --------------------------------------------------------
-        //  Validate
-        // --------------------------------------------------------
         private bool ValidateInput()
         {
             if (string.IsNullOrWhiteSpace(textBox2.Text))
@@ -328,9 +303,6 @@ namespace qldsv
             return true;
         }
 
-        // --------------------------------------------------------
-        //  Helpers
-        // --------------------------------------------------------
         private void SetComboByText(ComboBox cb, object value)
         {
             string val = value?.ToString() ?? "";
@@ -354,9 +326,6 @@ namespace qldsv
         }
     }
 
-    // ============================================================
-    //  Helper class cho ComboBox có key/value
-    // ============================================================
     internal class ComboItem
     {
         public string Key { get; }

@@ -113,10 +113,10 @@
             // label29
             // 
             label29.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label29.Font = new Font("Times New Roman", 12F);
+            label29.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             label29.Location = new Point(3, 3);
             label29.Name = "label29";
-            label29.Size = new Size(751, 0);
+            label29.Size = new Size(700, 35);
             label29.TabIndex = 36;
             label29.Text = "Giảng Viên";
             label29.TextAlign = ContentAlignment.MiddleCenter;
@@ -220,23 +220,23 @@
             // label13
             // 
             label13.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label13.Font = new Font("Times New Roman", 12F);
+            label13.Font = new Font("Segoe UI", 9F);
             label13.Location = new Point(4, 66);
             label13.Name = "label13";
-            label13.Size = new Size(0, 86);
+            label13.Size = new Size(122, 40);
             label13.TabIndex = 34;
             label13.Text = "SV Cần Chú Ý";
             label13.TextAlign = ContentAlignment.MiddleCenter;
-            // 
+            //
             // label12
-            // 
+            //
             label12.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label12.Font = new Font("Times New Roman", 12F);
+            label12.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             label12.Location = new Point(4, 8);
             label12.Name = "label12";
-            label12.Size = new Size(0, 86);
+            label12.Size = new Size(122, 48);
             label12.TabIndex = 33;
-            label12.Text = "l";
+            label12.Text = "–";
             label12.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panel6
@@ -251,23 +251,23 @@
             // label11
             // 
             label11.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label11.Font = new Font("Times New Roman", 12F);
+            label11.Font = new Font("Segoe UI", 9F);
             label11.Location = new Point(3, 66);
             label11.Name = "label11";
-            label11.Size = new Size(0, 86);
+            label11.Size = new Size(122, 40);
             label11.TabIndex = 34;
             label11.Text = "Lớp HP";
             label11.TextAlign = ContentAlignment.MiddleCenter;
-            // 
+            //
             // label10
-            // 
+            //
             label10.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label10.Font = new Font("Times New Roman", 12F);
+            label10.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             label10.Location = new Point(4, 8);
             label10.Name = "label10";
-            label10.Size = new Size(0, 86);
+            label10.Size = new Size(122, 48);
             label10.TabIndex = 33;
-            label10.Text = "l";
+            label10.Text = "–";
             label10.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panel5
@@ -282,23 +282,23 @@
             // label9
             // 
             label9.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label9.Font = new Font("Times New Roman", 12F);
+            label9.Font = new Font("Segoe UI", 9F);
             label9.Location = new Point(4, 66);
             label9.Name = "label9";
-            label9.Size = new Size(0, 86);
+            label9.Size = new Size(122, 40);
             label9.TabIndex = 34;
             label9.Text = "Môn Học HK Này";
             label9.TextAlign = ContentAlignment.MiddleCenter;
-            // 
+            //
             // label8
-            // 
+            //
             label8.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label8.Font = new Font("Times New Roman", 12F);
+            label8.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             label8.Location = new Point(4, 8);
             label8.Name = "label8";
-            label8.Size = new Size(0, 86);
+            label8.Size = new Size(122, 48);
             label8.TabIndex = 33;
-            label8.Text = "l";
+            label8.Text = "–";
             label8.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panel4
@@ -313,23 +313,23 @@
             // label7
             // 
             label7.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label7.Font = new Font("Times New Roman", 12F);
+            label7.Font = new Font("Segoe UI", 9F);
             label7.Location = new Point(4, 66);
             label7.Name = "label7";
-            label7.Size = new Size(0, 86);
+            label7.Size = new Size(122, 40);
             label7.TabIndex = 33;
             label7.Text = "Tổng SV";
             label7.TextAlign = ContentAlignment.MiddleCenter;
-            // 
+            //
             // label6
-            // 
+            //
             label6.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label6.Font = new Font("Times New Roman", 12F);
+            label6.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             label6.Location = new Point(4, 8);
             label6.Name = "label6";
-            label6.Size = new Size(0, 86);
+            label6.Size = new Size(122, 48);
             label6.TabIndex = 32;
-            label6.Text = "l";
+            label6.Text = "–";
             label6.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // button10
@@ -371,21 +371,21 @@
             // label45
             // 
             label45.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label45.Font = new Font("Times New Roman", 12F);
+            label45.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
             label45.Location = new Point(4, 8);
             label45.Name = "label45";
-            label45.Size = new Size(124, 36);
+            label45.Size = new Size(124, 48);
             label45.TabIndex = 32;
-            label45.Text = "l";
+            label45.Text = "–";
             label45.TextAlign = ContentAlignment.MiddleCenter;
-            // 
+            //
             // label44
-            // 
+            //
             label44.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label44.Font = new Font("Times New Roman", 12F);
-            label44.Location = new Point(4, 66);
+            label44.Font = new Font("Segoe UI", 9F);
+            label44.Location = new Point(4, 60);
             label44.Name = "label44";
-            label44.Size = new Size(121, 39);
+            label44.Size = new Size(121, 36);
             label44.TabIndex = 33;
             label44.Text = "GPA tích lũy";
             label44.TextAlign = ContentAlignment.MiddleCenter;
@@ -402,21 +402,21 @@
             // label43
             // 
             label43.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label43.Font = new Font("Times New Roman", 12F);
+            label43.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
             label43.Location = new Point(4, 8);
             label43.Name = "label43";
-            label43.Size = new Size(124, 36);
+            label43.Size = new Size(124, 48);
             label43.TabIndex = 33;
-            label43.Text = "l";
+            label43.Text = "–";
             label43.TextAlign = ContentAlignment.MiddleCenter;
-            // 
+            //
             // label42
-            // 
+            //
             label42.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label42.Font = new Font("Times New Roman", 12F);
-            label42.Location = new Point(4, 66);
+            label42.Font = new Font("Segoe UI", 9F);
+            label42.Location = new Point(4, 60);
             label42.Name = "label42";
-            label42.Size = new Size(121, 39);
+            label42.Size = new Size(121, 36);
             label42.TabIndex = 34;
             label42.Text = "TC đã qua";
             label42.TextAlign = ContentAlignment.MiddleCenter;
@@ -433,21 +433,21 @@
             // label41
             // 
             label41.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label41.Font = new Font("Times New Roman", 12F);
+            label41.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
             label41.Location = new Point(4, 8);
             label41.Name = "label41";
-            label41.Size = new Size(124, 36);
+            label41.Size = new Size(124, 48);
             label41.TabIndex = 33;
-            label41.Text = "l";
+            label41.Text = "–";
             label41.TextAlign = ContentAlignment.MiddleCenter;
-            // 
+            //
             // label40
-            // 
+            //
             label40.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label40.Font = new Font("Times New Roman", 12F);
-            label40.Location = new Point(3, 66);
+            label40.Font = new Font("Segoe UI", 9F);
+            label40.Location = new Point(3, 60);
             label40.Name = "label40";
-            label40.Size = new Size(121, 39);
+            label40.Size = new Size(121, 36);
             label40.TabIndex = 34;
             label40.Text = "Môn kì này";
             label40.TextAlign = ContentAlignment.MiddleCenter;
@@ -464,21 +464,21 @@
             // label39
             // 
             label39.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label39.Font = new Font("Times New Roman", 12F);
+            label39.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
             label39.Location = new Point(4, 8);
             label39.Name = "label39";
-            label39.Size = new Size(124, 36);
+            label39.Size = new Size(124, 48);
             label39.TabIndex = 33;
-            label39.Text = "l";
+            label39.Text = "–";
             label39.TextAlign = ContentAlignment.MiddleCenter;
-            // 
+            //
             // label38
-            // 
+            //
             label38.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label38.Font = new Font("Times New Roman", 12F);
-            label38.Location = new Point(4, 66);
+            label38.Font = new Font("Segoe UI", 9F);
+            label38.Location = new Point(4, 60);
             label38.Name = "label38";
-            label38.Size = new Size(121, 39);
+            label38.Size = new Size(121, 36);
             label38.TabIndex = 34;
             label38.Text = "Chưa có điểm";
             label38.TextAlign = ContentAlignment.MiddleCenter;
@@ -526,21 +526,22 @@
             // label30
             // 
             label30.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label30.Font = new Font("Times New Roman", 12F);
+            label30.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             label30.Location = new Point(6, 2);
             label30.Name = "label30";
-            label30.Size = new Size(299, 40);
+            label30.Size = new Size(340, 40);
             label30.TabIndex = 35;
             label30.Text = "Xin chào, TS";
-            label30.TextAlign = ContentAlignment.MiddleCenter;
-            // 
+            label30.TextAlign = ContentAlignment.MiddleLeft;
+            //
             // label31
-            // 
+            //
             label31.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label31.Font = new Font("Times New Roman", 12F);
-            label31.Location = new Point(209, 5);
+            label31.Font = new Font("Segoe UI", 10F);
+            label31.ForeColor = Color.Gray;
+            label31.Location = new Point(350, 5);
             label31.Name = "label31";
-            label31.Size = new Size(302, 34);
+            label31.Size = new Size(200, 34);
             label31.TabIndex = 36;
             label31.Text = "NA";
             label31.TextAlign = ContentAlignment.MiddleLeft;
