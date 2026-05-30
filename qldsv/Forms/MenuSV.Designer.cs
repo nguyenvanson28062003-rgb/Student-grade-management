@@ -74,7 +74,6 @@ namespace qldsv
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
 
-            // ── Form ──────────────────────────────────────────────
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode       = AutoScaleMode.Font;
             ClientSize          = new Size(980, 680);
@@ -84,9 +83,6 @@ namespace qldsv
             Font                = new Font("Segoe UI", 9.5f);
             StartPosition       = FormStartPosition.CenterScreen;
 
-            // ══════════════════════════════════════════════════════
-            //  HEADER
-            // ══════════════════════════════════════════════════════
             panelHeader.Dock      = DockStyle.Top;
             panelHeader.Height    = 64;
             panelHeader.BackColor = T.Primary;
@@ -120,9 +116,6 @@ namespace qldsv
             panelHeader.Controls.AddRange(new Control[]
                 { lblRole, label29, label31, button12, button11 });
 
-            // ══════════════════════════════════════════════════════
-            //  SIDEBAR
-            // ══════════════════════════════════════════════════════
             panelSidebar.Location  = new Point(0, 64);
             panelSidebar.Size      = new Size(210, 616);
             panelSidebar.BackColor = Color.FromArgb(4, 100, 72);
@@ -168,16 +161,12 @@ namespace qldsv
             panelSidebar.Controls.AddRange(new Control[]
                 { lblAvatar, label2, label3, button7, button8, button10, button1, button2, button3 });
 
-            // ══════════════════════════════════════════════════════
-            //  MAIN CONTENT
-            // ══════════════════════════════════════════════════════
             panelContent.Location   = new Point(210, 64);
             panelContent.Size       = new Size(770, 616);
             panelContent.BackColor  = Color.FromArgb(244, 246, 248);
             panelContent.AutoScroll = true;
             panelContent.Padding    = new Padding(24, 20, 24, 20);
 
-            // ── Greeting bar ──────────────────────────────────────
             panelGreet.Location  = new Point(24, 20);
             panelGreet.Size      = new Size(716, 72);
             panelGreet.BackColor = Color.White;
@@ -200,7 +189,6 @@ namespace qldsv
 
             panelGreet.Controls.AddRange(new Control[] { label30, label4 });
 
-            // ── 4 Stat Cards (716px → 4×172+3×12=724? dùng 170) ──
             panelCards.Location  = new Point(24, 108);
             panelCards.Size      = new Size(716, 140);
             panelCards.BackColor = Color.Transparent;
@@ -217,7 +205,6 @@ namespace qldsv
 
             panelCards.Controls.AddRange(new Control[] { panel28, panel27, panel26, panel25 });
 
-            // ── Recent grades table ───────────────────────────────
             panelTable.Location  = new Point(24, 264);
             panelTable.Size      = new Size(716, 320);
             panelTable.BackColor = Color.White;
@@ -278,7 +265,6 @@ namespace qldsv
             panelContent.Controls.AddRange(new Control[]
                 { panelGreet, panelCards, panelTable });
 
-            // ── Đặt panel16 = panelContent (compatibility) ────────
             panel16 = panelContent;
 
             Controls.Add(panelSidebar);
@@ -291,7 +277,6 @@ namespace qldsv
             ResumeLayout(false);
         }
 
-        // ── Helpers ───────────────────────────────────────────────
         private static void StyleIconBtn(Button btn, string text, int x, int y,
                                          Color? fg = null)
         {

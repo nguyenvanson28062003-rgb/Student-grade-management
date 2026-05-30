@@ -3,12 +3,8 @@ using System.Drawing.Drawing2D;
 
 namespace qldsv.Service
 {
-    // ─────────────────────────────────────────────────────────────
-    //  BẢNG MÀU & FONT
-    // ─────────────────────────────────────────────────────────────
     public static class T
     {
-        // ── Light theme: Teal / Emerald / Off-White ──
         public static readonly Color BG         = Color.FromArgb(244, 246, 248); // Off-White #F4F6F8
         public static readonly Color Surface    = Color.FromArgb(255, 255, 255); // trắng thuần (card)
         public static readonly Color Surface2   = Color.FromArgb(235, 245, 240); // mint nhạt (input)
@@ -35,7 +31,6 @@ namespace qldsv.Service
         public static Font Body => new Font("Segoe UI", 10f);
         public static Font Small=> new Font("Segoe UI",  8f);
 
-        // ─── Vẽ hình chữ nhật bo góc ───
         public static GraphicsPath RoundedRect(Rectangle r, int radius)
         {
             var path = new GraphicsPath();
@@ -48,14 +43,12 @@ namespace qldsv.Service
             return path;
         }
 
-        // ─── Vẽ nền gradient đứng ───
         public static void FillGradient(Graphics g, Rectangle r, Color c1, Color c2)
         {
             using var br = new LinearGradientBrush(r, c1, c2, LinearGradientMode.Vertical);
             g.FillRectangle(br, r);
         }
 
-        // ─── Vẽ viền phát sáng (glow) ───
         public static void DrawGlow(Graphics g, Rectangle r, Color color, int radius = 8)
         {
             for (int i = radius; i > 0; i--)
@@ -69,7 +62,6 @@ namespace qldsv.Service
             }
         }
 
-        // ─── Interpolate màu (dùng cho animation) ───
         public static Color Lerp(Color a, Color b, float t)
         {
             t = Math.Clamp(t, 0f, 1f);
@@ -81,9 +73,6 @@ namespace qldsv.Service
         }
     }
 
-    // ─────────────────────────────────────────────────────────────
-    //  PREMIUM BUTTON — bo góc, gradient, glow, hover animation
-    // ─────────────────────────────────────────────────────────────
     public class PremiumButton : Button
     {
         private float _hover;           // 0→1
@@ -187,9 +176,6 @@ namespace qldsv.Service
         }
     }
 
-    // ─────────────────────────────────────────────────────────────
-    //  PREMIUM TEXTBOX — nền tối, viền animation, placeholder
-    // ─────────────────────────────────────────────────────────────
     public class PremiumTextBox : Panel
     {
         private readonly TextBox _tb = new TextBox();
@@ -275,9 +261,6 @@ namespace qldsv.Service
         }
     }
 
-    // ─────────────────────────────────────────────────────────────
-    //  ANIMATED DARK FORM BASE — fade-in + nền tối
-    // ─────────────────────────────────────────────────────────────
     public class PremiumForm : Form
     {
         private readonly System.Windows.Forms.Timer _fadeIn = new() { Interval = 12 };

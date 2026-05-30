@@ -3,9 +3,6 @@ using System.Drawing.Drawing2D;
 
 namespace qldsv.Service
 {
-    // ═══════════════════════════════════════════════════════════════
-    //  STAT CARD — theo mẫu: title+icon hàng trên, số lớn, badge dưới
-    // ═══════════════════════════════════════════════════════════════
     public class StatCard : Panel
     {
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -72,7 +69,6 @@ namespace qldsv.Service
 
             int p = 14;
 
-            // ── Hàng 1: Title (trái) + Icon circle (phải) ─────────
             using var tFont = new Font("Segoe UI", 7.5f, FontStyle.Bold);
             g.DrawString(CardTitle.ToUpper(), tFont, new SolidBrush(T.TextSub),
                 new RectangleF(p, p, Width - p*2 - 36, 18));
@@ -86,12 +82,10 @@ namespace qldsv.Service
             g.DrawString(Icon, icFont, new SolidBrush(IconColor),
                 new RectangleF(icX, icY, 30, 30), icSf);
 
-            // ── Hàng 2: Số lớn ────────────────────────────────────
             using var vFont = new Font("Segoe UI", 26f, FontStyle.Bold);
             g.DrawString(Value, vFont, new SolidBrush(T.TextMain),
                 new RectangleF(p, p + 22, Width - p * 2, 38));
 
-            // ── Hàng 3: Badge ─────────────────────────────────────
             if (!string.IsNullOrEmpty(BadgeText))
             {
                 var badgeColor = BadgeUp
@@ -122,9 +116,6 @@ namespace qldsv.Service
         }
     }
 
-    // ═══════════════════════════════════════════════════════════════
-    //  BAR CHART — theo mẫu: legend inline top, bars rounded, labels đầy đủ
-    // ═══════════════════════════════════════════════════════════════
     public class BarChartPanel : Panel
     {
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -265,9 +256,6 @@ namespace qldsv.Service
         }
     }
 
-    // ═══════════════════════════════════════════════════════════════
-    //  DONUT CHART — theo mẫu: donut to, legend dạng thanh ngang
-    // ═══════════════════════════════════════════════════════════════
     public class DonutChartPanel : Panel
     {
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -350,7 +338,6 @@ namespace qldsv.Service
             using var wPen = new Pen(Color.White, 3f);
             g.DrawEllipse(wPen, cx - outerR, cy - outerR, outerR * 2, outerR * 2);
 
-            // ── Legend dạng hàng: icon màu + tên + thanh progress + số ──
             int legY   = cy + outerR + 16;
             int legW   = Width - p * 2;
             int barMaxW = legW - 100;

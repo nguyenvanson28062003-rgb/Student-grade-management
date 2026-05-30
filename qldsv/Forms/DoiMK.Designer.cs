@@ -30,7 +30,6 @@ namespace quản_lí_điểm_sinh_viên
             panelRight.SuspendLayout();
             SuspendLayout();
 
-            // ── Form ──────────────────────────────────────────────
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode       = AutoScaleMode.Font;
             ClientSize          = new Size(860, 480);
@@ -41,19 +40,16 @@ namespace quản_lí_điểm_sinh_viên
             Text                = "Đổi Mật Khẩu";
             Opacity             = 0;
 
-            // ── panelLeft (banner xanh) ───────────────────────────
             panelLeft.Location  = new Point(0, 0);
             panelLeft.Size      = new Size(340, 480);
             panelLeft.BackColor = Color.Transparent;
             panelLeft.Paint    += PanelLeft_Paint;
 
-            // ── panelRight (form) ─────────────────────────────────
             panelRight.Location  = new Point(340, 0);
             panelRight.Size      = new Size(520, 480);
             panelRight.BackColor = Color.FromArgb(244, 246, 248);
             panelRight.Paint    += PanelRight_Paint;
 
-            // ── Tiêu đề ───────────────────────────────────────────
             lblTitle.Text      = "ĐỔI MẬT KHẨU";
             lblTitle.Font      = new Font("Segoe UI", 18f, FontStyle.Bold);
             lblTitle.ForeColor = T.TextMain;
@@ -72,7 +68,6 @@ namespace quản_lí_điểm_sinh_viên
             panelDiv.Size      = new Size(60, 3);
             panelDiv.BackColor = T.Primary;
 
-            // ── Tên Đăng Nhập ─────────────────────────────────────
             lblUser.Text      = "Tên Đăng Nhập";
             lblUser.Font      = new Font("Segoe UI", 9f, FontStyle.Bold);
             lblUser.ForeColor = T.TextSub;
@@ -90,7 +85,6 @@ namespace quản_lí_điểm_sinh_viên
             textBox1.TabIndex        = 0;
             textBox1.PlaceholderText = "Nhập tên đăng nhập của bạn";
 
-            // ── Mật Khẩu Hiện Tại ─────────────────────────────────
             lblCurPw.Text      = "Mật Khẩu Hiện Tại";
             lblCurPw.Font      = new Font("Segoe UI", 9f, FontStyle.Bold);
             lblCurPw.ForeColor = T.TextSub;
@@ -109,7 +103,6 @@ namespace quản_lí_điểm_sinh_viên
             textBox2.TabIndex        = 1;
             textBox2.PlaceholderText = "Nhập mật khẩu hiện tại";
 
-            // ── Mật Khẩu Mới ──────────────────────────────────────
             lblNewPw.Text      = "Mật Khẩu Mới";
             lblNewPw.Font      = new Font("Segoe UI", 9f, FontStyle.Bold);
             lblNewPw.ForeColor = T.TextSub;
@@ -128,7 +121,6 @@ namespace quản_lí_điểm_sinh_viên
             textBox3.TabIndex        = 2;
             textBox3.PlaceholderText = "Tối thiểu 6 ký tự";
 
-            // ── Error label ───────────────────────────────────────
             lblError.Text      = "";
             lblError.Font      = new Font("Segoe UI", 8.5f);
             lblError.ForeColor = Color.FromArgb(220, 53, 69);
@@ -137,7 +129,6 @@ namespace quản_lí_điểm_sinh_viên
             lblError.BackColor = Color.Transparent;
             lblError.Visible   = false;
 
-            // ── Nút Xác Nhận ──────────────────────────────────────
             btnDangnhap.Text        = "XÁC NHẬN ĐỔI MẬT KHẨU";
             btnDangnhap.Font        = new Font("Segoe UI", 10.5f, FontStyle.Bold);
             btnDangnhap.Location    = new Point(46, 378);
@@ -151,7 +142,6 @@ namespace quản_lí_điểm_sinh_viên
             btnDangnhap.Cursor      = Cursors.Hand;
             btnDangnhap.TabIndex    = 3;
 
-            // ── Links ─────────────────────────────────────────────
             lblQuen.Text      = "✕  Huỷ bỏ";
             lblQuen.Font      = new Font("Segoe UI", 9f, FontStyle.Underline);
             lblQuen.ForeColor = T.TextSub;

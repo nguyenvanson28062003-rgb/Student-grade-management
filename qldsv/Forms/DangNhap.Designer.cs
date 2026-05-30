@@ -28,7 +28,6 @@ namespace quản_lí_điểm_sinh_viên
             panelRight.SuspendLayout();
             SuspendLayout();
 
-            // ── Form ──────────────────────────────────────────────
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode       = AutoScaleMode.Font;
             ClientSize          = new Size(860, 500);
@@ -38,19 +37,16 @@ namespace quản_lí_điểm_sinh_viên
             Name                = "DangNhap";
             Text                = "Đăng Nhập";
 
-            // ── panelLeft (logo + animation) ─────────────────────
             panelLeft.Location    = new Point(0, 0);
             panelLeft.Size        = new Size(350, 500);
             panelLeft.BackColor   = Color.Transparent;
             panelLeft.Paint      += panelLeft_Paint;
 
-            // ── panelRight (login card) ───────────────────────────
             panelRight.Location   = new Point(350, 0);
             panelRight.Size       = new Size(510, 500);
             panelRight.BackColor  = Color.FromArgb(244, 246, 248);
             panelRight.Paint     += panelRight_Paint;
 
-            // ── Tiêu đề ĐĂNG NHẬP ────────────────────────────────
             lblLogin.Text          = "ĐĂNG NHẬP";
             lblLogin.Font          = new Font("Segoe UI", 22f, FontStyle.Bold);
             lblLogin.ForeColor     = T.TextMain;
@@ -69,7 +65,6 @@ namespace quản_lí_điểm_sinh_viên
             panelDivider.Size      = new Size(60, 3);
             panelDivider.BackColor = T.Primary;
 
-            // ── Label icon ────────────────────────────────────────
             lblUserIcon.Text       = "👤";
             lblUserIcon.Font       = new Font("Segoe UI", 11f);
             lblUserIcon.ForeColor  = T.Primary;
@@ -84,7 +79,6 @@ namespace quản_lí_điểm_sinh_viên
             lblPassIcon.Size       = new Size(30, 20);
             lblPassIcon.TextAlign  = ContentAlignment.MiddleCenter;
 
-            // ── Label ────────────────────────────────────────────
             lbllogin.Text          = "Tên đăng nhập";
             lbllogin.Font          = new Font("Segoe UI", 9f, FontStyle.Bold);
             lbllogin.ForeColor     = T.TextSub;
@@ -100,18 +94,15 @@ namespace quản_lí_điểm_sinh_viên
                 Size      = new Size(200, 20)
             };
 
-            // ── TextBox User ──────────────────────────────────────
             txtUser.Location    = new Point(50, 185);
             txtUser.Size        = new Size(410, 48);
             txtUser.Placeholder = "Nhập tên đăng nhập...";
 
-            // ── TextBox Pass ──────────────────────────────────────
             txtPass.Location    = new Point(50, 275);
             txtPass.Size        = new Size(410, 48);
             txtPass.Placeholder = "Nhập mật khẩu...";
             txtPass.IsPassword  = true;
 
-            // ── Error label ───────────────────────────────────────
             lblError.Text      = "";
             lblError.Font      = new Font("Segoe UI", 8.5f);
             lblError.ForeColor = Color.FromArgb(220, 53, 69);
@@ -119,7 +110,6 @@ namespace quản_lí_điểm_sinh_viên
             lblError.Size      = new Size(410, 20);
             lblError.Visible   = false;
 
-            // ── Button Đăng Nhập ──────────────────────────────────
             btnDangnhap.Text       = "ĐĂNG NHẬP";
             btnDangnhap.Font       = new Font("Segoe UI", 11f, FontStyle.Bold);
             btnDangnhap.Location   = new Point(50, 358);
@@ -128,7 +118,6 @@ namespace quản_lí_điểm_sinh_viên
             btnDangnhap.BaseColor  = T.Primary;
             btnDangnhap.Click     += btnDangnhap_Click;
 
-            // ── Divider ───────────────────────────────────────────
             lblOr.Text             = "─────────  hoặc  ─────────";
             lblOr.Font             = new Font("Segoe UI", 8f);
             lblOr.ForeColor        = T.TextSub;
@@ -136,7 +125,6 @@ namespace quản_lí_điểm_sinh_viên
             lblOr.Size             = new Size(410, 20);
             lblOr.TextAlign        = ContentAlignment.MiddleCenter;
 
-            // ── Links ─────────────────────────────────────────────
             lblDangki.Text         = "Đăng ký tài khoản";
             lblDangki.Font         = new Font("Segoe UI", 9f, FontStyle.Underline);
             lblDangki.ForeColor    = T.Primary;
@@ -155,7 +143,6 @@ namespace quản_lí_điểm_sinh_viên
             lblQuen.Cursor         = Cursors.Hand;
             lblQuen.Click         += lblQuen_Click;
 
-            // ── Add to panelRight ─────────────────────────────────
             panelRight.Controls.AddRange(new Control[] {
                 lblLogin, lblSubTitle, panelDivider,
                 lblUserIcon, lbllogin, txtUser,

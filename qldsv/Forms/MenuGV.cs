@@ -47,7 +47,6 @@ namespace qldsv
             TaiLichSuNhapDiem();
         }
 
-        // ── Thống kê dashboard ──────────────────────────────────
         private void TaiThongKeGV()
         {
             try
@@ -91,7 +90,6 @@ namespace qldsv
             catch { }
         }
 
-        // ── Danh sách lớp HP ────────────────────────────────────
         private void TaiDanhSachLopHP()
         {
             try
@@ -126,7 +124,6 @@ namespace qldsv
             }
         }
 
-        // ── Lịch sử nhập điểm ───────────────────────────────────
         private void TaiLichSuNhapDiem()
         {
             try
@@ -175,7 +172,6 @@ namespace qldsv
         private static double SafeDbl(System.Data.IDataRecord r, string c)
             => r[c] == DBNull.Value ? 0.0 : Convert.ToDouble(r[c]);
 
-        // ── Actions ─────────────────────────────────────────────
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;

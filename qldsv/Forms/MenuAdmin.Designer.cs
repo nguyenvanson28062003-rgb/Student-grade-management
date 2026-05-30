@@ -45,7 +45,6 @@ namespace qldsv
             panelSidebar.SuspendLayout();
             SuspendLayout();
 
-            // ── Form ──────────────────────────────────────────────
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode       = AutoScaleMode.Font;
             ClientSize          = new Size(1010, 680);
@@ -55,7 +54,6 @@ namespace qldsv
             BackColor           = Color.FromArgb(244, 246, 248);
             Font                = new Font("Segoe UI", 9.5f);
 
-            // ══════════ HEADER ══════════
             panelHeader.Dock      = DockStyle.Top;
             panelHeader.Height    = 64;
             panelHeader.BackColor = T.Primary;
@@ -89,7 +87,6 @@ namespace qldsv
             panelHeader.Controls.AddRange(new Control[]
                 { lblRole, label2, lblSubHd, button12, button11 });
 
-            // ══════════ SIDEBAR ══════════
             panelSidebar.Location  = new Point(0, 64);
             panelSidebar.Size      = new Size(200, 616);
             panelSidebar.BackColor = Color.FromArgb(4, 100, 72);
@@ -129,13 +126,11 @@ namespace qldsv
                   button4, button5, button6, button7,
                   button8, button10 });
 
-            // ══════════ CONTENT (panel3) ══════════
             panel3.Location   = new Point(208, 78);
             panel3.Size       = new Size(580, 588);
             panel3.BackColor  = Color.Transparent;
             panel3.AutoScroll = true;
 
-            // ══════════ RECENT ACTIVITY (panel9) ══════════
             panel9.Location   = new Point(796, 78);
             panel9.Size       = new Size(202, 588);
             panel9.BackColor  = Color.White;
@@ -150,7 +145,6 @@ namespace qldsv
             ResumeLayout(false);
         }
 
-        // ── Helpers ───────────────────────────────────────────────
         private static void SetupSection(Label lbl, string text, int y)
         {
             lbl.Text      = text;

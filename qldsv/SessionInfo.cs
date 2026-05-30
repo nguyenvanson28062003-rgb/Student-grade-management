@@ -1,4 +1,4 @@
-﻿namespace qldsv
+namespace qldsv
 {
     public static class SessionInfo
     {

@@ -6,9 +6,6 @@ using qldsv.Service;
 
 namespace qldsv
 {
-    // ════════════════════════════════════════════════════════════════
-    //  HỒ SƠ CÁ NHÂN GIẢNG VIÊN
-    // ════════════════════════════════════════════════════════════════
     internal class HoSoCaNhanGVDialog : Form
     {
         private readonly DatabaseHelper _db;
@@ -30,7 +27,6 @@ namespace qldsv
 
         private void BuildUI()
         {
-            // ── Header banner ──
             var header = new Panel { Dock = DockStyle.Top, Height = 130 };
             header.Paint += (s, e) =>
             {
@@ -86,7 +82,6 @@ namespace qldsv
             header.Controls.Add(btnClose);
             btnClose.BringToFront();
 
-            // ── Info card ──
             var card = new Panel
             {
                 Location = new Point(40, 150), Size = new Size(640, 290),
@@ -206,9 +201,6 @@ namespace qldsv
         }
     }
 
-    // ════════════════════════════════════════════════════════════════
-    //  THỐNG KÊ LỚP CỦA GIẢNG VIÊN
-    // ════════════════════════════════════════════════════════════════
     internal class ThongKeLopGVDialog : Form
     {
         private readonly DatabaseHelper _db;

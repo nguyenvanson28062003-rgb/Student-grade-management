@@ -1,4 +1,4 @@
-﻿namespace qldsv
+namespace qldsv
 {
     partial class LopHoc
     {

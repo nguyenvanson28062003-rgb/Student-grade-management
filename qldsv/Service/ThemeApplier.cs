@@ -8,16 +8,12 @@ namespace qldsv.Service
     /// </summary>
     public static class ThemeApplier
     {
-        // ── Màu phụ cục bộ ──
         private static readonly Color _rowEven   = Color.FromArgb(255, 255, 255);
         private static readonly Color _rowOdd    = Color.FromArgb(240, 253, 248); // green-50
         private static readonly Color _rowHover  = Color.FromArgb(209, 250, 229); // green-100
         private static readonly Color _selBg     = Color.FromArgb(5, 150, 105);   // primary
         private static readonly Color _headerBg  = Color.FromArgb(4,  120, 87);   // emerald-700
 
-        // ─────────────────────────────────────────────────────────────
-        //  ENTRY POINT
-        // ─────────────────────────────────────────────────────────────
         public static void Apply(Form form)
         {
             form.BackColor = T.BG;
@@ -48,9 +44,6 @@ namespace qldsv.Service
             ApplyTree(form.Controls);
         }
 
-        // ─────────────────────────────────────────────────────────────
-        //  DUYỆT CÂY CONTROL
-        // ─────────────────────────────────────────────────────────────
         private static void ApplyTree(Control.ControlCollection controls)
         {
             foreach (Control c in controls)
@@ -94,9 +87,6 @@ namespace qldsv.Service
             }
         }
 
-        // ─────────────────────────────────────────────────────────────
-        //  BUTTON
-        // ─────────────────────────────────────────────────────────────
         private static void StyleButton(Button btn)
         {
             btn.FlatStyle = FlatStyle.Flat;
@@ -149,9 +139,6 @@ namespace qldsv.Service
             }
         }
 
-        // ─────────────────────────────────────────────────────────────
-        //  TEXTBOX
-        // ─────────────────────────────────────────────────────────────
         private static void StyleTextBox(TextBox tb)
         {
             tb.BackColor   = T.BgInput;
@@ -160,9 +147,6 @@ namespace qldsv.Service
             tb.Font        = T.Body;
         }
 
-        // ─────────────────────────────────────────────────────────────
-        //  COMBOBOX
-        // ─────────────────────────────────────────────────────────────
         private static void StyleCombo(ComboBox cb)
         {
             cb.BackColor = T.BgInput;
@@ -171,9 +155,6 @@ namespace qldsv.Service
             cb.Font      = T.Body;
         }
 
-        // ─────────────────────────────────────────────────────────────
-        //  GROUPBOX
-        // ─────────────────────────────────────────────────────────────
         private static void StyleGroupBox(GroupBox gb)
         {
             gb.BackColor = Color.Transparent;
@@ -181,9 +162,6 @@ namespace qldsv.Service
             gb.Font      = new Font("Segoe UI", 9.5f, FontStyle.Bold);
         }
 
-        // ─────────────────────────────────────────────────────────────
-        //  LABEL
-        // ─────────────────────────────────────────────────────────────
         private static void StyleLabel(Label lbl)
         {
             lbl.BackColor = Color.Transparent;
@@ -206,9 +184,6 @@ namespace qldsv.Service
             }
         }
 
-        // ─────────────────────────────────────────────────────────────
-        //  PANEL
-        // ─────────────────────────────────────────────────────────────
         private static void StylePanel(Panel p)
         {
             // Sidebar trái
@@ -282,9 +257,6 @@ namespace qldsv.Service
             g.FillRectangle(topBr, 0, 0, p.Width, 3);
         }
 
-        // ─────────────────────────────────────────────────────────────
-        //  DATAGRIDVIEW — với thanh cuộn
-        // ─────────────────────────────────────────────────────────────
         private static void StyleGrid(DataGridView dgv)
         {
             // Bật thanh cuộn
@@ -358,9 +330,6 @@ namespace qldsv.Service
                 col.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
         }
 
-        // ─────────────────────────────────────────────────────────────
-        //  TABCONTROL
-        // ─────────────────────────────────────────────────────────────
         private static void StyleTab(TabControl tc)
         {
             tc.DrawMode = TabDrawMode.OwnerDrawFixed;
@@ -381,9 +350,6 @@ namespace qldsv.Service
             }
         }
 
-        // ─────────────────────────────────────────────────────────────
-        //  LISTBOX
-        // ─────────────────────────────────────────────────────────────
         private static void StyleListBox(ListBox lb)
         {
             lb.BackColor   = Color.White;

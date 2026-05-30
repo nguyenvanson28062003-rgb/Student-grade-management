@@ -9,7 +9,6 @@ namespace qldsv
     {
         private readonly DatabaseHelper _db = DatabaseHelper.Instance;
 
-        // ── Dashboard controls ──
         private StatCard      _cardSV, _cardDTB, _cardTiLe, _cardXuatSac;
         private BarChartPanel _barChart;
         private DonutChartPanel _donut;
@@ -36,16 +35,12 @@ namespace qldsv
             button12.Click += (s, e) => new quản_lí_điểm_sinh_viên.DoiMK().ShowDialog();
         }
 
-        // ─────────────────────────────────────────────────────────
-        //  KHỞI TẠO CÁC CONTROL DASHBOARD
-        // ─────────────────────────────────────────────────────────
         private void KhoiTaoDashboard()
         {
             // Xóa hết các panel cũ trong panel3 (khu nội dung chính)
             panel3.Controls.Clear();
             panel3.BackColor = Color.Transparent;
 
-            // ── Tiêu đề Dashboard ──────────────────────────────────
             var lblDash = new Label
             {
                 Text      = "Tổng quan hệ thống",
@@ -69,7 +64,6 @@ namespace qldsv
             panel3.Controls.Add(lblDash);
             panel3.Controls.Add(lblSub);
 
-            // ── 4 Stat Cards ────────────────────────────────────────
             var cardColors = new[]
             {
                 T.Primary,                          // Tổng SV
@@ -130,7 +124,6 @@ namespace qldsv
                 lblDash, _cardSV, _cardDTB, _cardTiLe, _cardXuatSac
             });
 
-            // ── Hoạt động gần đây (panel9 vẫn giữ) ───────────────
             KhoiTaoHoatDong();
         }
 
@@ -225,18 +218,12 @@ namespace qldsv
         {
         }
 
-        // ─────────────────────────────────────────────────────────
-        //  LOAD
-        // ─────────────────────────────────────────────────────────
         private void MenuAdmin_Load(object sender, EventArgs e)
         {
             label2.Text = $"Xin chào, Admin: {SessionInfo.TenDangNhap}";
             TaiThongKeDashboard();
         }
 
-        // ─────────────────────────────────────────────────────────
-        //  TẢI DỮ LIỆU DASHBOARD
-        // ─────────────────────────────────────────────────────────
         private void TaiThongKeDashboard()
         {
             try
@@ -244,7 +231,6 @@ namespace qldsv
                 using var conn = _db.GetConnection();
                 conn.Open();
 
-                // ── Tổng quan ─────────────────────────────────────
                 using var cmd1 = new SqlCommand(@"
                     SELECT
                         (SELECT COUNT(*) FROM SinhVien WHERE TinhTrang='DangHoc') AS TongSV,
@@ -306,7 +292,6 @@ namespace qldsv
                 _cardXuatSac.BadgeText = "≥8.5 điểm";
                 _cardXuatSac.BadgeUp   = true;
 
-                // ── Điểm TB theo môn (bar chart) ──────────────────
                 using var cmd2 = new SqlCommand(@"
                     SELECT TOP 8 mh.TenMH,
                            CAST(AVG(CAST(d.DiemTB AS FLOAT)) AS DECIMAL(4,2)) AS DTBMon
@@ -331,7 +316,6 @@ namespace qldsv
                 _barChart.SubTitle = $"{labels.Count} môn học · học kỳ hiện tại";
                 _barChart.Invalidate();
 
-                // ── Phân bố xếp loại (donut) ──────────────────────
                 using var cmd3 = new SqlCommand(@"
                     SELECT XepLoai, COUNT(*) AS SoLuong
                     FROM Diem d JOIN DangKyHocPhan dk ON d.MaDK=dk.MaDK
@@ -362,13 +346,11 @@ namespace qldsv
                 };
                 _donut.Invalidate();
 
-                // ── Refresh stat cards ─────────────────────────────
                 _cardSV.Invalidate();
                 _cardDTB.Invalidate();
                 _cardTiLe.Invalidate();
                 _cardXuatSac.Invalidate();
 
-                // ── Hoạt động gần đây ──────────────────────────────
                 TaiHoatDongGanDay();
             }
             catch
@@ -466,7 +448,6 @@ namespace qldsv
             };
         }
 
-        // ── Safe conversion helpers ────────────────────────────
         private static int    SafeInt(System.Data.IDataRecord r, string col)
             => r[col] == DBNull.Value ? 0 : Convert.ToInt32(r[col]);
         private static double SafeDbl(System.Data.IDataRecord r, string col)

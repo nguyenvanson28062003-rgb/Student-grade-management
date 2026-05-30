@@ -14,12 +14,10 @@ namespace quản_lí_điểm_sinh_viên
     {
         private readonly DatabaseHelper _db = DatabaseHelper.Instance;
 
-        // ── Dashboard controls ──
         private StatCard        _cardSV, _cardMon, _cardTiLe, _cardDTB;
         private BarChartPanel   _barChart;
         private DonutChartPanel _donut;
 
-        // ── Cache xuất báo cáo ──
         private int     _tongSV, _tongMon, _tongDat, _tongRot;
         private decimal _diemTBChung;
         private int     _soXuatSac, _soGioi, _soKha, _soTB, _soYeu, _soKem;
@@ -50,12 +48,8 @@ namespace quản_lí_điểm_sinh_viên
             XemThongKe();
         }
 
-        // ─────────────────────────────────────────────────────────
-        //  KHỞI TẠO DASHBOARD
-        // ─────────────────────────────────────────────────────────
         private void KhoiTaoDashboard()
         {
-            // ── 4 Stat Cards — panelCards 868×112 ─────────────────
             int cw = 208, ch = 108, gap = 8;
 
             _cardSV = new StatCard
@@ -88,8 +82,6 @@ namespace quản_lí_điểm_sinh_viên
             };
             panelCards.Controls.AddRange(new Control[] { _cardSV, _cardMon, _cardTiLe, _cardDTB });
 
-            // ── Charts — panelCharts 868×280 ──────────────────────
-            // Bar: 560px | Donut: 296px  → 560+8+296+4=868 ✓
             _barChart = new BarChartPanel
             {
                 Title    = "Điểm trung bình theo môn học",
@@ -108,7 +100,6 @@ namespace quản_lí_điểm_sinh_viên
             var wDonut = CardWrap(_donut,    568,   0, 300, 280);
             panelCharts.Controls.AddRange(new Control[] { wBar, wDonut });
 
-            // ── Table subtitle ────────────────────────────────────
             var lblTableSub = new Label
             {
                 Text      = "3 môn · học kỳ đang lọc",
@@ -140,9 +131,6 @@ namespace quản_lí_điểm_sinh_viên
             return wrap;
         }
 
-        // ─────────────────────────────────────────────────────────
-        //  COMBOS
-        // ─────────────────────────────────────────────────────────
         private void NapComboHocKy()
         {
             comboHK.Items.Clear();
@@ -175,9 +163,6 @@ namespace quản_lí_điểm_sinh_viên
             comboKhoa.SelectedIndex = 0;
         }
 
-        // ─────────────────────────────────────────────────────────
-        //  XEM THỐNG KÊ
-        // ─────────────────────────────────────────────────────────
         private void XemThongKe()
         {
             string maHK   = comboHK.SelectedItem   is ComboHKItem hk && hk.MaHK   != "" ? hk.MaHK   : null;
@@ -192,7 +177,6 @@ namespace quản_lí_điểm_sinh_viên
                 if (maHK   != null) { where += " AND lhp.MaHK  = @MaHK";   ps.Add(new SqlParameter("@MaHK",   maHK)); }
                 if (maKhoa != null) { where += " AND mh.MaKhoa = @MaKhoa"; ps.Add(new SqlParameter("@MaKhoa", maKhoa)); }
 
-                // ── Tổng quan ──────────────────────────────────────
                 var c1 = new SqlCommand($@"
                     SELECT COUNT(DISTINCT dk.MaSV)  AS TongSV,
                            COUNT(DISTINCT lhp.MaMH) AS TongMon,
@@ -238,7 +222,6 @@ namespace quản_lí_điểm_sinh_viên
 
                 foreach (var c in new[] { _cardSV, _cardMon, _cardTiLe, _cardDTB }) c.Invalidate();
 
-                // ── Xếp loại → Donut ──────────────────────────────
                 var c2 = new SqlCommand($@"
                     SELECT d.XepLoai, COUNT(*) AS SL FROM Diem d
                     JOIN DangKyHocPhan dk ON d.MaDK=dk.MaDK
@@ -269,7 +252,6 @@ namespace quản_lí_điểm_sinh_viên
                 _donut.Values = new[] { _soXuatSac, _soGioi, _soKha, _soTB, _soYeu, _soKem };
                 _donut.Invalidate();
 
-                // ── Bar chart DTB theo môn ─────────────────────────
                 var c3 = new SqlCommand($@"
                     SELECT TOP 8 mh.TenMH,
                            CAST(AVG(CAST(d.DiemTB AS FLOAT)) AS DECIMAL(4,2)) AS DTBMon
@@ -296,7 +278,6 @@ namespace quản_lí_điểm_sinh_viên
                 _barChart.SubTitle = $"Học kỳ hiện tại · {lbls.Count} môn";
                 _barChart.Invalidate();
 
-                // ── Bảng Đạt/Rớt ──────────────────────────────────
                 var c4 = new SqlCommand($@"
                     SELECT mh.MaMH, mh.TenMH,
                         COUNT(CASE WHEN d.KetQua='Dat' THEN 1 END)      AS SoDat,
@@ -355,7 +336,6 @@ namespace quản_lí_điểm_sinh_viên
             }
         }
 
-        // ── Safe conversion helpers ────────────────────────────
         private static int     SafeInt(System.Data.IDataRecord r, string col)
             => r[col] == DBNull.Value ? 0 : Convert.ToInt32(r[col]);
         private static double  SafeDbl(System.Data.IDataRecord r, string col)
@@ -371,9 +351,6 @@ namespace quản_lí_điểm_sinh_viên
             return string.Concat(words.Take(3).Select(w => char.ToUpper(w[0])));
         }
 
-        // ─────────────────────────────────────────────────────────
-        //  CUSTOM CELL RENDERING
-        // ─────────────────────────────────────────────────────────
         private void DgvCellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
             if (e.RowIndex < 0) return;
@@ -440,9 +417,6 @@ namespace quản_lí_điểm_sinh_viên
             e.Handled = true;
         }
 
-        // ─────────────────────────────────────────────────────────
-        //  XUẤT BÁO CÁO
-        // ─────────────────────────────────────────────────────────
         private void btnXuatBaoCao_Click(object sender, EventArgs e)
         {
             try

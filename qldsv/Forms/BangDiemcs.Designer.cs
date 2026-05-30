@@ -1,4 +1,4 @@
-﻿namespace quản_lí_điểm_sinh_viên
+namespace quản_lí_điểm_sinh_viên
 {
     partial class BangDiemcs
     {

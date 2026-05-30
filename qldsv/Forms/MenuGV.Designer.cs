@@ -63,7 +63,6 @@ namespace qldsv
             ((System.ComponentModel.ISupportInitialize)dgvLichSu).BeginInit();
             SuspendLayout();
 
-            // ── Form ──────────────────────────────────────────────
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode       = AutoScaleMode.Font;
             ClientSize          = new Size(980, 680);
@@ -73,7 +72,6 @@ namespace qldsv
             BackColor           = Color.FromArgb(244, 246, 248);
             Font                = new Font("Segoe UI", 9.5f);
 
-            // ══════════ HEADER ══════════
             panelHeader.Dock      = DockStyle.Top;
             panelHeader.Height    = 64;
             panelHeader.BackColor = T.Primary;
@@ -106,7 +104,6 @@ namespace qldsv
             panelHeader.Controls.AddRange(new Control[]
                 { lblRole, label29, label31, button12, button11 });
 
-            // ══════════ SIDEBAR ══════════
             panelSidebar.Location  = new Point(0, 64);
             panelSidebar.Size      = new Size(210, 616);
             panelSidebar.BackColor = Color.FromArgb(4, 100, 72);
@@ -158,7 +155,6 @@ namespace qldsv
                 { lblAvatar, label1, label2, label3,
                   button5, button6, button7, button8, button10, button4, button2, button3 });
 
-            // ══════════ CONTENT ══════════
             panelContent.Location   = new Point(210, 64);
             panelContent.Size       = new Size(770, 616);
             panelContent.BackColor  = Color.FromArgb(244, 246, 248);
@@ -205,7 +201,6 @@ namespace qldsv
 
             panelCards.Controls.AddRange(new Control[] { panel28, panel27, panel26, panel25 });
 
-            // ── Bảng Lớp HP ───────────────────────────────────────
             panelTable.Location  = new Point(24, 264);
             panelTable.Size      = new Size(716, 200);
             panelTable.BackColor = Color.White;
@@ -230,7 +225,6 @@ namespace qldsv
             panelTable.Controls.Add(lblTbl);
             panelTable.Controls.Add(dataGridView1);
 
-            // ── Bảng Lịch sử nhập điểm ────────────────────────────
             panelHistory.Location  = new Point(24, 480);
             panelHistory.Size      = new Size(716, 220);
             panelHistory.BackColor = Color.White;
@@ -269,7 +263,6 @@ namespace qldsv
             ResumeLayout(false);
         }
 
-        // ── Helpers (giống MenuSV) ────────────────────────────────
         private static void ConfigGrid(DataGridView dgv)
         {
             dgv.AllowUserToAddRows    = false;

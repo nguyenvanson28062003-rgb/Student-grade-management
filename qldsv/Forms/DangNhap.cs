@@ -10,14 +10,12 @@ namespace quản_lí_điểm_sinh_viên
     {
         private readonly DatabaseHelper _db = DatabaseHelper.Instance;
 
-        // ── Particles ──
         private struct Particle { public float X, Y, Speed, Alpha, Size; }
         private Particle[] _particles = new Particle[40];
         private readonly Random _rnd = new();
         private readonly System.Windows.Forms.Timer _particleTmr = new() { Interval = 30 };
         private readonly System.Windows.Forms.Timer _fadeTmr = new() { Interval = 12 };
 
-        // ── Pulse animation cho logo ──
         private float _pulse;
         private float _pulseDir = 0.03f;
 
@@ -67,9 +65,6 @@ namespace quản_lí_điểm_sinh_viên
             p.Size  = (float)(_rnd.NextDouble() * 3 + 1);
         }
 
-        // ──────────────────────────────────────────────────────────
-        //  PAINT LEFT PANEL — gradient + particles + logo
-        // ──────────────────────────────────────────────────────────
         private void panelLeft_Paint(object sender, PaintEventArgs e)
         {
             var g = e.Graphics;
@@ -135,9 +130,6 @@ namespace quản_lí_điểm_sinh_viên
                 new RectangleF(0, r.Height - 28, r.Width, 22), sf);
         }
 
-        // ──────────────────────────────────────────────────────────
-        //  PAINT RIGHT PANEL — dark card
-        // ──────────────────────────────────────────────────────────
         private void panelRight_Paint(object sender, PaintEventArgs e)
         {
             var g = e.Graphics;
@@ -157,9 +149,6 @@ namespace quản_lí_điểm_sinh_viên
             g.DrawLine(cornerPen, r.Width - 2, r.Height - 80, r.Width - 2, r.Height - 2);
         }
 
-        // ──────────────────────────────────────────────────────────
-        //  ĐĂNG NHẬP
-        // ──────────────────────────────────────────────────────────
         private void btnDangnhap_Click(object sender, EventArgs e)
         {
             string tenDN  = txtUser.Text.Trim();

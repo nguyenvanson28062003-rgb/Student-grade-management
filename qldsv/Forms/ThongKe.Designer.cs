@@ -34,7 +34,6 @@ namespace quản_lí_điểm_sinh_viên
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
 
-            // ── Form ──────────────────────────────────────────────
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode       = AutoScaleMode.Font;
             ClientSize          = new Size(900, 620);
@@ -43,7 +42,6 @@ namespace quản_lí_điểm_sinh_viên
             Font                = T.Body;
             BackColor           = Color.FromArgb(248, 249, 250);
 
-            // ── panelHeader ───────────────────────────────────────
             panelHeader.Dock      = DockStyle.Top;
             panelHeader.Height    = 68;
             panelHeader.BackColor = Color.White;
@@ -89,7 +87,6 @@ namespace quản_lí_điểm_sinh_viên
                 btnXemTK, btnXuat, btnThoat
             });
 
-            // ── panelScroll (nội dung cuộn) ───────────────────────
             panelScroll.Dock       = DockStyle.Fill;
             panelScroll.AutoScroll = true;
             panelScroll.BackColor  = Color.FromArgb(244, 246, 248);

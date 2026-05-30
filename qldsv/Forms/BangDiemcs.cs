@@ -179,9 +179,6 @@ namespace quản_lí_điểm_sinh_viên
             catch { }
         }
 
-        // ───────────────────────────────────────────────────────────
-        //  XUẤT ĐIỂM EXCEL
-        // ───────────────────────────────────────────────────────────
         private void btnXuatDiem_Click(object sender, EventArgs e)
         {
             try
@@ -201,7 +198,6 @@ namespace quản_lí_điểm_sinh_viên
                 using var pkg = new ExcelPackage();
                 var ws = pkg.Workbook.Worksheets.Add("BangDiem");
 
-                // ── Tiêu đề ──
                 ws.Cells[1, 1].Value = "BẢNG ĐIỂM SINH VIÊN";
                 ws.Cells[1, 1, 1, 9].Merge = true;
                 ws.Cells[1, 1].Style.Font.Bold = true;
@@ -217,7 +213,6 @@ namespace quản_lí_điểm_sinh_viên
                 ws.Cells[4, 5].Value = $"Tín chỉ tích lũy: {_tongTC}";
                 ws.Cells[5, 5].Value = $"Ngày xuất: {DateTime.Now:dd/MM/yyyy HH:mm}";
 
-                // ── Header bảng ──
                 int row = 7;
                 string[] headers = { "Mã MH", "Môn Học", "TC", "Học Kỳ", "CC", "GK", "CK", "DTB", "GPA", "Xếp Loại", "Kết Quả" };
                 string[] cols    = { "MaMH",  "TenMH",   "SoTinChi", "TenHK", "DiemCC", "DiemGK", "DiemCK", "DiemTB", "DiemGPA", "XepLoai", "KetQua" };
@@ -234,7 +229,6 @@ namespace quản_lí_điểm_sinh_viên
                 }
                 row++;
 
-                // ── Dữ liệu ──
                 foreach (DataRow dr in _dtDiem.Rows)
                 {
                     for (int c = 0; c < cols.Length; c++)
@@ -252,7 +246,6 @@ namespace quản_lí_điểm_sinh_viên
                     row++;
                 }
 
-                // ── Tổng kết ──
                 row++;
                 ws.Cells[row, 1].Value = $"GPA tích lũy: {_gpa:F2}";
                 ws.Cells[row, 1].Style.Font.Bold = true;
@@ -272,9 +265,6 @@ namespace quản_lí_điểm_sinh_viên
             }
         }
 
-        // ───────────────────────────────────────────────────────────
-        //  LỊCH SỬ NHẬP ĐIỂM
-        // ───────────────────────────────────────────────────────────
         private void btnLichSuDiem_Click(object sender, EventArgs e)
         {
             try
@@ -333,9 +323,6 @@ namespace quản_lí_điểm_sinh_viên
         }
     }
 
-    // ─────────────────────────────────────────────────────────────────
-    //  DIALOG LỊCH SỬ NHẬP ĐIỂM
-    // ─────────────────────────────────────────────────────────────────
     internal class LichSuDiemDialog : Form
     {
         public LichSuDiemDialog(string hoTen, string maSV, DataTable dt)
