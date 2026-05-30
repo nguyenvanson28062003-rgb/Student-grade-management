@@ -77,17 +77,18 @@ namespace qldsv
             // ── Form ──────────────────────────────────────────────
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode       = AutoScaleMode.Font;
-            ClientSize          = new Size(900, 560);
+            ClientSize          = new Size(980, 680);
             Name                = "MenuSV";
             Text                = "Menu Sinh Viên";
             BackColor           = Color.FromArgb(244, 246, 248);
             Font                = new Font("Segoe UI", 9.5f);
+            StartPosition       = FormStartPosition.CenterScreen;
 
             // ══════════════════════════════════════════════════════
             //  HEADER
             // ══════════════════════════════════════════════════════
             panelHeader.Dock      = DockStyle.Top;
-            panelHeader.Height    = 58;
+            panelHeader.Height    = 64;
             panelHeader.BackColor = T.Primary;
             panelHeader.Paint    += PaintHeader;
 
@@ -95,26 +96,26 @@ namespace qldsv
             lblRole.Font      = new Font("Segoe UI", 8f, FontStyle.Bold);
             lblRole.ForeColor  = Color.FromArgb(180, 255, 255, 255);
             lblRole.BackColor  = Color.Transparent;
-            lblRole.Location   = new Point(16, 8);
+            lblRole.Location   = new Point(20, 10);
             lblRole.Size       = new Size(100, 16);
 
             label29.Text      = ""; // sẽ set bằng code
-            label29.Font      = new Font("Segoe UI", 13f, FontStyle.Bold);
+            label29.Font      = new Font("Segoe UI", 14f, FontStyle.Bold);
             label29.ForeColor  = Color.White;
             label29.BackColor  = Color.Transparent;
-            label29.Location   = new Point(16, 24);
-            label29.Size       = new Size(380, 26);
+            label29.Location   = new Point(20, 27);
+            label29.Size       = new Size(420, 28);
 
             label31.Text      = "";
-            label31.Font      = new Font("Segoe UI", 9.5f);
-            label31.ForeColor  = Color.FromArgb(200, 255, 255, 255);
+            label31.Font      = new Font("Segoe UI", 10f);
+            label31.ForeColor  = Color.FromArgb(210, 255, 255, 255);
             label31.BackColor  = Color.Transparent;
-            label31.Location   = new Point(400, 24);
-            label31.Size       = new Size(280, 22);
+            label31.Location   = new Point(450, 28);
+            label31.Size       = new Size(280, 24);
             label31.TextAlign  = ContentAlignment.MiddleLeft;
 
-            StyleIconBtn(button12, "⚙", 810, 12);
-            StyleIconBtn(button11, "✕", 856, 12, Color.FromArgb(220, 53, 69));
+            StyleIconBtn(button12, "⚙", 890, 16);
+            StyleIconBtn(button11, "✕", 936, 16, Color.FromArgb(255, 200, 200));
 
             panelHeader.Controls.AddRange(new Control[]
                 { lblRole, label29, label31, button12, button11 });
@@ -122,8 +123,8 @@ namespace qldsv
             // ══════════════════════════════════════════════════════
             //  SIDEBAR
             // ══════════════════════════════════════════════════════
-            panelSidebar.Location  = new Point(0, 58);
-            panelSidebar.Size      = new Size(200, 502);
+            panelSidebar.Location  = new Point(0, 64);
+            panelSidebar.Size      = new Size(210, 616);
             panelSidebar.BackColor = Color.FromArgb(4, 100, 72);
             panelSidebar.Paint    += PaintSidebar;
 
@@ -132,37 +133,37 @@ namespace qldsv
             {
                 Name      = "lblAvatar",
                 Text      = "👤",
-                Font      = new Font("Segoe UI Emoji", 22f),
+                Font      = new Font("Segoe UI Emoji", 26f),
                 ForeColor = Color.White,
                 BackColor = Color.FromArgb(40, 255, 255, 255),
-                Location  = new Point(74, 16),
-                Size      = new Size(52, 52),
+                Location  = new Point(75, 22),
+                Size      = new Size(60, 60),
                 TextAlign = ContentAlignment.MiddleCenter
             };
-            lblAvatar.Region = new Region(T.RoundedRect(new Rectangle(0, 0, 52, 52), 26));
+            lblAvatar.Region = new Region(T.RoundedRect(new Rectangle(0, 0, 60, 60), 30));
 
             // Section labels
             label2.Text      = "HỌC TẬP";
-            label2.Font      = new Font("Segoe UI", 7.5f, FontStyle.Bold);
+            label2.Font      = new Font("Segoe UI", 8f, FontStyle.Bold);
             label2.ForeColor  = Color.FromArgb(150, 255, 255, 255);
             label2.BackColor  = Color.Transparent;
-            label2.Location   = new Point(16, 84);
-            label2.Size       = new Size(168, 18);
+            label2.Location   = new Point(20, 102);
+            label2.Size       = new Size(170, 18);
 
             label3.Text      = "CÁ NHÂN";
-            label3.Font      = new Font("Segoe UI", 7.5f, FontStyle.Bold);
+            label3.Font      = new Font("Segoe UI", 8f, FontStyle.Bold);
             label3.ForeColor  = Color.FromArgb(150, 255, 255, 255);
             label3.BackColor  = Color.Transparent;
-            label3.Location   = new Point(16, 240);
-            label3.Size       = new Size(168, 18);
+            label3.Location   = new Point(20, 300);
+            label3.Size       = new Size(170, 18);
 
             // Sidebar buttons
-            StyleSideBtn(button7,  "🏠  Tổng quan",      105, true);
-            StyleSideBtn(button8,  "📊  Bảng điểm",      138);
-            StyleSideBtn(button10, "📝  Đăng ký môn",     171);
-            StyleSideBtn(button1,  "📅  Thời khóa biểu",  204);
-            StyleSideBtn(button2,  "👤  Hồ sơ cá nhân",  262);
-            StyleSideBtn(button3,  "🔑  Đổi mật khẩu",   295);
+            StyleSideBtn(button7,  "🏠   Tổng quan",       128, true);
+            StyleSideBtn(button8,  "📊   Bảng điểm",       170);
+            StyleSideBtn(button10, "📝   Đăng ký môn",      212);
+            StyleSideBtn(button1,  "📅   Thời khóa biểu",   254);
+            StyleSideBtn(button2,  "👤   Hồ sơ cá nhân",   326);
+            StyleSideBtn(button3,  "🔑   Đổi mật khẩu",    368);
 
             panelSidebar.Controls.AddRange(new Control[]
                 { lblAvatar, label2, label3, button7, button8, button10, button1, button2, button3 });
@@ -170,41 +171,41 @@ namespace qldsv
             // ══════════════════════════════════════════════════════
             //  MAIN CONTENT
             // ══════════════════════════════════════════════════════
-            panelContent.Location   = new Point(200, 58);
-            panelContent.Size       = new Size(700, 502);
+            panelContent.Location   = new Point(210, 64);
+            panelContent.Size       = new Size(770, 616);
             panelContent.BackColor  = Color.FromArgb(244, 246, 248);
             panelContent.AutoScroll = true;
-            panelContent.Padding    = new Padding(16, 12, 16, 16);
+            panelContent.Padding    = new Padding(24, 20, 24, 20);
 
             // ── Greeting bar ──────────────────────────────────────
-            panelGreet.Location  = new Point(16, 12);
-            panelGreet.Size      = new Size(668, 52);
+            panelGreet.Location  = new Point(24, 20);
+            panelGreet.Size      = new Size(716, 72);
             panelGreet.BackColor = Color.White;
             panelGreet.Paint    += PaintGreetCard;
 
             label30.Text      = "Xin chào! 👋";
-            label30.Font      = new Font("Segoe UI", 13f, FontStyle.Bold);
+            label30.Font      = new Font("Segoe UI", 15f, FontStyle.Bold);
             label30.ForeColor  = T.TextMain;
             label30.BackColor  = Color.Transparent;
-            label30.Location   = new Point(14, 10);
-            label30.Size       = new Size(380, 30);
+            label30.Location   = new Point(20, 20);
+            label30.Size       = new Size(480, 34);
 
             label4.Text       = "Sinh Viên";
-            label4.Font       = new Font("Segoe UI", 8f, FontStyle.Bold);
+            label4.Font       = new Font("Segoe UI", 9f, FontStyle.Bold);
             label4.ForeColor   = T.Primary;
             label4.BackColor   = Color.FromArgb(209, 250, 229);
-            label4.Location    = new Point(530, 14);
-            label4.Size        = new Size(76, 22);
+            label4.Location    = new Point(606, 24);
+            label4.Size        = new Size(90, 26);
             label4.TextAlign   = ContentAlignment.MiddleCenter;
 
             panelGreet.Controls.AddRange(new Control[] { label30, label4 });
 
-            // ── 4 Stat Cards (668px → 4×160+3×8=664) ─────────────
-            panelCards.Location  = new Point(16, 72);
-            panelCards.Size      = new Size(668, 104);
+            // ── 4 Stat Cards (716px → 4×172+3×12=724? dùng 170) ──
+            panelCards.Location  = new Point(24, 108);
+            panelCards.Size      = new Size(716, 140);
             panelCards.BackColor = Color.Transparent;
 
-            int cw = 160, ch = 100, cgap = 8;
+            int cw = 170, ch = 132, cgap = 12;
             SetupStatCard(panel28, label45, label44, "GPA TÍCH LŨY",   "📈",
                 Color.FromArgb(209,250,229), T.Primary,  0,          cw, ch);
             SetupStatCard(panel27, label43, label42, "TÍN CHỈ ĐÃ QUA", "🎓",
@@ -217,20 +218,20 @@ namespace qldsv
             panelCards.Controls.AddRange(new Control[] { panel28, panel27, panel26, panel25 });
 
             // ── Recent grades table ───────────────────────────────
-            panelTable.Location  = new Point(16, 184);
-            panelTable.Size      = new Size(668, 280);
+            panelTable.Location  = new Point(24, 264);
+            panelTable.Size      = new Size(716, 320);
             panelTable.BackColor = Color.White;
             panelTable.Paint    += PaintTableCard;
 
-            label1.Text      = "Điểm gần nhất";
-            label1.Font      = new Font("Segoe UI", 10.5f, FontStyle.Bold);
+            label1.Text      = "📋  Điểm gần nhất";
+            label1.Font      = new Font("Segoe UI", 11.5f, FontStyle.Bold);
             label1.ForeColor  = T.TextMain;
             label1.BackColor  = Color.Transparent;
-            label1.Location   = new Point(14, 10);
-            label1.Size       = new Size(240, 24);
+            label1.Location   = new Point(18, 14);
+            label1.Size       = new Size(280, 26);
 
-            dataGridView1.Location              = new Point(0, 40);
-            dataGridView1.Size                  = new Size(668, 240);
+            dataGridView1.Location              = new Point(0, 48);
+            dataGridView1.Size                  = new Size(716, 272);
             dataGridView1.Anchor                = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom;
             dataGridView1.AllowUserToAddRows    = false;
             dataGridView1.RowHeadersVisible     = false;
@@ -240,22 +241,24 @@ namespace qldsv
             dataGridView1.CellBorderStyle       = DataGridViewCellBorderStyle.SingleHorizontal;
             dataGridView1.GridColor             = Color.FromArgb(230, 245, 235);
             dataGridView1.EnableHeadersVisualStyles = false;
-            dataGridView1.ColumnHeadersHeight   = 36;
-            dataGridView1.RowTemplate.Height    = 34;
+            dataGridView1.ColumnHeadersHeight   = 42;
+            dataGridView1.RowTemplate.Height    = 40;
             dataGridView1.SelectionMode         = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView1.AllowUserToResizeRows = false;
 
             dataGridView1.ColumnHeadersDefaultCellStyle.BackColor   = Color.FromArgb(4, 100, 72);
             dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor   = Color.White;
-            dataGridView1.ColumnHeadersDefaultCellStyle.Font        = new Font("Segoe UI", 9f, FontStyle.Bold);
+            dataGridView1.ColumnHeadersDefaultCellStyle.Font        = new Font("Segoe UI", 9.5f, FontStyle.Bold);
             dataGridView1.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(4,100,72);
+            dataGridView1.ColumnHeadersDefaultCellStyle.Padding     = new Padding(12, 0, 0, 0);
             dataGridView1.ColumnHeadersBorderStyle                  = DataGridViewHeaderBorderStyle.None;
 
             dataGridView1.DefaultCellStyle.BackColor                = Color.White;
             dataGridView1.DefaultCellStyle.ForeColor                = T.TextMain;
-            dataGridView1.DefaultCellStyle.Font                     = new Font("Segoe UI", 9.5f);
+            dataGridView1.DefaultCellStyle.Font                     = new Font("Segoe UI", 10f);
             dataGridView1.DefaultCellStyle.SelectionBackColor       = Color.FromArgb(209, 250, 229);
             dataGridView1.DefaultCellStyle.SelectionForeColor       = T.TextMain;
-            dataGridView1.DefaultCellStyle.Padding                  = new Padding(8, 0, 0, 0);
+            dataGridView1.DefaultCellStyle.Padding                  = new Padding(12, 0, 0, 0);
 
             dataGridView1.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 252, 248);
 
@@ -309,9 +312,9 @@ namespace qldsv
                                          bool selected = false)
         {
             btn.Text      = text;
-            btn.Font      = new Font("Segoe UI", 9.5f, selected ? FontStyle.Bold : FontStyle.Regular);
+            btn.Font      = new Font("Segoe UI", 10f, selected ? FontStyle.Bold : FontStyle.Regular);
             btn.Location  = new Point(0, y);
-            btn.Size      = new Size(200, 34);
+            btn.Size      = new Size(210, 38);
             btn.FlatStyle = FlatStyle.Flat;
             btn.FlatAppearance.BorderSize         = 0;
             btn.FlatAppearance.MouseOverBackColor = Color.FromArgb(50, 255, 255, 255);
@@ -347,29 +350,28 @@ namespace qldsv
                 g.FillPath(aBr, tp);
                 // Icon circle
                 using var icBr = new SolidBrush(iconBg);
-                g.FillEllipse(icBr, w - 40, 12, 28, 28);
-                using var icFont = new Font("Segoe UI Emoji", 12f);
+                g.FillEllipse(icBr, w - 50, 16, 36, 36);
+                using var icFont = new Font("Segoe UI Emoji", 14f);
                 var sf = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
                 g.DrawString(icon, icFont, new SolidBrush(iconColor),
-                    new RectangleF(w-40, 12, 28, 28), sf);
-                // Hover border
+                    new RectangleF(w-50, 16, 36, 36), sf);
             };
 
             // Caption (top)
             captLbl.Text      = caption;
-            captLbl.Font      = new Font("Segoe UI", 7f, FontStyle.Bold);
+            captLbl.Font      = new Font("Segoe UI", 8f, FontStyle.Bold);
             captLbl.ForeColor  = T.TextSub;
             captLbl.BackColor  = Color.Transparent;
-            captLbl.Location   = new Point(10, 12);
-            captLbl.Size       = new Size(w - 46, 16);
+            captLbl.Location   = new Point(16, 20);
+            captLbl.Size       = new Size(w - 60, 18);
 
             // Value (big number)
             valLbl.Text       = "—";
-            valLbl.Font       = new Font("Segoe UI", 20f, FontStyle.Bold);
+            valLbl.Font       = new Font("Segoe UI", 28f, FontStyle.Bold);
             valLbl.ForeColor   = T.TextMain;
             valLbl.BackColor   = Color.Transparent;
-            valLbl.Location    = new Point(10, 32);
-            valLbl.Size        = new Size(w - 20, 44);
+            valLbl.Location    = new Point(14, 52);
+            valLbl.Size        = new Size(w - 28, 56);
             valLbl.TextAlign   = ContentAlignment.MiddleLeft;
 
             card.Controls.Add(captLbl);

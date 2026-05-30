@@ -17,6 +17,9 @@
     <Compile Update="Forms\GiangVien.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\GVDialogs.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\MenuGV.cs">
       <SubType>Form</SubType>
     </Compile>
