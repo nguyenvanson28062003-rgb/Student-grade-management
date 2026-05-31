@@ -48,9 +48,6 @@ namespace quản_lí_điểm_sinh_viên
             button7 = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
-            // 
-            // label1
-            // 
             label1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label1.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.Location = new Point(137, 9);
@@ -59,18 +56,12 @@ namespace quản_lí_điểm_sinh_viên
             label1.TabIndex = 1;
             label1.Text = "Quản lí tài khoản đăng nhập";
             label1.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // button1
-            // 
             button1.Location = new Point(24, 72);
             button1.Name = "button1";
             button1.Size = new Size(112, 43);
             button1.TabIndex = 3;
             button1.Text = "Thêm TK";
             button1.UseVisualStyleBackColor = true;
-            // 
-            // dataGridView1
-            // 
             // Anchor để grid giãn theo form
             dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -85,92 +76,56 @@ namespace quản_lí_điểm_sinh_viên
             dataGridView1.Size = new Size(776, 264);
             dataGridView1.TabIndex = 4;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
-            // 
-            // cotName
-            // 
             cotName.HeaderText = "Username";
             cotName.MinimumWidth = 6;
             cotName.Name = "cotName";
-            // 
-            // cotRole
-            // 
             cotRole.HeaderText = "Role";
             cotRole.MinimumWidth = 6;
             cotRole.Name = "cotRole";
-            // 
-            // cotStatus
-            // 
             cotStatus.HeaderText = "Status";
             cotStatus.MinimumWidth = 6;
             cotStatus.Name = "cotStatus";
-            // 
-            // cotCreationdate
-            // 
             cotCreationdate.HeaderText = "Creation date";
             cotCreationdate.MinimumWidth = 6;
             cotCreationdate.Name = "cotCreationdate";
-            // 
-            // cotLastLogin
-            // 
             cotLastLogin.HeaderText = "Last login";
             cotLastLogin.MinimumWidth = 6;
             cotLastLogin.Name = "cotLastLogin";
-            // 
-            // button2
-            // 
             button2.Location = new Point(665, 72);
             button2.Name = "button2";
             button2.Size = new Size(112, 43);
             button2.TabIndex = 5;
             button2.Text = "Thoát";
             button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
             button3.Location = new Point(154, 72);
             button3.Name = "button3";
             button3.Size = new Size(112, 43);
             button3.TabIndex = 6;
             button3.Text = "Khóa / Mở Khóa";
             button3.UseVisualStyleBackColor = true;
-            // 
-            // button4
-            // 
             button4.Location = new Point(284, 72);
             button4.Name = "button4";
             button4.Size = new Size(112, 43);
             button4.TabIndex = 7;
             button4.Text = "Sửa TK";
             button4.UseVisualStyleBackColor = true;
-            // 
-            // button5
-            // 
             button5.Location = new Point(538, 72);
             button5.Name = "button5";
             button5.Size = new Size(112, 43);
             button5.TabIndex = 8;
             button5.Text = "Quay lại Menu";
             button5.UseVisualStyleBackColor = true;
-            // 
-            // button6
-            // 
             button6.Location = new Point(411, 72);
             button6.Name = "button6";
             button6.Size = new Size(112, 43);
             button6.TabIndex = 9;
             button6.Text = "Tìm kiếm";
             button6.UseVisualStyleBackColor = true;
-            // 
-            // textBox2
-            // 
             textBox2.Location = new Point(154, 138);
             textBox2.Multiline = true;
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(261, 28);
             textBox2.TabIndex = 10;
-            // 
-            // label2
-            // 
             label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label2.Font = new Font("Times New Roman", 12F);
             label2.Location = new Point(36, 134);
@@ -179,9 +134,6 @@ namespace quản_lí_điểm_sinh_viên
             label2.TabIndex = 13;
             label2.Text = "Username";
             label2.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // button7
-            // 
             button7.FlatStyle = FlatStyle.System;
             button7.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button7.Location = new Point(421, 139);
@@ -191,9 +143,6 @@ namespace quản_lí_điểm_sinh_viên
             button7.Text = "↻";
             button7.TextAlign = ContentAlignment.BottomCenter;
             button7.UseVisualStyleBackColor = true;
-            // 
-            // QLTK
-            // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);

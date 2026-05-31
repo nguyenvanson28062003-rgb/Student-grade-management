@@ -156,7 +156,7 @@ namespace quản_lí_điểm_sinh_viên
 
             if (string.IsNullOrEmpty(tenDN) || string.IsNullOrEmpty(matKhau))
             {
-                ShowError("Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu!");
+                ShowError("Hãy nhâp đầy đủ tên đăng nhập và mật khẩu!");
                 return;
             }
 

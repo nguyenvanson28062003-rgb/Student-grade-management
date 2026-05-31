@@ -36,9 +36,6 @@ namespace qldsv
             TaiDanhSachLopHP();
         }
 
-        // --------------------------------------------------------
-        //  Nạp ComboBox Học Kỳ (comboBox1 – lọc)
-        // --------------------------------------------------------
         private void NapComboBoxHocKy()
         {
             comboBox1.Items.Clear();
@@ -57,9 +54,6 @@ namespace qldsv
             comboBox1.SelectedIndex = 0;
         }
 
-        // --------------------------------------------------------
-        //  Nạp ComboBox Môn Học (comboBox2 – lọc)
-        // --------------------------------------------------------
         private void NapComboBoxMonHoc()
         {
             comboBox2.Items.Clear();
@@ -79,9 +73,6 @@ namespace qldsv
             comboBox2.SelectedIndex = 0;
         }
 
-        // --------------------------------------------------------
-        //  Nạp ComboBox Giảng Viên (comboBox3 – lọc)
-        // --------------------------------------------------------
         private void NapComboBoxGiangVien()
         {
             comboBox3.Items.Clear();
@@ -101,9 +92,6 @@ namespace qldsv
             comboBox3.SelectedIndex = 0;
         }
 
-        // --------------------------------------------------------
-        //  Tải danh sách lớp học phần
-        // --------------------------------------------------------
         private void TaiDanhSachLopHP(string maHK = "", string maMH = "", string maGV = "")
         {
             try
@@ -175,9 +163,6 @@ namespace qldsv
             TaiDanhSachLopHP(maHK, maMH, maGV);
         }
 
-        // --------------------------------------------------------
-        //  Nút Tạo lớp HP
-        // --------------------------------------------------------
         private void btnTaoLop_Click(object sender, EventArgs e)
         {
             using var frm = new TaoLopDialog(_db);
@@ -222,9 +207,6 @@ namespace qldsv
             }
         }
 
-        // --------------------------------------------------------
-        //  Nút Sửa lớp HP
-        // --------------------------------------------------------
         private void btnSua_Click(object sender, EventArgs e)
         {
             if (dataGridView1.CurrentRow == null) return;
@@ -266,9 +248,6 @@ namespace qldsv
             }
         }
 
-        // --------------------------------------------------------
-        //  Nút Xóa lớp HP
-        // --------------------------------------------------------
         private void btnXoa_Click(object sender, EventArgs e)
         {
             if (dataGridView1.CurrentRow == null) return;
@@ -303,9 +282,6 @@ namespace qldsv
             }
         }
 
-        // --------------------------------------------------------
-        //  Nút Nhập điểm
-        // --------------------------------------------------------
         private void btnNhapDiem_Click(object sender, EventArgs e)
         {
             if (dataGridView1.CurrentRow == null)
@@ -323,9 +299,6 @@ namespace qldsv
             }
         }
 
-        // --------------------------------------------------------
-        //  Nút Danh sách SV (button5 – wired in Designer)
-        // --------------------------------------------------------
         private void button5_Click(object sender, EventArgs e)
         {
             if (dataGridView1.CurrentRow == null)
@@ -342,9 +315,6 @@ namespace qldsv
             frmDS.ShowDialog();
         }
 
-        // --------------------------------------------------------
-        //  Nút Export TKB
-        // --------------------------------------------------------
         private void btnExportTKB_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Tính năng Export TKB đang phát triển.",
@@ -362,9 +332,6 @@ namespace qldsv
         }
     }
 
-    // ============================================================
-    //  ComboBox helper items
-    // ============================================================
     internal class LopHocHKItem
     {
         public string MaHK { get; }
@@ -389,9 +356,6 @@ namespace qldsv
         public override string ToString() => HoTen;
     }
 
-    // ============================================================
-    //  Dialog: Tạo lớp học phần mới
-    // ============================================================
     internal class TaoLopDialog : Form
     {
         public string MaMH { get; private set; } = "";
@@ -478,9 +442,6 @@ namespace qldsv
         }
     }
 
-    // ============================================================
-    //  Dialog: Sửa lớp học phần
-    // ============================================================
     internal class SuaLopDialog : Form
     {
         public string MaGV { get; private set; } = "";
@@ -572,9 +533,6 @@ namespace qldsv
         }
     }
 
-    // ============================================================
-    //  Dialog: Danh sách SV trong lớp (button5)
-    // ============================================================
     internal class DanhSachSVTrongLopDialog : Form
     {
         public DanhSachSVTrongLopDialog(DatabaseHelper db, string maLHP)

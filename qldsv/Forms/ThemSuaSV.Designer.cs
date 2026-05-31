@@ -62,9 +62,6 @@ namespace qldsv
             groupBox2.SuspendLayout();
             groupBox1.SuspendLayout();
             SuspendLayout();
-            // 
-            // groupBox2
-            // 
             groupBox2.Controls.Add(label4);
             groupBox2.Controls.Add(label3);
             groupBox2.Controls.Add(label2);
@@ -81,9 +78,6 @@ namespace qldsv
             groupBox2.TabIndex = 5;
             groupBox2.TabStop = false;
             groupBox2.Text = "Thông tin học tập";
-            // 
-            // comboBox1
-            // 
             comboBox1.DrawMode = DrawMode.Normal;
             comboBox1.DropDownHeight = 106;
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -94,9 +88,6 @@ namespace qldsv
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(233, 28);
             comboBox1.TabIndex = 32;
-            // 
-            // comboBox3
-            // 
             comboBox3.DrawMode = DrawMode.Normal;
             comboBox3.DropDownHeight = 106;
             comboBox3.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -107,9 +98,6 @@ namespace qldsv
             comboBox3.Name = "comboBox3";
             comboBox3.Size = new Size(233, 28);
             comboBox3.TabIndex = 31;
-            // 
-            // comboBox4
-            // 
             comboBox4.DrawMode = DrawMode.Normal;
             comboBox4.DropDownHeight = 106;
             comboBox4.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -120,41 +108,26 @@ namespace qldsv
             comboBox4.Name = "comboBox4";
             comboBox4.Size = new Size(233, 28);
             comboBox4.TabIndex = 23;
-            // 
-            // textBox6
-            // 
             textBox6.Location = new Point(145, 194);
             textBox6.Multiline = true;
             textBox6.Name = "textBox6";
             textBox6.Size = new Size(125, 28);
             textBox6.TabIndex = 11;
-            // 
-            // textBox2
-            // 
             textBox2.Location = new Point(116, 41);
             textBox2.Multiline = true;
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(262, 28);
             textBox2.TabIndex = 11;
-            // 
-            // textBox1
-            // 
             textBox1.Location = new Point(116, 75);
             textBox1.Multiline = true;
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(262, 28);
             textBox1.TabIndex = 12;
-            // 
-            // textBox3
-            // 
             textBox3.Location = new Point(116, 109);
             textBox3.Multiline = true;
             textBox3.Name = "textBox3";
             textBox3.Size = new Size(262, 28);
             textBox3.TabIndex = 13;
-            // 
-            // groupBox1
-            // 
             groupBox1.Controls.Add(label6);
             groupBox1.Controls.Add(label12);
             groupBox1.Controls.Add(label11);
@@ -176,9 +149,6 @@ namespace qldsv
             groupBox1.TabIndex = 4;
             groupBox1.TabStop = false;
             groupBox1.Text = "Thông tin cơ bản";
-            // 
-            // comboBox5
-            // 
             comboBox5.DrawMode = DrawMode.Normal;
             comboBox5.DropDownHeight = 41;
             comboBox5.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -189,9 +159,6 @@ namespace qldsv
             comboBox5.Name = "comboBox5";
             comboBox5.Size = new Size(233, 28);
             comboBox5.TabIndex = 33;
-            // 
-            // label9
-            // 
             label9.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label9.Font = new Font("Times New Roman", 12F);
             label9.Location = new Point(17, 26);
@@ -200,9 +167,6 @@ namespace qldsv
             label9.TabIndex = 40;
             label9.Text = "Khoa";
             label9.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // label1
-            // 
             label1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label1.Font = new Font("Times New Roman", 12F);
             label1.Location = new Point(17, 82);
@@ -211,9 +175,6 @@ namespace qldsv
             label1.TabIndex = 41;
             label1.Text = "Ngành";
             label1.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // label2
-            // 
             label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label2.Font = new Font("Times New Roman", 12F);
             label2.Location = new Point(17, 138);
@@ -222,9 +183,6 @@ namespace qldsv
             label2.TabIndex = 42;
             label2.Text = "Lớp ";
             label2.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // label3
-            // 
             label3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label3.Font = new Font("Times New Roman", 12F);
             label3.Location = new Point(17, 194);
@@ -233,9 +191,6 @@ namespace qldsv
             label3.TabIndex = 43;
             label3.Text = "Năm nhập học";
             label3.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // label4
-            // 
             label4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label4.Font = new Font("Times New Roman", 12F);
             label4.Location = new Point(17, 250);
@@ -244,9 +199,6 @@ namespace qldsv
             label4.TabIndex = 44;
             label4.Text = "Tình trạng";
             label4.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // radioButton1
-            // 
             radioButton1.AutoSize = true;
             radioButton1.Location = new Point(116, 151);
             radioButton1.Name = "radioButton1";
@@ -255,9 +207,6 @@ namespace qldsv
             radioButton1.TabStop = true;
             radioButton1.Text = "Nam";
             radioButton1.UseVisualStyleBackColor = true;
-            // 
-            // radioButton2
-            // 
             radioButton2.AutoSize = true;
             radioButton2.Location = new Point(184, 151);
             radioButton2.Name = "radioButton2";
@@ -266,33 +215,21 @@ namespace qldsv
             radioButton2.TabStop = true;
             radioButton2.Text = "Nữ";
             radioButton2.UseVisualStyleBackColor = true;
-            // 
-            // textBox4
-            // 
             textBox4.Location = new Point(116, 251);
             textBox4.Multiline = true;
             textBox4.Name = "textBox4";
             textBox4.Size = new Size(262, 28);
             textBox4.TabIndex = 37;
-            // 
-            // textBox5
-            // 
             textBox5.Location = new Point(116, 217);
             textBox5.Multiline = true;
             textBox5.Name = "textBox5";
             textBox5.Size = new Size(262, 28);
             textBox5.TabIndex = 36;
-            // 
-            // textBox7
-            // 
             textBox7.Location = new Point(116, 183);
             textBox7.Multiline = true;
             textBox7.Name = "textBox7";
             textBox7.Size = new Size(262, 28);
             textBox7.TabIndex = 35;
-            // 
-            // label5
-            // 
             label5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label5.Font = new Font("Times New Roman", 12F);
             label5.Location = new Point(6, 41);
@@ -301,9 +238,6 @@ namespace qldsv
             label5.TabIndex = 41;
             label5.Text = "Mã SV";
             label5.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // label7
-            // 
             label7.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label7.Font = new Font("Times New Roman", 12F);
             label7.Location = new Point(6, 109);
@@ -312,9 +246,6 @@ namespace qldsv
             label7.TabIndex = 43;
             label7.Text = "Ngày sinh";
             label7.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // label8
-            // 
             label8.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label8.Font = new Font("Times New Roman", 12F);
             label8.Location = new Point(6, 75);
@@ -323,9 +254,6 @@ namespace qldsv
             label8.TabIndex = 44;
             label8.Text = "Họ tên";
             label8.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // label10
-            // 
             label10.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label10.Font = new Font("Times New Roman", 12F);
             label10.Location = new Point(6, 183);
@@ -334,9 +262,6 @@ namespace qldsv
             label10.TabIndex = 45;
             label10.Text = "Gmail";
             label10.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // label11
-            // 
             label11.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label11.Font = new Font("Times New Roman", 12F);
             label11.Location = new Point(6, 217);
@@ -345,9 +270,6 @@ namespace qldsv
             label11.TabIndex = 46;
             label11.Text = "SĐT";
             label11.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // label12
-            // 
             label12.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label12.Font = new Font("Times New Roman", 12F);
             label12.Location = new Point(6, 251);
@@ -356,9 +278,6 @@ namespace qldsv
             label12.TabIndex = 47;
             label12.Text = "Địa chỉ";
             label12.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // label6
-            // 
             label6.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label6.Font = new Font("Times New Roman", 12F);
             label6.Location = new Point(6, 147);
@@ -367,9 +286,6 @@ namespace qldsv
             label6.TabIndex = 48;
             label6.Text = "Giới tính";
             label6.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // label13
-            // 
             label13.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label13.Font = new Font("Times New Roman", 12F);
             label13.Location = new Point(12, 319);
@@ -378,36 +294,24 @@ namespace qldsv
             label13.TabIndex = 45;
             label13.Text = "Mật khẩu mặc định tài khoản\r\n là MSV. Sinh viên tự đổi sau khi đăng nhập lần đầu.";
             label13.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // button1
-            // 
             button1.Location = new Point(196, 392);
             button1.Name = "button1";
             button1.Size = new Size(112, 43);
             button1.TabIndex = 46;
             button1.Text = "Lưu";
             button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
             button2.Location = new Point(341, 392);
             button2.Name = "button2";
             button2.Size = new Size(112, 43);
             button2.TabIndex = 47;
             button2.Text = "Đặt Lại";
             button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
             button3.Location = new Point(486, 392);
             button3.Name = "button3";
             button3.Size = new Size(112, 43);
             button3.TabIndex = 48;
             button3.Text = "Hủy";
             button3.UseVisualStyleBackColor = true;
-            // 
-            // ThemSV
-            // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 447);

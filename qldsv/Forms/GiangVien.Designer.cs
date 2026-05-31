@@ -57,9 +57,6 @@ namespace qldsv
             cotTT = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
-            // 
-            // label1
-            // 
             label1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label1.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.Location = new Point(165, 9);
@@ -68,45 +65,30 @@ namespace qldsv
             label1.TabIndex = 15;
             label1.Text = "Quản lí giảng viên";
             label1.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // button9
-            // 
             button9.Location = new Point(12, 77);
             button9.Name = "button9";
             button9.Size = new Size(112, 43);
             button9.TabIndex = 16;
             button9.Text = "Thêm mới";
             button9.UseVisualStyleBackColor = true;
-            // 
-            // button5
-            // 
             button5.Location = new Point(146, 77);
             button5.Name = "button5";
             button5.Size = new Size(112, 43);
             button5.TabIndex = 17;
             button5.Text = "Sửa";
             button5.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
             button2.Location = new Point(280, 77);
             button2.Name = "button2";
             button2.Size = new Size(112, 43);
             button2.TabIndex = 18;
             button2.Text = "Xóa";
             button2.UseVisualStyleBackColor = true;
-            // 
-            // button4
-            // 
             button4.Location = new Point(548, 77);
             button4.Name = "button4";
             button4.Size = new Size(112, 43);
             button4.TabIndex = 19;
             button4.Text = "Xem hồ sơ";
             button4.UseVisualStyleBackColor = true;
-            // 
-            // button7
-            // 
             button7.Location = new Point(414, 77);
             button7.Name = "button7";
             button7.Size = new Size(112, 43);
@@ -114,44 +96,29 @@ namespace qldsv
             button7.Text = "Export";
             button7.UseVisualStyleBackColor = true;
             button7.Click += button7_Click;
-            // 
-            // button1
-            // 
             button1.Location = new Point(682, 77);
             button1.Name = "button1";
             button1.Size = new Size(112, 43);
             button1.TabIndex = 21;
             button1.Text = "Phân công";
             button1.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
             button3.Location = new Point(682, 141);
             button3.Name = "button3";
             button3.Size = new Size(112, 43);
             button3.TabIndex = 22;
             button3.Text = "Quay về MN";
             button3.UseVisualStyleBackColor = true;
-            // 
-            // button6
-            // 
             button6.Location = new Point(548, 141);
             button6.Name = "button6";
             button6.Size = new Size(112, 43);
             button6.TabIndex = 23;
             button6.Text = "Thoát";
             button6.UseVisualStyleBackColor = true;
-            // 
-            // textBox2
-            // 
             textBox2.Location = new Point(149, 156);
             textBox2.Multiline = true;
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(278, 28);
             textBox2.TabIndex = 24;
-            // 
-            // label2
-            // 
             label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label2.Font = new Font("Times New Roman", 12F);
             label2.Location = new Point(12, 156);
@@ -160,9 +127,6 @@ namespace qldsv
             label2.TabIndex = 25;
             label2.Text = "Họ Tên";
             label2.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // comboBox2
-            // 
             comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox2.FormattingEnabled = true;
             comboBox2.IntegralHeight = false;
@@ -171,9 +135,6 @@ namespace qldsv
             comboBox2.Name = "comboBox2";
             comboBox2.Size = new Size(224, 28);
             comboBox2.TabIndex = 29;
-            // 
-            // comboBox1
-            // 
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox1.FormattingEnabled = true;
             comboBox1.IntegralHeight = false;
@@ -182,9 +143,6 @@ namespace qldsv
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(224, 28);
             comboBox1.TabIndex = 30;
-            // 
-            // label3
-            // 
             label3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label3.Font = new Font("Times New Roman", 12F);
             label3.Location = new Point(12, 201);
@@ -193,9 +151,6 @@ namespace qldsv
             label3.TabIndex = 31;
             label3.Text = "Khoa";
             label3.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // label4
-            // 
             label4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label4.Font = new Font("Times New Roman", 12F);
             label4.Location = new Point(389, 201);
@@ -204,9 +159,6 @@ namespace qldsv
             label4.TabIndex = 32;
             label4.Text = "Học vị";
             label4.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // button10
-            // 
             button10.FlatStyle = FlatStyle.System;
             button10.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button10.Location = new Point(740, 197);
@@ -216,9 +168,6 @@ namespace qldsv
             button10.Text = "🔍";
             button10.TextAlign = ContentAlignment.BottomCenter;
             button10.UseVisualStyleBackColor = true;
-            // 
-            // dataGridView1
-            // 
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.BackgroundColor = Color.White;
             dataGridView1.CellBorderStyle = DataGridViewCellBorderStyle.Raised;
@@ -247,57 +196,30 @@ namespace qldsv
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.Size = new Size(776, 203);
             dataGridView1.TabIndex = 35;
-            // 
-            // cotMGV
-            // 
             cotMGV.HeaderText = "MGV";
             cotMGV.MinimumWidth = 6;
             cotMGV.Name = "cotMGV";
-            // 
-            // cotHT
-            // 
             cotHT.HeaderText = "Họ Tên";
             cotHT.MinimumWidth = 6;
             cotHT.Name = "cotHT";
-            // 
-            // cotHV
-            // 
             cotHV.HeaderText = "Học Vị";
             cotHV.MinimumWidth = 6;
             cotHV.Name = "cotHV";
-            // 
-            // cotCN
-            // 
             cotCN.HeaderText = "Chuyên Ngành";
             cotCN.MinimumWidth = 6;
             cotCN.Name = "cotCN";
-            // 
-            // cotKhoa
-            // 
             cotKhoa.HeaderText = "Khoa";
             cotKhoa.MinimumWidth = 6;
             cotKhoa.Name = "cotKhoa";
-            // 
-            // cotEm
-            // 
             cotEm.HeaderText = "Email";
             cotEm.MinimumWidth = 6;
             cotEm.Name = "cotEm";
-            // 
-            // cotSDT
-            // 
             cotSDT.HeaderText = "SĐT";
             cotSDT.MinimumWidth = 6;
             cotSDT.Name = "cotSDT";
-            // 
-            // cotTT
-            // 
             cotTT.HeaderText = "Trạng Thái";
             cotTT.MinimumWidth = 6;
             cotTT.Name = "cotTT";
-            // 
-            // GiangVien
-            // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);

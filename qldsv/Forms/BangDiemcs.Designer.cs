@@ -53,9 +53,6 @@ namespace quản_lí_điểm_sinh_viên
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
-            // 
-            // groupBox1
-            // 
             groupBox1.Controls.Add(label4);
             groupBox1.Controls.Add(label3);
             groupBox1.Controls.Add(label2);
@@ -66,9 +63,6 @@ namespace quản_lí_điểm_sinh_viên
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
             groupBox1.Text = "Thông tin sinh viên";
-            // 
-            // label4
-            // 
             label4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label4.Font = new Font("Times New Roman", 12F);
             label4.Location = new Point(418, 83);
@@ -77,9 +71,6 @@ namespace quản_lí_điểm_sinh_viên
             label4.TabIndex = 18;
             label4.Text = "Khoa";
             label4.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // label3
-            // 
             label3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label3.Font = new Font("Times New Roman", 12F);
             label3.Location = new Point(418, 23);
@@ -88,9 +79,6 @@ namespace quản_lí_điểm_sinh_viên
             label3.TabIndex = 17;
             label3.Text = "Lớp";
             label3.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // label2
-            // 
             label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label2.Font = new Font("Times New Roman", 12F);
             label2.Location = new Point(0, 83);
@@ -99,9 +87,6 @@ namespace quản_lí_điểm_sinh_viên
             label2.TabIndex = 16;
             label2.Text = "Họ Tên";
             label2.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // label1
-            // 
             label1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label1.Font = new Font("Times New Roman", 12F);
             label1.Location = new Point(0, 23);
@@ -110,9 +95,6 @@ namespace quản_lí_điểm_sinh_viên
             label1.TabIndex = 15;
             label1.Text = "MSV";
             label1.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // label5
-            // 
             label5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label5.Font = new Font("Times New Roman", 12F);
             label5.Location = new Point(12, 145);
@@ -121,9 +103,6 @@ namespace quản_lí_điểm_sinh_viên
             label5.TabIndex = 5;
             label5.Text = "Học Kỳ";
             label5.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // comboBox1
-            // 
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox1.FormattingEnabled = true;
             comboBox1.IntegralHeight = false;
@@ -132,27 +111,18 @@ namespace quản_lí_điểm_sinh_viên
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(234, 28);
             comboBox1.TabIndex = 18;
-            // 
-            // button1
-            // 
             button1.Location = new Point(384, 145);
             button1.Name = "button1";
             button1.Size = new Size(112, 43);
             button1.TabIndex = 19;
             button1.Text = "Xuất điểm Excel";
             button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
             button2.Location = new Point(512, 145);
             button2.Name = "button2";
             button2.Size = new Size(112, 43);
             button2.TabIndex = 20;
             button2.Text = "Lịch sử điểm";
             button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
             button3.Location = new Point(643, 145);
             button3.Name = "button3";
             button3.Size = new Size(112, 43);
@@ -160,9 +130,6 @@ namespace quản_lí_điểm_sinh_viên
             button3.Text = "Quay lại Menu";
             button3.UseVisualStyleBackColor = true;
             button3.Click += button3_Click;
-            // 
-            // dataGridView1
-            // 
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -181,69 +148,36 @@ namespace quản_lí_điểm_sinh_viên
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.Size = new Size(776, 244);
             dataGridView1.TabIndex = 22;
-            // 
-            // cotMMH
-            // 
             cotMMH.HeaderText = "Mã Môn Học";
             cotMMH.MinimumWidth = 6;
             cotMMH.Name = "cotMMH";
-            // 
-            // cotTenMH
-            // 
             cotTenMH.HeaderText = "Tên Môn Học";
             cotTenMH.MinimumWidth = 6;
             cotTenMH.Name = "cotTenMH";
-            // 
-            // cotTC
-            // 
             cotTC.HeaderText = "Tín Chỉ";
             cotTC.MinimumWidth = 6;
             cotTC.Name = "cotTC";
-            // 
-            // cotCC
-            // 
             cotCC.HeaderText = "CC";
             cotCC.MinimumWidth = 6;
             cotCC.Name = "cotCC";
-            // 
-            // cotGK
-            // 
             cotGK.HeaderText = "Gk";
             cotGK.MinimumWidth = 6;
             cotGK.Name = "cotGK";
-            // 
-            // cotCK
-            // 
             cotCK.HeaderText = "CK";
             cotCK.MinimumWidth = 6;
             cotCK.Name = "cotCK";
-            // 
-            // cotDTB
-            // 
             cotDTB.HeaderText = "DTB";
             cotDTB.MinimumWidth = 6;
             cotDTB.Name = "cotDTB";
-            // 
-            // cotGPA
-            // 
             cotGPA.HeaderText = "GPA";
             cotGPA.MinimumWidth = 6;
             cotGPA.Name = "cotGPA";
-            // 
-            // cotXL
-            // 
             cotXL.HeaderText = "Xếp Loại";
             cotXL.MinimumWidth = 6;
             cotXL.Name = "cotXL";
-            // 
-            // cotKQ
-            // 
             cotKQ.HeaderText = "Kết Quả";
             cotKQ.MinimumWidth = 6;
             cotKQ.Name = "cotKQ";
-            // 
-            // BangDiemcs
-            // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);

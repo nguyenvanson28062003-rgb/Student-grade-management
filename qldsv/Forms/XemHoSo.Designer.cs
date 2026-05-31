@@ -31,9 +31,6 @@ namespace qldsv
             this.label12 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             this.label1.Location = new System.Drawing.Point(20, 80);
@@ -41,9 +38,6 @@ namespace qldsv
             this.label1.Size = new System.Drawing.Size(130, 22);
             this.label1.TabIndex = 0;
             this.label1.Text = "Mã Sinh Viên: ";
-            // 
-            // label2
-            // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             this.label2.Location = new System.Drawing.Point(20, 115);
@@ -51,9 +45,6 @@ namespace qldsv
             this.label2.Size = new System.Drawing.Size(78, 22);
             this.label2.TabIndex = 1;
             this.label2.Text = "Họ Tên: ";
-            // 
-            // label3
-            // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             this.label3.Location = new System.Drawing.Point(20, 150);
@@ -61,9 +52,6 @@ namespace qldsv
             this.label3.Size = new System.Drawing.Size(96, 22);
             this.label3.TabIndex = 2;
             this.label3.Text = "Ngày Sinh: ";
-            // 
-            // label4
-            // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             this.label4.Location = new System.Drawing.Point(20, 185);
@@ -71,9 +59,6 @@ namespace qldsv
             this.label4.Size = new System.Drawing.Size(89, 22);
             this.label4.TabIndex = 3;
             this.label4.Text = "Giới Tính: ";
-            // 
-            // label5
-            // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             this.label5.Location = new System.Drawing.Point(20, 220);
@@ -81,9 +66,6 @@ namespace qldsv
             this.label5.Size = new System.Drawing.Size(78, 22);
             this.label5.TabIndex = 4;
             this.label5.Text = "Địa Chỉ: ";
-            // 
-            // label6
-            // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             this.label6.Location = new System.Drawing.Point(400, 80);
@@ -91,9 +73,6 @@ namespace qldsv
             this.label6.Size = new System.Drawing.Size(125, 22);
             this.label6.TabIndex = 5;
             this.label6.Text = "Số Điện Thoại: ";
-            // 
-            // label7
-            // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             this.label7.Location = new System.Drawing.Point(400, 115);
@@ -101,9 +80,6 @@ namespace qldsv
             this.label7.Size = new System.Drawing.Size(59, 22);
             this.label7.TabIndex = 6;
             this.label7.Text = "Email: ";
-            // 
-            // label8
-            // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             this.label8.Location = new System.Drawing.Point(400, 150);
@@ -111,9 +87,6 @@ namespace qldsv
             this.label8.Size = new System.Drawing.Size(52, 22);
             this.label8.TabIndex = 7;
             this.label8.Text = "Lớp: ";
-            // 
-            // label9
-            // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             this.label9.Location = new System.Drawing.Point(400, 185);
@@ -121,9 +94,6 @@ namespace qldsv
             this.label9.Size = new System.Drawing.Size(59, 22);
             this.label9.TabIndex = 8;
             this.label9.Text = "Khoa: ";
-            // 
-            // label10
-            // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             this.label10.Location = new System.Drawing.Point(400, 220);
@@ -131,9 +101,6 @@ namespace qldsv
             this.label10.Size = new System.Drawing.Size(99, 22);
             this.label10.TabIndex = 9;
             this.label10.Text = "Tình Trạng: ";
-            // 
-            // label11
-            // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             this.label11.Location = new System.Drawing.Point(20, 255);
@@ -141,9 +108,6 @@ namespace qldsv
             this.label11.Size = new System.Drawing.Size(125, 22);
             this.label11.TabIndex = 10;
             this.label11.Text = "Năm Nhập Học: ";
-            // 
-            // label12
-            // 
             this.label12.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label12.Font = new System.Drawing.Font("Times New Roman", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             this.label12.Location = new System.Drawing.Point(12, 20);
@@ -152,9 +116,6 @@ namespace qldsv
             this.label12.TabIndex = 11;
             this.label12.Text = "HỒ SƠ SINH VIÊN";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // button1
-            // 
             this.button1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             this.button1.Location = new System.Drawing.Point(300, 330);
             this.button1.Name = "button1";
@@ -162,9 +123,6 @@ namespace qldsv
             this.button1.TabIndex = 12;
             this.button1.Text = "Đóng";
             this.button1.UseVisualStyleBackColor = true;
-            // 
-            // XemHoSo
-            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(804, 400);
